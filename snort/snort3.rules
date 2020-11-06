@@ -1,0 +1,16 @@
+################################################
+# Author: ditekSHen
+# Reference: https://github.com/ditekshen/detection
+# ##############################################
+#
+################################################
+# INDICATOR DOCUMENTS
+################################################
+alert file ( msg:"INDICATOR-DOCUMENT Ancalog RTF exploit builder document detected"; file_type:"RTF"; file_data; content:"|5C|*|5C|ancalog",fast_pattern,nocase; service:http, smtp; rem:"yara:INDICATOR_RTF_Ancalog_Exploit_Builder_Document, clamav:INDICATOR.RTF.AncalogExploitBuilderDocument, tlp:white "; sid:910000; rev:1; )
+alert file ( msg:"INDICATOR-DOCUMENT Exploit RTF document Equation-BITSAdmin downloader detected"; file_type:"RTF"; file_data; file_data; content:"0200000002ce020000000000c000000000000046",fast_pattern,nocase; content:"6269747361646d696e",nocase; service:http, smtp; rem:"yara:INDICATOR_RTF_Equation_BITSAdmin_Downloader, clamav:INDICATOR.RTF.EquationBITSAdminDownloader, tlp:white "; sid:910001; rev:1; )
+################################################
+# MALWARE
+################################################
+alert tcp $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.RevengeRAT information outbound connection"; flow:to_server,established; content:"InformationRevenge-RAT",fast_pattern; rem:"yara:MALWARE_Win_RevengeRAT, clamav:MALWARE.Win.RevengeRAT"; classtype:trojan-activity; sid:920000; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.RevengeRAT keep alive outbound connection"; flow:to_server,established; content:"keepAlivePing!!@#%",fast_pattern; rem:"yara:MALWARE_Win_RevengeRAT, clamav:MALWARE.Win.RevengeRAT"; classtype:trojan-activity; sid:920001; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.RevengeRAT PNC outbound connection"; flow:to_server,established; content:"PNC!@#%",fast_pattern; rem:"yara:MALWARE_Win_RevengeRAT, clamav:MALWARE.Win.RevengeRAT"; classtype:trojan-activity; sid:920002; rev:1;)

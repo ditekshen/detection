@@ -1,0 +1,18 @@
+################################################
+# Author: ditekSHen
+# Reference: https://github.com/ditekshen/detection
+# ##############################################
+#
+################################################
+# INDICATOR DOCUMENTS
+################################################
+alert tcp $EXTERNAL_NET $FILE_DATA_PORTS -> $HOME_NET any (msg:"INDICATOR-DOCUMENT Ancalog RTF exploit builder document detected"; flow:to_client,established; flowbits:isset,file.rtf; file_data; content:"|5C|*|5C|ancalog"; nocase; fast_pattern:only; metadata:ruleset community, service ftp-data, service http, service imap, service pop3, yara INDICATOR_RTF_Ancalog_Exploit_Builder_Document, clamav INDICATOR.RTF.AncalogExploitBuilderDocument; classtype:trojan-activity; sid:910000; rev:1;)
+alert tcp $EXTERNAL_NET any -> $SMTP_SERVERS 25 (msg:"INDICATOR-DOCUMENT Ancalog RTF exploit builder document detected"; flow:to_server,established; flowbits:isset,file.rtf; file_data; content:"|5C|*|5C|ancalog"; nocase; fast_pattern:only; metadata:ruleset community, service smtp, yara INDICATOR_RTF_Ancalog_Exploit_Builder_Document, clamav INDICATOR.RTF.AncalogExploitBuilderDocument; classtype:trojan-activity; sid:910001; rev:1;)
+alert tcp $EXTERNAL_NET $FILE_DATA_PORTS -> $HOME_NET any (msg:"INDICATE-DOCUMENT RTF document with Equation and BITSAdmin download attempt"; flow:to_client,established; flowbits:isset,filt.rtf|file.doc; file_data; content:"0200000002CE020000000000C000000000000046"; nocase; content:"6269747361646d696e"; nocase; metadata:ruleset community, service http, service imap, service pop3, service ftp-data, yara INDICATOR_RTF_Equation_BITSAdmin_Downloader, clamav INDICATOR.RTF.EquationBITSAdminDownloader; classtype:trojan-activity; sid:910002; rev:1;)
+alert tcp $EXTERNAL_NET any -> $SMTP_SERVERS 25 (msg:"INDICATE-DOCUMENT RTF document with Equation and BITSAdmin download attempt"; flow:to_server,established; flowbits:isset,filt.rtf|file.doc; file_data; content:"0200000002CE020000000000C000000000000046"; nocase; content:"6269747361646d696e"; nocase; metadata:ruleset community, service smtp, yara INDICATOR_RTF_Equation_BITSAdmin_Downloader, clamav INDICATOR.RTF.EquationBITSAdminDownloader; classtype:trojan-activity; sid:910003; rev:1;)
+################################################
+# MALWARE
+################################################
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE-CNC Win.Trojan.RevengeRAT information outbound connection"; flow:to_server,established; content:"InformationRevenge-RAT"; fast_pattern:only; metadata:ruleset community, yara MALWARE_Win_RevengeRAT, clamav MALWARE.Win.RevengeRAT; classtype:trojan-activity; sid:920000; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE-CNC Win.Trojan.RevengeRAT keep alive outbound connection"; flow:to_server,established; content:"keepAlivePing!!@#%"; fast_pattern:only; metadata:ruleset community, yara MALWARE_Win_RevengeRAT, clamav MALWARE.Win.RevengeRAT; classtype:trojan-activity; sid:920001; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE-CNC Win.Trojan.RevengeRAT PNC outbound connection"; flow:to_server,established; content:"PNC!@#%"; fast_pattern:only; metadata:ruleset community, yara MALWARE_Win_RevengeRAT, clamav MALWARE.Win.RevengeRAT; classtype:trojan-activity; sid:920002; rev:1;)
