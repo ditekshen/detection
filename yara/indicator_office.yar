@@ -1,4 +1,4 @@
-rule INDICATOR_EXPLOIT_RTF_CVE_2017_0199_1 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_0199_1 {
     meta:
         description = "Detects RTF documents potentially exploiting CVE-2017-0199"
         author = "ditekSHen"
@@ -66,7 +66,7 @@ rule INDICATOR_EXPLOIT_RTF_CVE_2017_0199_1 {
         uint32(0) == 0x74725c7b and 1 of ($urlmoniker*) and 1 of ($ole*) and 1 of ($obj*)
 }
 
-rule INDICATOR_EXPLOIT_RTF_CVE_2017_11882_1 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_1 {
     meta:
         description = "Detects RTF documents potentially exploiting CVE-2017-11882"
         author = "ditekSHen"
@@ -93,7 +93,7 @@ rule INDICATOR_EXPLOIT_RTF_CVE_2017_11882_1 {
       uint32(0) == 0x74725c7b and all of ($s*) and 1 of ($ole*) and 2 of ($obj*)
 }
 
-rule INDICATOR_EXPLOIT_RTF_CVE_2017_11882_2 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_2 {
     meta:
         description = "detects an obfuscated RTF variant documents potentially exploiting CVE-2017-11882"
         author = "ditekSHen"
@@ -121,7 +121,33 @@ rule INDICATOR_EXPLOIT_RTF_CVE_2017_11882_2 {
         uint32(0) == 0x74725c7b and 1 of ($eq*) and 1 of ($obj*) and 2 of ($s*)
 }
 
-rule INDICATOR_EXPLOIT_OLE_CVE_2017_11882_1 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3 {
+    meta:
+        description = "detects RTF variant documents potentially exploiting CVE-2018-0802 or CVE-2017-11882"
+        author = "ditekSHen"
+    strings:
+        // Ole10Native
+        $s1 = "4f006c006500310030004e00410054004900760065" ascii nocase
+        $s2 = { (3666|3466) (3663|3463) (3635|3435) 3331 3330 (3665|3465) (3631|3431) (3734|3534) (3639|3439) (3736|3536) (3635|3435) }
+        // CVE-2017-11882 or CVE-2018-0802
+        // 0002CE02-0000-0000-C000-000000000046: Equation
+        $s3 = "02ce020000000000c000000000000046" ascii nocase
+        // Root Entry
+        $s4 = "52006f006f007400200045006e00740072007900" ascii nocase
+        // Embedded Objects
+        $obj1 = "\\objhtml" ascii
+        $obj2 = "\\objdata" ascii
+        $obj3 = "\\objupdate" ascii
+        $obj4 = "\\objemb" ascii
+        $obj5 = "\\objautlink" ascii
+        $obj6 = "\\objlink" ascii
+        $obj7 = "\\mmath" ascii
+    condition:
+        uint32(0) == 0x74725c7b and (3 of ($s*) and 1 of ($obj*))
+}
+     
+
+rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
     meta:
         description = "detects OLE documents potentially exploiting CVE-2017-11882"
         author = "ditekSHen"
@@ -134,7 +160,7 @@ rule INDICATOR_EXPLOIT_OLE_CVE_2017_11882_1 {
         uint16(0) == 0xcfd0 and all of them
 }
 
-rule INDICATOR_EXPLOIT_RTF_CVE_2017_8759_1 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_8759_1 {
     meta:
         description = "detects CVE-2017-8759 weaponized RTF documents."
         author = "ditekSHen"
@@ -159,7 +185,7 @@ rule INDICATOR_EXPLOIT_RTF_CVE_2017_8759_1 {
         uint32(0) == 0x74725c7b and 1 of ($clsid*) and 1 of ($ole*) and 2 of ($s*)
 }
 
-rule INDICATOR_EXPLOIT_RTF_CVE_2017_8759_2 {
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_8759_2 {
     meta:
         description = "detects CVE-2017-8759 weaponized RTF documents."
         author = "ditekSHen"
@@ -216,7 +242,7 @@ rule INDICATOR_RTF_Embedded_Excel_SheetMacroEnabled {
         uint32(0) == 0x74725c7b and (1 of ($ex*) and 1 of ($ole*) and 2 of ($obj*))
 }
 
-rule INDICATOR_OLE_References_Command_in_Metadata {
+rule INDICATOR_OLE_MetadataCMD {
     meta:
         description = "Detects OLE documents with Windows command-line utilities commands (certutil, powershell, etc.) stored in the metadata (author, last modified by, etc.)."
         author = "ditekSHen"
@@ -237,7 +263,7 @@ rule INDICATOR_OLE_References_Command_in_Metadata {
         uint16(0) == 0xcfd0 and filesize < 8000KB and any of them
 }
 
-rule INDICATOR_EXPLOIT_RTF_MultiExploit_Embedded_Object_Files {
+rule INDICATOR_RTF_MultiExploit_Embedded_Files {
     meta:
         description = "Detects RTF documents potentially exploting multiple vulnerabilities and embeding next stage scripts and/or binaries"
         author = "ditekSHen"
@@ -341,6 +367,9 @@ rule INDICATOR_RTF_Equation_CertUtil_Downloader {
     meta:
         description = "Detects RTF documents that references both Microsoft Equation Editor and CertUtil. Common exploit + dropper behavior."
         author = "ditekSHen"
+        snort2_sid = "910006-910007"
+        snort3_sid = "910003"
+        clamav_sig = "INDICATOR.RTF.EquationCertUtilDownloader"
     strings:
         // 0002CE02-0000-0000-C000-000000000046: Equation
         // CVE-2017-11882 or CVE-2018-0802
@@ -363,6 +392,9 @@ rule INDICATOR_RTF_Equation_PowerShell_Downloader {
     meta:
         description = "Detects RTF documents that references both Microsoft Equation Editor and PowerShell. Common exploit + dropper behavior."
         author = "ditekSHen"
+        snort2_sid = "910004-910005"
+        snort3_sid = "910002"
+        clamav_sig = "INDICATOR.RTF.EquationPowerShellDownloader"
     strings:
         // 0002CE02-0000-0000-C000-000000000046: Equation
         // CVE-2017-11882 or CVE-2018-0802

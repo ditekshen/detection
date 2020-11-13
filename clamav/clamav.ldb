@@ -1,2 +1,4 @@
 INDICATOR.RTF.AncalogExploitBuilderDocument;Engine:51-255,Target:0;0&1;0:7b5c7274;7b5c2a5c616e63616c6f67
 INDICATOR.RTF.EquationBITSAdminDownloader;Engine:81-255,Container:CL_TYPE_RTF,Target:2;0&1&(2|3);6269747361646d696e::i;6571756174696f6e::iaw;2f7472616e73666572;2f646f776e6c6f6164
+INDICATOR.RTF.EquationPowerShellDownloader;Engine:81-255,Container:CL_TYPE_RTF,Target:2;0&1;706f7765727368656c6c::i;6571756174696f6e::iaw
+INDICATOR.RTF.EquationCertUtilDownloader;Engine:81-255,Container:CL_TYPE_RTF,Target:2;0&1;636572747574696c::i;6571756174696f6e::iaw

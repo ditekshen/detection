@@ -4,6 +4,8 @@ rule INDICATOR_EXE_Packed_ConfuserEx {
     meta:
         description = "Detects executables packed with ConfuserEx Mod"
         author = "ditekSHen"
+        snort2_sid = "930016-930018"
+        snort3_sid = "930005-930006"
     strings:
         $s1 = "ConfuserEx " ascii
         $s2 = "ConfusedByAttribute" fullword ascii
@@ -15,6 +17,8 @@ rule INDICATOR_EXE_Packed_ConfuserExMod_BedsProtector {
     meta:
         description = "Detects executables packed with ConfuserEx Mod Beds Protector"
         author = "ditekSHen"
+        snort2_sid = "930019-930024"
+        snort3_sid = "930007-930008"
     strings:
         $s1 = "Beds Protector v" ascii
         $s2 = "Beds-Protector-v" ascii
@@ -22,10 +26,12 @@ rule INDICATOR_EXE_Packed_ConfuserExMod_BedsProtector {
         uint16(0) == 0x5a4d and 1 of them
 }
 
-rule INDICATOR_EXE_Packed_ConfuserEx_Trinity {
+rule INDICATOR_EXE_Packed_ConfuserExMod_Trinity {
     meta:
         description = "Detects executables packed with ConfuserEx Mod Trinity Protector"
         author = "ditekSHen"
+        snort2_sid = "930025-930030"
+        snort3_sid = "930009-930010"
     strings:
         $s1 = "Trinity0-protecor|" ascii
         $s2 = "#TrinityProtector" fullword ascii
@@ -38,6 +44,8 @@ rule INDICATOR_EXE_Packed_PS2EXE {
     meta:
         description = "Detects executables built or packed with PS2EXE"
         author = "ditekSHen"
+        snort2_sid = "930004-930006"
+        snort3_sid = "930001"
     strings:
         $s1 = "PS2EXE" fullword ascii
         $s2 = "PS2EXEApp" fullword ascii
@@ -52,6 +60,8 @@ rule INDICATOR_EXE_Packed_LSD {
     meta:
         description = "Detects executables built or packed with LSD packer"
         author = "ditekSHen"
+        snort2_sid = "930058-930060"
+        snort3_sid = "930021"
     strings:
         $s1 = "This file is packed with the LSD executable packer" ascii
         $s2 = "http://lsd.dg.com" ascii
@@ -64,6 +74,8 @@ rule INDICATOR_EXE_Packed_AspireCrypt {
     meta:
         description = "Detects executables packed with AspireCrypt"
         author = "ditekSHen"
+        snort2_sid = "930013-930015"
+        snort3_sid = "930004"
     strings:
         $s1 = "AspireCrypt" fullword ascii
         $s2 = "aspirecrypt.net" ascii
@@ -76,6 +88,8 @@ rule INDICATOR_EXE_Packed_Spices {
     meta:
         description = "Detects executables packed with 9Rays.Net Spices.Net Obfuscator."
         author = "ditekSHen"
+        snort2_sid = "930001-930003"
+        snort3_sid = "930000"
     strings:
         $s1 = "9Rays.Net Spices.Net" ascii
         $s2 = "protected by 9Rays.Net Spices.Net Obfuscator" ascii
@@ -97,6 +111,8 @@ rule INDICATOR_EXE_Packed_ASPack {
     meta:
         description = "Detects executables packed with ASPack"
         author = "ditekSHen"
+        snort2_sid = "930007-930009"
+        snort3_sid = "930002"
     strings:
         $s1 = { 00 00 ?? 2E 61 73 70 61 63 6B 00 00 }
     condition:
@@ -112,6 +128,8 @@ rule INDICATOR_EXE_Packed_Titan {
     meta:
         description = "Detects executables packed with Titan"
         author = "ditekSHen"
+        snort2_sid = "930010-930012"
+        snort3_sid = "930003"
     strings:
         $s1 = { 00 00 ?? 2e 74 69 74 61 6e 00 00 }
     condition:
@@ -137,6 +155,8 @@ rule INDICATOR_EXE_Packed_LibZ {
     meta:
         description = "Detects executables built or packed with LibZ"
         author = "ditekSHen"
+        snort2_sid = "930055-930057"
+        snort3_sid = "930019-930020"
     strings:
         $s1 = "LibZ.Injected" fullword ascii
         $s2 = "{0:N}.dll" fullword wide
@@ -156,6 +176,8 @@ rule INDICATOR_EXE_Packed_Enigma {
     meta:
         description = "Detects executables packed with Enigma"
         author = "ditekSHen"
+        snort2_sid = "930052-930054"
+        snort3_sid = "930018"
     strings:
         $s1 = ".enigma0" fullword ascii
         $s2 = ".enigma1" fullword ascii
@@ -188,6 +210,8 @@ rule INDICATOR_MSI_EXE2MSI {
     meta:
         description = "Detects executables converted to .MSI packages using a free online converter."
         author = "ditekSHen"
+        snort2_sid = "930061-930063"
+        snort3_sid = "930022"
     strings:
         $winin = "Windows Installer" ascii
         $title = "Exe to msi converter free" ascii
@@ -199,6 +223,8 @@ rule INDICATOR_EXE_Packed_MPress {
     meta:
         description = "Detects executables built or packed with MPress PE compressor"
         author = "ditekSHen"
+        snort2_sid = "930031-930033"
+        snort3_sid = "930011"
     strings:
         $s1 = ".MPRESS1" fullword ascii
         $s2 = ".MPRESS2" fullword ascii
@@ -216,6 +242,8 @@ rule INDICATOR_EXE_Packed_Nate {
     meta:
         description = "Detects executables built or packed with Nate packer"
         author = "ditekSHen"
+        snort2_sid = "930034-930036"
+        snort3_sid = "930012"
     strings:
         $s1 = "@.nate0" fullword ascii
         $s2 = "`.nate1" fullword ascii
@@ -233,6 +261,8 @@ rule INDICATOR_EXE_Packed_VMProtect {
     meta:
         description = "Detects executables packed with VMProtect."
         author = "ditekSHen"
+        snort2_sid = "930049-930051"
+        snort3_sid = "930017"
     strings:
         $s1 = ".vmp0" fullword ascii
         $s2 = ".vmp1" fullword ascii
@@ -310,6 +340,8 @@ rule INDICATOR_EXE_Packed_BoxedApp {
     meta:
         description = "Detects executables packed with BoxedApp"
         author = "ditekSHen"
+        snort2_sid = "930037-930042"
+        snort3_sid = "930013-930014"
     strings:
         $s1 = "BoxedAppSDK_HookFunction" fullword ascii
         $s2 = "BoxedAppSDK_StaticLib.cpp" ascii
@@ -328,6 +360,8 @@ rule INDICATOR_EXE_Packed_eXPressor {
     meta:
         description = "Detects executables packed with eXPressor"
         author = "ditekSHen"
+        snort2_sid = "930043-930048"
+        snort3_sid = "930015-930016"
     strings:
         $s1 = "eXPressor_InstanceChecker_" fullword ascii
         $s2 = "This application was packed with an Unregistered version of eXPressor" ascii
