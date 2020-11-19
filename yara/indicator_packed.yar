@@ -389,3 +389,19 @@ rule INDICATOR_EXE_Packed_MEW {
             )
         )
 }
+
+rule INDICATOR_EXE_Packed_RLPack {
+    meta:
+        description = "Detects executables packed with RLPACK"
+        author = "ditekSHen"
+    strings:
+        $s1 = ".packed" fullword ascii
+        $s2 = ".RLPack" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them or
+        for any i in (0 .. pe.number_of_sections) : (
+            (
+                pe.sections[i].name == ".RLPack"
+            )
+        )
+}

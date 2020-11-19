@@ -127,13 +127,14 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3 {
         author = "ditekSHen"
     strings:
         // Ole10Native
-        $s1 = "4f006c006500310030004e00410054004900760065" ascii nocase
-        $s2 = { (3666|3466) (3663|3463) (3635|3435) 3331 3330 (3665|3465) (3631|3431) (3734|3534) (3639|3439) (3736|3536) (3635|3435) }
+        $ole1 = "4f006c006500310030004e00410054004900760065" ascii nocase
+        $ole2 = { (3666|3466) (3663|3463) (3635|3435) 3331 3330 (3665|3465) (3631|3431) (3734|3534) (3639|3439) (3736|3536) (3635|3435) }
         // CVE-2017-11882 or CVE-2018-0802
         // 0002CE02-0000-0000-C000-000000000046: Equation
-        $s3 = "02ce020000000000c000000000000046" ascii nocase
+        $clsid1 = "2ce020000000000c000000000000046" ascii nocase
+        $clsid2 = { 32 (43|63) (45|65) 30 32 30 30 30 30 30 30 30 30 30 30 (43|63) 30 30 30 30 30 30 30 30 30 30 30 30 30 34 36 }
         // Root Entry
-        $s4 = "52006f006f007400200045006e00740072007900" ascii nocase
+        $re = "52006f006f007400200045006e00740072007900" ascii nocase
         // Embedded Objects
         $obj1 = "\\objhtml" ascii
         $obj2 = "\\objdata" ascii
@@ -143,9 +144,27 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3 {
         $obj6 = "\\objlink" ascii
         $obj7 = "\\mmath" ascii
     condition:
-        uint32(0) == 0x74725c7b and (3 of ($s*) and 1 of ($obj*))
+        uint32(0) == 0x74725c7b and (1 of ($ole*) and 1 of ($clsid*) and $re and 1 of ($obj*))
 }
-     
+
+rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
+    meta:
+        description = "detects RTF variant documents potentially exploiting CVE-2018-0802 or CVE-2017-11882"
+        author = "ditekSHen"
+    strings:
+        // equation.3 manipulated
+        $s1 = { (36|34)[0-2]35[0-2](37|35)[0-2]31[0-2](37|35)[0-2]35[0-2](36|34)[0-2]31[0-2](37|35)[0-2]34[0-2](36|34)[0-2]39[0-2](36|34)[0-2]66[0-2](36|34)[0-2]65[0-2]32[0-2]65[0-2]33[0-2]33 }
+        // Embedded Objects
+        $obj1 = "\\objhtml" ascii
+        $obj2 = "\\objdata" ascii
+        $obj3 = "\\objupdate" ascii
+        $obj4 = "\\objemb" ascii
+        $obj5 = "\\objautlink" ascii
+        $obj6 = "\\objlink" ascii
+        $obj7 = "\\mmath" ascii
+    condition:
+        uint32(0) == 0x74725c7b and (all of ($s*) and 1 of ($obj*))
+}    
 
 rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
     meta:
@@ -294,7 +313,7 @@ rule INDICATOR_OLE_MetadataCMD {
         $cmd5 = { 00 1E 00 00 00 [1-4] 00 00 70 6F 77 65 72 73 68 65 6C 6C (00|20) } // |00 00|powershell|00|
         $cmd6 = { 00 1E 00 00 00 [1-4] 00 00 6E 65 74 2E 77 65 62 63 6C 69 65 6E 74 (00|20) } // |00 00|net.webclient|00|
     condition:
-        uint16(0) == 0xcfd0 and filesize < 8000KB and any of them
+        uint16(0) == 0xcfd0 and any of them
 }
 
 rule INDICATOR_RTF_MultiExploit_Embedded_Files {
@@ -331,7 +350,7 @@ rule INDICATOR_RTF_MultiExploit_Embedded_Files {
         $emb_psw = { 3265 (3730|3530) (3733|3533) 313030 }
     condition:
         // Strict: uint32(0) == 0x74725c7b and filesize > 400KB and (1 of ($eq*) or 1 of ($ole2link*)) and $pkg and 2 of ($obj*) and 1 of ($emb*)
-        uint32(0) == 0x74725c7b and filesize > 100KB and (1 of ($eq*) or 1 of ($ole2link*)) and $pkg and 2 of ($obj*) and 1 of ($emb*)
+        uint32(0) == 0x74725c7b and (1 of ($eq*) or 1 of ($ole2link*)) and $pkg and 2 of ($obj*) and 1 of ($emb*)
 }
 
 rule INDICATOR_OLE_ObjectPool_Embedded_Files {
@@ -492,7 +511,7 @@ rule INDICATOR_PUB_MSIEXEC_Remote {
         $s6 = "Wscript.Shell" fullword ascii
         $s7 = "\\VBE6.DLL#" wide
     condition:
-        uint16(0) == 0xcfd0 and filesize < 200KB and 6 of them
+        uint16(0) == 0xcfd0 and 6 of them
 }
 
 rule INDICATOR_RTF_Ancalog_Exploit_Builder_Document {
@@ -646,4 +665,40 @@ rule INDICATOR_OLE_RemoteTemplate {
         $mode = "TargetMode=\"External" ascii
     condition:
         $olerel and $mode and 1 of ($target*)
+}
+
+rule INDICATOR_RTF_MalVer_Objects {
+    meta:
+        description = "Detects RTF documents with non-standard version and embeding one of the object mostly observed in exploit documents."
+        author = "ditekSHen"
+    strings:
+        // Embedded Objects
+        $obj1 = "\\objhtml" ascii
+        $obj2 = "\\objdata" ascii
+        $obj3 = "\\objupdate" ascii
+        $obj4 = "\\objemb" ascii
+        $obj5 = "\\objautlink" ascii
+        $obj6 = "\\objlink" ascii
+        $obj7 = "\\mmath" ascii
+    condition:
+        uint32(0) == 0x74725c7b and ((not uint8(4) == 0x66 or not uint8(5) == 0x31 or not uint8(6) == 0x5c) and 1 of ($obj*))
+}
+
+rule INDICATOR_PPT_MAL {
+    meta:
+        description = "Detects known malicious pattern in PowerPoint documents."
+        author = "ditekSHen"
+    strings:
+        $a1 = "auto_close" ascii nocase
+        $a2 = "autoclose" ascii nocase
+        $a3 = "auto_open" ascii nocase
+        $a4 = "autoopen" ascii nocase
+        $vb1 = "\\VBE7.DLL" ascii
+        $vb2 = { 41 74 74 72 69 62 75 74 ?? 65 20 56 42 5f 4e 61 6d ?? 65 }
+        $clsid = "000204EF-0000-0000-C000-000000000046" wide nocase
+        $i1 = "@j.mp/" ascii wide
+        $i2 = "j.mp/" ascii wide
+        $i3 = "\\pm.j\\\\:" ascii wide
+    condition:
+        uint16(0) == 0xcfd0 and 1 of ($i*) and $clsid and 1 of ($a*) and 1 of ($vb*)
 }
