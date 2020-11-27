@@ -177,3 +177,237 @@ rule INDICATOR_SUSPICIOUS_AHK_Downloader {
     condition:
         uint16(0) == 0x5a4d and (1 of ($d*) and 1 of ($s*))
 }
+
+rule INDICATOR_SUSPICIOUS_EXE_UACBypass_CMSTPCOM {
+    meta:
+        description = "Detects Windows exceutables bypassing UAC using CMSTP COM interfaces. MITRE (T1218.003)"
+        author = "ditekSHen"
+    strings:
+        // CMSTPLUA
+        $guid1 = "{3E5FC7F9-9A51-4367-9063-A120244FBEC7}" ascii wide nocase
+        // CMLUAUTIL
+        $guid2 = "{3E000D72-A845-4CD9-BD83-80C07C3B881F}" ascii wide nocase
+        // Connection Manager LUA Host Object
+        $guid3 = "{BA126F01-2166-11D1-B1D0-00805FC1270E}" ascii wide nocase
+        $s1 = "CoGetObject" fullword ascii wide
+        $s2 = "Elevation:Administrator!new:" fullword ascii wide
+    condition:
+       uint16(0) == 0x5a4d and (1 of ($guid*) and 1 of ($s*))
+}
+
+rule INDICATOR_SUSPICOUS_EXE_References_VEEAM {
+    meta:
+        description = "Detects executables containing many references to VEEAM. Observed in ransomware"
+    strings:
+        $s1 = "VeeamNFSSvc" ascii wide nocase
+        $s2 = "VeeamRESTSvc" ascii wide nocase
+        $s3 = "VeeamCloudSvc" ascii wide nocase
+        $s4 = "VeeamMountSvc" ascii wide nocase
+        $s5 = "VeeamBackupSvc" ascii wide nocase
+        $s6 = "VeeamBrokerSvc" ascii wide nocase
+        $s7 = "VeeamDeploySvc" ascii wide nocase
+        $s8 = "VeeamCatalogSvc" ascii wide nocase
+        $s9 = "VeeamTransportSvc" ascii wide nocase
+        $s10 = "VeeamDeploymentService" ascii wide nocase
+        $s11 = "VeeamHvIntegrationSvc" ascii wide nocase
+        $s12 = "VeeamEnterpriseManagerSvc" ascii wide nocase
+        $s13 = "\"Veeam Backup Catalog Data Service\"" ascii wide nocase
+        $e1 = "veeam.backup.agent.configurationservice.exe" ascii wide nocase
+        $e2 = "veeam.backup.brokerservice.exe" ascii wide nocase
+        $e3 = "veeam.backup.catalogdataservice.exe" ascii wide nocase
+        $e4 = "veeam.backup.cloudservice.exe" ascii wide nocase
+        $e5 = "veeam.backup.externalinfrastructure.dbprovider.exe" ascii wide nocase
+        $e6 = "veeam.backup.manager.exe" ascii wide nocase
+        $e7 = "veeam.backup.mountservice.exe" ascii wide nocase
+        $e8 = "veeam.backup.service.exe" ascii wide nocase
+        $e9 = "veeam.backup.uiserver.exe" ascii wide nocase
+        $e10 = "veeam.backup.wmiserver.exe" ascii wide nocase
+        $e11 = "veeamdeploymentsvc.exe" ascii wide nocase
+        $e12 = "veeamfilesysvsssvc.exe" ascii wide nocase
+        $e13 = "veeam.guest.interaction.proxy.exe" ascii wide nocase
+        $e14 = "veeamnfssvc.exe" ascii wide nocase
+        $e15 = "veeamtransportsvc.exe" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
+    meta:
+        description = "Detects binaries (Windows and macOS) referencing many web browsers. Observed in information stealers."
+        author = "ditekSHen"
+    strings:
+        $s1 = "Uran\\User Data" nocase ascii wide
+        $s2 = "Amigo\\User\\User Data" nocase ascii wide
+        $s3 = "Torch\\User Data" nocase ascii wide
+        $s4 = "Chromium\\User Data" nocase ascii wide
+        $s5 = "Nichrome\\User Data" nocase ascii wide
+        $s6 = "Google\\Chrome\\User Data" nocase ascii wide
+        $s7 = "360Browser\\Browser\\User Data" nocase ascii wide
+        $s8 = "Maxthon3\\User Data" nocase ascii wide
+        $s9 = "Comodo\\User Data" nocase ascii wide
+        $s10 = "CocCoc\\Browser\\User Data" nocase ascii wide
+        $s11 = "Vivaldi\\User Data" nocase ascii wide
+        $s12 = "Opera Software\\" nocase ascii wide
+        $s13 = "Kometa\\User Data" nocase ascii wide
+        $s14 = "Comodo\\Dragon\\User Data" nocase ascii wide
+        $s15 = "Sputnik\\User Data" nocase ascii wide
+        $s16 = "Google (x86)\\Chrome\\User Data" nocase ascii wide
+        $s17 = "Orbitum\\User Data" nocase ascii wide
+        $s18 = "Yandex\\YandexBrowser\\User Data" nocase ascii wide
+        $s19 = "K-Melon\\User Data" nocase ascii wide
+        $s20 = "Flock\\Browser" nocase ascii wide
+        $s21 = "ChromePlus\\User Data" nocase ascii wide
+        $s22 = "UCBrowser\\" nocase ascii wide
+        $s23 = "Mozilla\\SeaMonkey" nocase ascii wide
+        $s24 = "Apple\\Apple Application Support\\plutil.exe" nocase ascii wide
+        $s25 = "Preferences\\keychain.plist" nocase ascii wide
+        $s26 = "SRWare Iron" ascii wide
+        $s27 = "CoolNovo" ascii wide
+        $s28 = "BlackHawk\\Profiles" ascii wide
+        $s29 = "CocCoc\\Browser" ascii wide
+        $s30 = "Cyberfox\\Profiles" ascii wide
+        $s31 = "Epic Privacy Browser\\" ascii wide
+        $s32 = "K-Meleon\\" ascii wide
+        $s33 = "Maxthon5\\Users" ascii wide
+        $s34 = "Nichrome\\User Data" ascii wide
+        $s35 = "Pale Moon\\Profiles" ascii wide
+        $s36 = "Waterfox\\Profiles" ascii wide
+        $s37 = "Amigo\\User Data" ascii wide
+        $s38 = "CentBrowser\\User Data" ascii wide
+        $s39 = "Chedot\\User Data" ascii wide
+        $s40 = "RockMelt\\User Data" ascii wide
+        $s41 = "Go!\\User Data" ascii wide
+        $s42 = "7Star\\User Data" ascii wide
+        $s43 = "QIP Surf\\User Data" ascii wide
+        $s44 = "Elements Browser\\User Data" ascii wide
+        $s45 = "TorBro\\Profile" ascii wide
+        $s46 = "Suhba\\User Data" ascii wide
+        $s47 = "Secure Browser\\User Data" ascii wide
+        $s48 = "Mustang\\User Data" ascii wide
+        $s49 = "Superbird\\User Data" ascii wide
+        $s50 = "Xpom\\User Data" ascii wide
+        $s51 = "Bromium\\User Data" ascii wide
+        $s52 = "Brave\\" nocase ascii wide
+        $s53 = "Google\\Chrome SxS\\User Data" ascii wide
+        $s54 = "Microsoft\\Internet Explorer" ascii wide
+        $s55 = "Packages\\Microsoft.MicrosoftEdge_" ascii wide
+        $s56 = "IceDragon\\Profiles" ascii wide
+        $s57 = "\\AdLibs\\" nocase ascii wide
+        $s58 = "Moonchild Production\\Pale Moon" nocase ascii wide
+        $s59 = "Firefox\\Profiles" nocase ascii wide
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 4 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_Confidential_Data_Store {
+    meta:
+        description = "Detects executables referencing many confidential data stores found in browsers, mail clients, cryptocurreny wallets, etc. Observed in information stealers"
+        author = "ditekSHen"
+    strings:
+        $s1 = "key3.db" nocase ascii wide     // Firefox private keys
+        $s2 = "key4.db" nocase ascii wide     // Firefox private keys
+        $s3 = "cert8.db" nocase ascii wide    // Firefox certificate database
+        $s4 = "logins.json" nocase ascii wide // Firefox encrypted password database
+        $s5 = "account.cfn" nocase ascii wide // The Bat! (email client) account credentials
+        $s6 = "wand.dat" nocase ascii wide    // Opera password database 
+        $s7 = "wallet.dat" nocase ascii wide  // cryptocurreny wallets
+    condition:
+        uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
+    meta:
+        description = "Detects executables referencing many email and collaboration clients. Observed in information stealers"
+        author = "@ditekSHen"
+    strings:
+        $s1 = "Software\\Microsoft\\Office\\15.0\\Outlook\\Profiles\\Outlook" fullword ascii wide
+        $s2 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows Messaging Subsystem\\Profiles\\Outlook" fullword ascii wide
+        $s3 = "Software\\Microsoft\\Windows Messaging Subsystem\\Profiles" fullword ascii wide
+        $s4 = "HKEY_CURRENT_USER\\Software\\Aerofox\\FoxmailPreview" ascii wide
+        $s5 = "HKEY_CURRENT_USER\\Software\\Aerofox\\Foxmail" ascii wide
+        $s6 = "VirtualStore\\Program Files\\Foxmail\\mail" ascii wide
+        $s7 = "VirtualStore\\Program Files (x86)\\Foxmail\\mail" ascii wide
+        $s8 = "Opera Mail\\Opera Mail\\wand.dat" ascii wide
+        $s9 = "Software\\IncrediMail\\Identities" ascii wide
+        $s10 = "Pocomail\\accounts.ini" ascii wide
+        $s11 = "Software\\Qualcomm\\Eudora\\CommandLine" ascii wide
+        $s12 = "Mozilla Thunderbird\\nss3.dll" ascii wide
+        $s13 = "SeaMonkey\\nss3.dll" ascii wide
+        $s14 = "Flock\\nss3.dll" ascii wide
+        $s15 = "Postbox\\nss3.dll" ascii wide
+        $s16 = "Software\\Microsoft\\Office\\16.0\\Outlook\\Profiles\\Outlook" ascii wide
+        $s17 = "CurrentVersion\\Windows Messaging Subsystem\\Profiles\\Outlook" ascii wide
+        $s18 = "Software\\Microsoft\\Office\\Outlook\\OMI Account Manager\\Accounts" ascii wide
+        $s19 = "Software\\Microsoft\\Internet Account Manager\\Accounts" ascii wide
+        $s20 = "Files\\Telegram" ascii wide
+        $s21 = "Telegram Desktop\\tdata" ascii wide
+        $s22 = "Files\\Discord" ascii wide
+        $s23 = "Steam\\config" ascii wide
+        $s24 = ".purple\\accounts.xml" ascii wide // pidgin
+        $s25 = "Skype\\" ascii wide
+        $s26 = "Pigdin\\accounts.xml" ascii wide
+        $s27 = "Psi\\accounts.xml" ascii wide
+        $s28 = "Psi+\\accounts.xml" ascii wide
+        $s29 = "Psi\\profiles" ascii wide
+        $s30 = "Psi+\\profiles" ascii wide
+        $s31 = "Microsoft\\Windows Mail\\account{" ascii wide
+        $s32 = "}.oeaccount" ascii wide
+        $s33 = "Trillian\\users" ascii wide
+        $s34 = "Google Talk\\Accounts" nocase ascii wide
+        $s35 = "Microsoft\\Windows Live Mail"  nocase ascii wide
+        $s36 = "Google\\Google Talk" nocase ascii wide
+        $s37 = "Yahoo\\Pager" nocase ascii wide
+    condition:
+        uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
+    meta:
+        description = "Detects executables referencing many file transfer clients. Observed in information stealers"
+        author = "ditekSHen"
+    strings:
+        $s1 = "FileZilla\\recentservers.xml" ascii wide
+        $s2 = "Ipswitch\\WS_FTP\\" ascii wide
+        $s3 = "SOFTWARE\\\\Martin Prikryl\\\\WinSCP 2\\\\Sessions" ascii wide
+        $s4 = "SOFTWARE\\Martin Prikryl\\WinSCP 2\\Sessions" ascii wide
+        $s5 = "CoreFTP\\sites" ascii wide
+        $s6 = "FTPWare\\COREFTP\\Sites" ascii wide
+        $s7 = "HKEY_CURRENT_USERSoftwareFTPWareCOREFTPSites" ascii wide
+        $s8 = "FTP Navigator\\Ftplist.txt" ascii wide
+        $s9 = "FlashFXP\\3quick.dat" ascii wide
+        $s10 = "SmartFTP\\" ascii wide
+        $s11 = "cftp\\Ftplist.txt" ascii wide
+        $s12 = "Software\\DownloadManager\\Passwords\\" ascii wide
+        $s13 = "jDownloader\\config\\database.script" ascii wide
+        $s14 = "FileZilla\\sitemanager.xml" ascii wide
+        $s15 = "Far Manager\\Profile\\PluginsData\\" ascii wide
+        $s16 = "FTPGetter\\Profile\\servers.xml" ascii wide
+        $s17 = "FTPGetter\\servers.xml" ascii wide
+        $s18 = "Estsoft\\ALFTP\\" ascii wide
+        $s19 = "Far\\Plugins\\FTP\\" ascii wide
+        $s20 = "Far2\\Plugins\\FTP\\" ascii wide
+        $s21 = "Ghisler\\Total Commander" ascii wide
+        $s22 = "LinasFTP\\Site Manager" ascii wide
+        $s23 = "CuteFTP\\sm.dat" ascii wide
+        $s24 = "FlashFXP\\4\\Sites.dat" ascii wide
+        $s25 = "FlashFXP\\3\\Sites.dat" ascii wide
+        $s26 = "VanDyke\\Config\\Sessions\\" ascii wide
+        $s27 = "FTP Explorer\\" ascii wide
+        $s28 = "TurboFTP\\" ascii wide
+        $s29 = "FTPRush\\" ascii wide
+        $s30 = "LeapWare\\LeapFTP\\" ascii wide
+        $s31 = "FTPGetter\\" ascii wide
+        $s32 = "Far\\SavedDialogHistory\\" ascii wide
+        $s33 = "Far2\\SavedDialogHistory\\" ascii wide
+        $s34 = "GlobalSCAPE\\CuteFTP " ascii wide
+        $s35 = "Ghisler\\Windows Commander" ascii wide
+        $s36 = "BPFTP\\Bullet Proof FTP\\" ascii wide
+        $s37 = "Sota\\FFFTP" ascii wide
+        $s38 = "FTPClient\\Sites" ascii wide
+        $s39 = "SOFTWARE\\Robo-FTP 3.7\\" ascii wide
+        $s40 = "MAS-Soft\\FTPInfo\\" ascii wide
+        $s41 = "SoftX.org\\FTPClient\\Sites" ascii wide
+        $s42 = "BulletProof Software\\BulletProof FTP Client\\" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and 3 of them
+}

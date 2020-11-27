@@ -699,6 +699,9 @@ rule INDICATOR_PPT_MAL {
         $i1 = "@j.mp/" ascii wide
         $i2 = "j.mp/" ascii wide
         $i3 = "\\pm.j\\\\:" ascii wide
+        $i4 = ".zz.ht/" ascii wide
+        $i5 = "/pm.j@" ascii wide
+        $i6 = "\\pm.j@" ascii wide
     condition:
         uint16(0) == 0xcfd0 and 1 of ($i*) and $clsid and 1 of ($a*) and 1 of ($vb*)
 }
