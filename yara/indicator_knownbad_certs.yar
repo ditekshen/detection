@@ -2677,3 +2677,42 @@ rule INDICATOR_KB_CERT_53f575f7c33ee007887f30680486db5e {
             pe.signatures[i].serial == "53:f5:75:f7:c3:3e:e0:07:88:7f:30:68:04:86:db:5e"
         )
 }
+
+rule INDICATOR_KB_CERT_7e89b9df006bd1aa4c48d865039634ca {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "63ad44acaa7cd7f8249423673fbf3c3273e7b2dc"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Dummy" and
+            pe.signatures[i].serial == "7e:89:b9:df:00:6b:d1:aa:4c:48:d8:65:03:96:34:ca"
+        )
+}
+
+rule INDICATOR_KB_CERT_0ddeb53f957337fbeaf98c4a615b149d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "91cabea509662626e34326687348caf2dd3b4bba"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Mozilla Corporation" and
+            pe.signatures[i].serial == "0d:de:b5:3f:95:73:37:fb:ea:f9:8c:4a:61:5b:14:9d"
+        )
+}
+
+rule INDICATOR_KB_CERT_00c88af896b6452241fe00e3aaec11b1f8 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9ce1cbf5be77265af2a22e28f8930c2ac5641e12"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TeamViewer Germany GmbH" and
+            pe.signatures[i].serial == "00:c8:8a:f8:96:b6:45:22:41:fe:00:e3:aa:ec:11:b1:f8"
+        )
+}
