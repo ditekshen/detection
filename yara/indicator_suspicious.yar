@@ -12,6 +12,8 @@ rule INDICATOR_SUSPICIOUS_Ransomware {
         $cmd5 = "bcdedit /set {default} bootstatuspolicy ignoreallfailures" ascii wide nocase
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
         $cmd7 = "wbadmin delete catalog -quiet" ascii wide nocase
+        $cmd8 = "wbadmin delete backup" ascii wide nocase
+        $cmd9 = "wbadmin delete systemstatebackup" ascii wide nocase
     condition:
         (uint16(0) == 0x5a4d and 1 of them) or (2 of them)
 }
@@ -138,7 +140,7 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxHookingDLL {
         author = "ditekSHen"
     strings:
         $dll1 = "sbiedll.dll" nocase fullword ascii wide 
-        $dll2 = "dbghelp.dll" nocase fullword ascii wide  
+        //$dll2 = "dbghelp.dll" nocase fullword ascii wide  
         $dll3 = "api_log.dll" nocase fullword ascii wide  
         $dll4 = "pstorec.dll" nocase fullword ascii wide  
         $dll5 = "dir_watch.dll" nocase fullword ascii wide
@@ -410,4 +412,21 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
         $s42 = "BulletProof Software\\BulletProof FTP Client\\" ascii wide
     condition:
         uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_ClearWinLogs {
+    meta:
+        description = "Detects executables containing commands for clearing Windows Event Logs"
+        author = "ditekSHen"
+    strings:
+        $cmd1 = "wevtutil.exe clear-log" ascii wide nocase
+        $cmd2 = "wevtutil clear-log" ascii wide nocase
+        $cmd3 = "wevtutil.exe cl " ascii wide nocase
+        $cmd4 = "wevtutil cl " ascii wide nocase
+        $cmd5 = ".ClearEventLog()" ascii wide nocase
+        $cmd6 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
+        $cmd7 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
+        $cmd8 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
 }

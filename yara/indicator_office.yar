@@ -153,7 +153,11 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
         author = "ditekSHen"
     strings:
         // equation.3 manipulated
-        $s1 = { (36|34)[0-2]35[0-2](37|35)[0-2]31[0-2](37|35)[0-2]35[0-2](36|34)[0-2]31[0-2](37|35)[0-2]34[0-2](36|34)[0-2]39[0-2](36|34)[0-2]66[0-2](36|34)[0-2]65[0-2]32[0-2]65[0-2]33[0-2]33 }
+        // is slowing down scanning
+        // $s1 = { (36|34)[0-2]35[0-2](37|35)[0-2]31[0-2](37|35)[0-2]35[0-2](36|34)[0-2]31[0-2](37|35)[0-2]34[0-2](36|34)[0-2]39[0-2](36|34)[0-2]66[0-2](36|34)[0-2]65[0-2]32[0-2]65[0-2]33[0-2]33 }
+        // $s2 = { (7d|5c|2b|24)[0-2](37|35)[0-2]31[0-2](37|35)[0-2]35[0-2](36|34)[0-2]31[0-2](37|35)[0-2]34[0-2](36|34)[0-2]39[0-2](36|34)[0-2]66[0-2](36|34)[0-2]65[0-2]32[0-2]65[0-2]33[0-2]33 }
+        $s3 = { (36|34)[0-1]35[0-1](37|35)[0-1]31[0-1](37|35)[0-1]35[0-1](36|34)[0-1]31[0-1](37|35)[0-1]34[0-1](36|34)[0-1]39[0-1](36|34)[0-1]66[0-1](36|34)[0-1]65[0-1]3265[0-1]3333 }
+        $s4 = { (7d|5c|2b|24)[0-1](37|35)[0-1]31[0-1](37|35)[0-1]35[0-1](36|34)[0-1]31[0-1](37|35)[0-1]34[0-1](36|34)[0-1]39[0-1](36|34)[0-1]66[0-1](36|34)[0-1]65[0-1]3265[0-1]3333 }
         // Embedded Objects
         $obj1 = "\\objhtml" ascii
         $obj2 = "\\objdata" ascii
@@ -163,7 +167,7 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
         $obj6 = "\\objlink" ascii
         $obj7 = "\\mmath" ascii
     condition:
-        uint32(0) == 0x74725c7b and (all of ($s*) and 1 of ($obj*))
+        uint32(0) == 0x74725c7b and (1 of ($s*) and 1 of ($obj*))
 }    
 
 rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
@@ -704,4 +708,53 @@ rule INDICATOR_PPT_MAL {
         $i6 = "\\pm.j@" ascii wide
     condition:
         uint16(0) == 0xcfd0 and 1 of ($i*) and $clsid and 1 of ($a*) and 1 of ($vb*)
+}
+
+rule INDICATOR_XML_WebRelFrame_RemoteTemplate {
+    meta:
+        description = "Detects XML web frame relations refrencing an external target in dropper OOXML documents"
+        author = "ditekSHen"
+    strings:
+        $target1 = "/frame\" Target=\"http" ascii nocase
+        $target2 = "/frame\" Target=\"file" ascii nocase
+        $mode = "TargetMode=\"External" ascii
+    condition:
+        uint32(0) == 0x6d783f3c and (1 of ($target*) and $mode)
+}
+
+rule INDICATOR_PDF_IPDropper {
+    meta:
+        description = "Detects PDF documents with Action and URL pointing to direct IP address"
+        author = "ditekSHen"
+    strings:
+        $s1 = { 54 79 70 65 20 2f 41 63 74 69 6f 6e 0d 0a 2f 53 20 2f 55 52 49 0d 0a }
+        $s2 = /\/URI \(http(s)?:\/\/([0-9]{1,3}\.){3}[0-9]{1,3}\// ascii
+    condition:
+        uint32(0) == 0x46445025 and all of them
+}
+
+rule INDICATOR_OLE_Excel4Macros_DL {
+    meta:
+        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
+        author = "ditekSHen"
+    strings:
+        $s1 = "Macros Excel 4.0" fullword ascii
+        $s2 = { 00 4d 61 63 72 6f 31 85 00 }
+        $s3 = "http" ascii
+        $s4 = "file:" ascii
+        $cmd1 = { 00 (43|63) [0-1] (4d|6d) [0-1] (44|64) 20 }
+        $cmd2 = { (50|70) [0-1] (4f|6f) [0-1] (57|77) [0-1] (45|65) [0-1] (52|72) [0-1] (53|73) [0-1] (48|68) [0-1] (45|65) [0-1] (4c|6c) [0-1] (4c|6c) }
+        $cmd3 = { (57|77) [0-1] (53|73) [0-1] (43|63) [0-1] (52|72) [0-1] (49|69) [0-1] (50|70) [0-1] (54|74) }
+        $fa_exe = ".exe" ascii nocase
+        $fa_scr = ".scr" ascii nocase
+        $fa_dll = ".dll" ascii nocase
+        $fa_bat = ".bat" ascii nocase
+        $fa_cmd = ".cmd" ascii nocase
+        $fa_sct = ".sct" ascii nocase
+        $fa_txt = ".txt" ascii nocase
+        $fa_psw = ".ps1" ascii nocase
+        $fa_py = ".py" ascii nocase
+        $fa_js = ".js" ascii nocase
+    condition:
+        uint16(0) == 0xcfd0 and (2 of ($s*) and 1 of ($cmd*) and 1 of ($fa*))
 }

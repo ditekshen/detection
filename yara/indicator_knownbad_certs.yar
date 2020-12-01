@@ -1997,7 +1997,7 @@ rule INDICATOR_KB_CERT_003223b4616c2687c04865bee8321726a8 {
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
-            pe.signatures[i].subject contains "	FORTUNE STAR TRADING, INC." and
+            pe.signatures[i].subject contains "FORTUNE STAR TRADING, INC." and
             pe.signatures[i].serial == "32:23:b4:61:6c:26:87:c0:48:65:be:e8:32:17:26:a8"
         )
 }
@@ -2716,3 +2716,60 @@ rule INDICATOR_KB_CERT_00c88af896b6452241fe00e3aaec11b1f8 {
             pe.signatures[i].serial == "00:c8:8a:f8:96:b6:45:22:41:fe:00:e3:aa:ec:11:b1:f8"
         )
 }
+
+/*
+rule INDICATOR_KB_CERT_09e015e98e4fabcc9ac43e042c96090d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "04e407118516053ff248503b31d6eec6daf4a809"
+        reference1 = "https://www.virustotal.com/gui/file/859f845ee7c741f34ce8bd53d0fe806eccc2395fc413077605fae3db822094b4/details"
+        reference2 = "https://blog.macnica.net/blog/2020/11/dtrack.html"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Jetico Inc. Oy" and
+            pe.signatures[i].serial == "09:e0:15:e9:8e:4f:ab:cc:9a:c4:3e:04:2c:96:09:0d"
+        )
+}
+*/
+
+rule INDICATOR_KB_CERT_118d813d830f218c0f46d4fc {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "bd16f70bf6c2ef330c5a4f3a27856a0d030d77fa"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Shang Hai Shen Wei Wang Luo Ke Ji You Xian Gong Si" and
+            pe.signatures[i].serial == "11:8d:81:3d:83:0f:21:8c:0f:46:d4:fc"
+        )
+}
+
+rule INDICATOR_KB_CERT_2304ecf0ea2b2736beddd26a903ba952 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "d59a63e230cef77951cb73a8d65576f00c049f44"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "\\xE6\\x88\\x90\\xE9\\x83\\xBD\\xE5\\x90\\x89\\xE8\\x83\\x9C\\xE7\\xA7\\x91\\xE6\\x8A\\x80\\xE6\\x9C\\x89\\xE9\\x99\\x90\\xE8\\xB4\\xA3\\xE4\\xBB\\xBB\\xE5\\x85\\xAC\\xE5\\x8F\\xB8" and
+            pe.signatures[i].serial == "23:04:ec:f0:ea:2b:27:36:be:dd:d2:6a:90:3b:a9:52"
+        )
+}
+
+rule INDICATOR_KB_CERT_4d78e90e0950fc630000000055657e1a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "fd010fdee2314f5d87045d1d7bf0da01b984b0fe"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Telus Health Solutions Inc." and
+            pe.signatures[i].serial == "4d:78:e9:0e:09:50:fc:63:00:00:00:00:55:65:7e:1a"
+        )
+}
+
