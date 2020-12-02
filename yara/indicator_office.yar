@@ -756,5 +756,5 @@ rule INDICATOR_OLE_Excel4Macros_DL {
         $fa_py = ".py" ascii nocase
         $fa_js = ".js" ascii nocase
     condition:
-        uint16(0) == 0xcfd0 and (2 of ($s*) and 1 of ($cmd*) and 1 of ($fa*))
+        uint16(0) == 0xcfd0 and (3 of ($s*) and 1 of ($cmd*) and 1 of ($fa*))
 }

@@ -2773,3 +2773,55 @@ rule INDICATOR_KB_CERT_4d78e90e0950fc630000000055657e1a {
         )
 }
 
+rule INDICATOR_KB_CERT_0092bc051f1811bb0b86727c36394f7849 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "d1f9930521e172526a9f018471d4575d60d8ad8f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "MISTO EKONOMSKE STORITVE, d.o.o." and
+            pe.signatures[i].serial == "00:92:bc:05:1f:18:11:bb:0b:86:72:7c:36:39:4f:78:49"
+        )
+}
+
+rule INDICATOR_KB_CERT_b4f42e2c153c904fda64c957ed7e1028 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "ed4c50ab4f173cf46386a73226fa4dac9cadc1c4"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "NONO spol. s r.o." and
+            pe.signatures[i].serial == "b4:f4:2e:2c:15:3c:90:4f:da:64:c9:57:ed:7e:10:28"
+        )
+}
+
+rule INDICATOR_KB_CERT_00ac307e5257bb814b818d3633b630326f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "4d6a089ec4edcac438717c1d64a8be4ef925a9c6"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Aqua Direct s.r.o." and
+            pe.signatures[i].serial == "00:ac:30:7e:52:57:bb:81:4b:81:8d:36:33:b6:30:32:6f"
+        )
+}
+
+rule INDICATOR_KB_CERT_063a7d09107eddd8aa1f733634c6591b {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        thumbprint = "a03f9b3f3eb30ac511463b24f2e59e89ee4c6d4a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Smart Line Logistics" and
+            pe.signatures[i].serial == "06:3a:7d:09:10:7e:dd:d8:aa:1f:73:36:34:c6:59:1b"
+        )
+}
+
