@@ -163,7 +163,7 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxHookingDLL {
         $dll22 = "vmcheck32.dll" nocase ascii wide
         $dll23 = "vmcheck64.dll" nocase ascii wide
     condition:
-        uint16(0) == 0x5a4d and 2 of them
+        uint16(0) == 0x5a4d and 3 of them
 }
 
 rule INDICATOR_SUSPICIOUS_AHK_Downloader {
@@ -298,7 +298,7 @@ rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
         $s58 = "Moonchild Production\\Pale Moon" nocase ascii wide
         $s59 = "Firefox\\Profiles" nocase ascii wide
     condition:
-        (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 4 of them
+        (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 6 of them
 }
 
 rule INDICATOR_SUSPICIOUS_EXE_References_Confidential_Data_Store {
@@ -411,7 +411,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
         $s41 = "SoftX.org\\FTPClient\\Sites" ascii wide
         $s42 = "BulletProof Software\\BulletProof FTP Client\\" ascii wide
     condition:
-        uint16(0) == 0x5a4d and 3 of them
+        uint16(0) == 0x5a4d and 6 of them
 }
 
 rule INDICATOR_SUSPICIOUS_ClearWinLogs {
@@ -420,13 +420,11 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         author = "ditekSHen"
     strings:
         $cmd1 = "wevtutil.exe clear-log" ascii wide nocase
-        $cmd2 = "wevtutil clear-log" ascii wide nocase
-        $cmd3 = "wevtutil.exe cl " ascii wide nocase
-        $cmd4 = "wevtutil cl " ascii wide nocase
-        $cmd5 = ".ClearEventLog()" ascii wide nocase
-        $cmd6 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
-        $cmd7 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
-        $cmd8 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
+        $cmd2 = "wevtutil.exe cl " ascii wide nocase
+        $cmd3 = ".ClearEventLog()" ascii wide nocase
+        $cmd4 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
+        $cmd5 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
+        $cmd6 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }

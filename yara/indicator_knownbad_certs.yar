@@ -2750,7 +2750,7 @@ rule INDICATOR_KB_CERT_118d813d830f218c0f46d4fc {
 rule INDICATOR_KB_CERT_2304ecf0ea2b2736beddd26a903ba952 {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "d59a63e230cef77951cb73a8d65576f00c049f44"
     condition:
         uint16(0) == 0x5a4d and
@@ -2763,7 +2763,7 @@ rule INDICATOR_KB_CERT_2304ecf0ea2b2736beddd26a903ba952 {
 rule INDICATOR_KB_CERT_4d78e90e0950fc630000000055657e1a {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "fd010fdee2314f5d87045d1d7bf0da01b984b0fe"
     condition:
         uint16(0) == 0x5a4d and
@@ -2776,7 +2776,7 @@ rule INDICATOR_KB_CERT_4d78e90e0950fc630000000055657e1a {
 rule INDICATOR_KB_CERT_0092bc051f1811bb0b86727c36394f7849 {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "d1f9930521e172526a9f018471d4575d60d8ad8f"
     condition:
         uint16(0) == 0x5a4d and
@@ -2789,7 +2789,7 @@ rule INDICATOR_KB_CERT_0092bc051f1811bb0b86727c36394f7849 {
 rule INDICATOR_KB_CERT_b4f42e2c153c904fda64c957ed7e1028 {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "ed4c50ab4f173cf46386a73226fa4dac9cadc1c4"
     condition:
         uint16(0) == 0x5a4d and
@@ -2802,7 +2802,7 @@ rule INDICATOR_KB_CERT_b4f42e2c153c904fda64c957ed7e1028 {
 rule INDICATOR_KB_CERT_00ac307e5257bb814b818d3633b630326f {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "4d6a089ec4edcac438717c1d64a8be4ef925a9c6"
     condition:
         uint16(0) == 0x5a4d and
@@ -2815,13 +2815,39 @@ rule INDICATOR_KB_CERT_00ac307e5257bb814b818d3633b630326f {
 rule INDICATOR_KB_CERT_063a7d09107eddd8aa1f733634c6591b {
     meta:
         author = "ditekSHen"
-        description = "Detects BestEncrypt commercial disk encryption and wiping software signing certificate"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "a03f9b3f3eb30ac511463b24f2e59e89ee4c6d4a"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "Smart Line Logistics" and
             pe.signatures[i].serial == "06:3a:7d:09:10:7e:dd:d8:aa:1f:73:36:34:c6:59:1b"
+        )
+}
+
+rule INDICATOR_KB_CERT_4c687a0022c36f89e253f91d1f6954e2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "4412007ae212d12cea36ed56985bd762bd9fb54a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "HETCO ApS" and
+            pe.signatures[i].serial == "4c:68:7a:00:22:c3:6f:89:e2:53:f9:1d:1f:69:54:e2"
+        )
+}
+
+rule INDICATOR_KB_CERT_3cee26c125b8c188f316c3fa78d9c2f1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9efcf68a289d9186ec17e334205cb644c2b6a147"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Bitubit LLC" and
+            pe.signatures[i].serial == "3c:ee:26:c1:25:b8:c1:88:f3:16:c3:fa:78:d9:c2:f1"
         )
 }
 

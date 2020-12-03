@@ -4,9 +4,11 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_0199_1 {
         author = "ditekSHen"
     strings:
         // URL Moniker
+        /* Reduce FPs
         $urlmoniker1 = "e0c9ea79f9bace118c8200aa004ba90b" ascii nocase
         $urlmoniker2 = { 45 30 43 39 45 41 37 39 46 39 42 41 43 45 31 31
                          38 43 38 32 30 30 41 41 30 30 34 42 41 39 30 42 } // HEX + lower-case
+        */
         $urlmoniker3 = { 45 0a 30 0a 43 0a 39 0a 45 0a 41 0a 37 0a 39 0a 
                          46 0a 39 0a 42 0a 41 0a 43 0a 45 0a 31 0a 31 0a 
                          38 0a 43 0a 38 0a 32 0a 30 0a 30 0a 41 0a 41 0a 
@@ -17,8 +19,10 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_0199_1 {
                          38 0d 0a 43 0d 0a 38 0d 0a 32 0d 0a 30 0d 0a 30
                          0d 0a 41 0d 0a 41 0d 0a 30 0d 0a 30 0d 0a 34 0d
                          0a 42 0d 0a 41 0d 0a 39 0d 0a 30 0d 0a 42 }       // HEX + lower-case + \x0d0a manipulation
+        /* Reduce FPs
         $urlmoniker5 = { 65 30 63 39 65 61 37 39 66 39 62 61 63 65 31 31
                          38 63 38 32 30 30 61 61 30 30 34 62 61 39 30 62 } // HEX + upper-case
+        */
         $urlmoniker6 = { 65 0a 30 0a 63 0a 39 0a 65 0a 61 0a 37 0a 39 0a
                          66 0a 39 0a 62 0a 61 0a 63 0a 65 0a 31 0a 31 0a
                          38 0a 63 0a 38 0a 32 0a 30 0a 30 0a 61 0a 61 0a
@@ -60,8 +64,6 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_0199_1 {
         $obj4 = "\\objemb" ascii
         $obj5 = "\\objautlink" ascii
         $obj6 = "\\objlink" ascii
-        $obj7 = "\\mmath" ascii
-        
     condition:
         uint32(0) == 0x74725c7b and 1 of ($urlmoniker*) and 1 of ($ole*) and 1 of ($obj*)
 }
