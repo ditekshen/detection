@@ -437,3 +437,33 @@ rule INDICATOR_EXE_Packed_Cassandra {
     condition:
         (uint16(0) == 0x5a4d and (4 of ($s*) or 2 of ($c*) or $pdb)) or (7 of them)
 }
+
+rule INDICATOR_EXE_Packed_Themida {
+    meta:
+        description = "Detects executables packed with Themida"
+        author = "ditekSHen"
+        snort2_sid = "930067-930069"
+        snort3_sid = "930024"
+    strings:
+        $s1 = "@.themida" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them or
+        for any i in (0 .. pe.number_of_sections) : (
+            (
+                pe.sections[i].name == ".themida"
+            )
+        )
+}
+
+rule INDICATOR_EXE_Packed_SilentInstallBuilder {
+    meta:
+        description = "Detects executables packed with Silent Install Builder"
+        author = "ditekSHen"
+        snort2_sid = "930070-930072"
+        snort3_sid = "930025"
+    strings:
+        $s1 = "C:\\Users\\Operations\\Source\\Workspaces\\Sib\\Sibl\\Release\\Sibuia.pdb" fullword ascii
+        $s2 = "->mb!Silent Install Builder Demo Package." fullword wide
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}

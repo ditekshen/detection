@@ -428,3 +428,24 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
+
+rule INDICATOR_SUSPICIOUS_DisableWinDefender {
+    meta:
+        description = "Detects executables containing artifcats associated with disabling Widnows Defender"
+        author = "ditekSHen"
+    strings:
+        $reg1 = "SOFTWARE\\Microsoft\\Windows Defender\\Features" ascii wide nocase
+        $reg2 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
+        $s1 = "Set-MpPreference -SignatureDisableUpdateOnStartupWithoutEngine $true" ascii wide nocase
+        $s2 = "Set-MpPreference -DisableArchiveScanning $true" ascii wide nocase
+        $s3 = "Set-MpPreference -DisableIntrusionPreventionSystem $true" ascii wide nocase
+        $s4 = "Set-MpPreference -DisableScriptScanning $true" ascii wide nocase
+        $s5 = "Set-MpPreference -SubmitSamplesConsent 2" ascii wide nocase
+        $s6 = "Set-MpPreference -MAPSReporting 0" ascii wide nocase
+        $s7 = "Set-MpPreference -HighThreatDefaultAction 6" ascii wide nocase
+        $s8 = "Set-MpPreference -ModerateThreatDefaultAction 6" ascii wide nocase
+        $s9 = "Set-MpPreference -LowThreatDefaultAction 6" ascii wide nocase
+        $s10 = "Set-MpPreference -SevereThreatDefaultAction 6" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($reg*) and 1 of ($s*))
+}
