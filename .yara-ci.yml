@@ -1,3 +1,10 @@
+# Not FPs
+false_positives:
+  ignore:
+    - rule: "INDICATOR_EXE_Packed_ASPack"
+    - rule: "INDICATOR_EXE_Packed_MPress"
+    - rule: "INDICATOR_EXE_Packed_VMProtect"
+
 files:
   accept:
     - "yara/*.yar"
