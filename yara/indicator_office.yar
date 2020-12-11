@@ -685,7 +685,6 @@ rule INDICATOR_RTF_MalVer_Objects {
         $obj4 = "\\objemb" ascii
         $obj5 = "\\objautlink" ascii
         $obj6 = "\\objlink" ascii
-        $obj7 = "\\mmath" ascii
     condition:
         uint32(0) == 0x74725c7b and ((not uint8(4) == 0x66 or not uint8(5) == 0x31 or not uint8(6) == 0x5c) and 1 of ($obj*))
 }
