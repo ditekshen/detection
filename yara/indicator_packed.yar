@@ -467,3 +467,13 @@ rule INDICATOR_EXE_Packed_SilentInstallBuilder {
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
+
+rule INDICATOR_Packed_NyanXCat_CSharpLoader {
+    meta:
+        description = "Detects .NET executables utilizing NyanX-CAT C# Loader"
+        author = "ditekSHen"
+    strings:
+        $s1 = { 00 50 72 6f 67 72 61 6d 00 4c 6f 61 64 65 72 00 4e 79 61 6e 00 }
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
