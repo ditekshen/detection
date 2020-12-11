@@ -425,9 +425,10 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         $cmd4 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
         $cmd5 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
         $cmd6 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
-        $ne = "wevtutil.exe cl Application /bu:C:\\admin\\backups\\al0306.evtx" fullword wide
+        $ne1 = "wevtutil.exe cl Application /bu:C:\\admin\\backup\\al0306.evtx" fullword wide
+        $ne2 = "wevtutil.exe cl Application /bu:C:\\admin\\backups\\al0306.evtx" fullword wide
     condition:
-        uint16(0) == 0x5a4d and (1 of them and not $ne)
+        uint16(0) == 0x5a4d and (1 of ($cmd*) and not any of ($ne*))
 }
 
 rule INDICATOR_SUSPICIOUS_DisableWinDefender {
