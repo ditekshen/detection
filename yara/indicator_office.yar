@@ -233,8 +233,7 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_8759_2 {
         $obj4 = "\\objemb" ascii
         $obj5 = "\\objautlink" ascii
         $obj6 = "\\objlink" ascii
-        $obj7 = "\\mmath" ascii
-        $obj8 = "\\objclass htmlfile" ascii
+        $obj7 = "\\objclass htmlfile" ascii
         // SOAP Moniker
         $soap1 = "c7b0abec197fd211978e0000f8757e" ascii nocase
     condition:

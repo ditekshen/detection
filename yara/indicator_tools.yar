@@ -1,7 +1,7 @@
 rule INDICATOR_TOOL_PWS_LaZagne {
     meta:
-        description = "Detects LaZagne post-exploitation password stealing tool. It is typically embedded with malware in the binary resources."
         author = "ditekSHen"
+        description = "Detects LaZagne post-exploitation password stealing tool. It is typically embedded with malware in the binary resources."
     strings:
         $s1 = "blaZagne.exe.manifest" fullword ascii
         $S2 = "opyi-windows-manifest-filename laZagne.exe.manifest" fullword ascii
@@ -19,8 +19,8 @@ rule INDICATOR_TOOL_PWS_LaZagne {
 
 rule INDICATOR_TOOL_PWS_Credstealer {
     meta:
-        description = "Detects Python executable for stealing credentials including domain environments. Observed in MuddyWater."
         author = "ditekSHen"
+        description = "Detects Python executable for stealing credentials including domain environments. Observed in MuddyWater."
     strings:
         $s1 = "PYTHON27.DLL" fullword wide
         $s2 = "C:\\Python27\\lib\\site-packages\\py2exe\\boot_common.pyR" fullword ascii
@@ -40,8 +40,8 @@ rule INDICATOR_TOOL_PWS_Credstealer {
 
 rule INDICATOR_TOOL_CNC_Shootback {
     meta:
-        description = "detects Python executable for CnC communication via reverse tunnels. Used by MuddyWater group."
         author = "ditekSHen"
+        description = "detects Python executable for CnC communication via reverse tunnels. Used by MuddyWater group."
     strings:
         $s1 = "PYTHON27.DLL" fullword wide
         $s2 = "C:\\Python27\\lib\\site-packages\\py2exe\\boot_common.pyR" fullword ascii
@@ -61,8 +61,8 @@ rule INDICATOR_TOOL_CNC_Shootback {
 
 rule INDICATOR_TOOL_PWS_Fgdump {
     meta:
-        description = "detects all versions of the password dumping tool, fgdump. Observed to be used by DustSquad group."
         author = "ditekSHen"
+        description = "detects all versions of the password dumping tool, fgdump. Observed to be used by DustSquad group."
     strings:
         $s1 = "dumping server %s" ascii
         $s2 = "dump on server %s" ascii
@@ -80,8 +80,8 @@ rule INDICATOR_TOOL_PWS_Fgdump {
 
 rule INDICATOR_TOOL_PWS_SharpWeb {
     meta:
-        description = "detects all versions of the browser password dumping .NET tool, SharpWeb."
         author = "ditekSHen"
+        description = "detects all versions of the browser password dumping .NET tool, SharpWeb."
     strings:
         $param1 = "logins" nocase wide
         $param2 = "cookies" nocase wide
@@ -109,8 +109,8 @@ rule INDICATOR_TOOL_PWS_SharpWeb {
 
 rule INDICATOR_TOOL_PWS_Blackbone {
     meta:
-        description = "detects Blackbone password dumping tool on Windows 7-10 operating system."
         author = "ditekSHen"
+        description = "detects Blackbone password dumping tool on Windows 7-10 operating system."
     strings:
         $s1 = "BlackBone: %s: " ascii
         $s2 = "\\BlackBoneDrv\\" ascii
@@ -128,8 +128,8 @@ rule INDICATOR_TOOL_PWS_Blackbone {
 
 rule INDICATOR_TOOL_PWS_Mimikatz {
     meta:
-        description = "Detects Mimikatz."
         author = "ditekSHen"
+        description = "Detects Mimikatz"
     strings:
         $s1 = "mimilib.dll" ascii
         $s2 = "mimidrv.sys" ascii
@@ -163,8 +163,8 @@ rule INDICATOR_TOOL_PWS_Mimikatz {
 
 rule INDICATOR_TOOL_SCN_PortScan {
     meta:
-        description = "Detects a port scanner tool observed as second or third stage post-compromise or dropped by malware."
         author = "ditekSHen"
+        description = "Detects a port scanner tool observed as second or third stage post-compromise or dropped by malware."
     strings:
         $s1 = "HEAD / HTTP/1.0" fullword ascii
         $s2 = "Result.txt" fullword ascii
@@ -179,8 +179,8 @@ rule INDICATOR_TOOL_SCN_PortScan {
 
 rule INDICATOR_TOOL_MEM_mXtract {
     meta:
-        description = "Detects mXtract, a linux-based tool that dumps memory for offensive pentration testing and can be used to scan memory for private keys, ips, and passwords using regexes."
         author = "ditekSHen"
+        description = "Detects mXtract, a linux-based tool that dumps memory for offensive pentration testing and can be used to scan memory for private keys, ips, and passwords using regexes."
     strings:
         $s1 = "_ZN18process_operations10get_rangesEv" fullword ascii
         $s2 = "_ZN4misc10write_dumpESsSs" fullword ascii
@@ -194,8 +194,8 @@ rule INDICATOR_TOOL_MEM_mXtract {
 
 rule INDICATOR_TOOL_PWS_SniffPass {
     meta:
-        description = "Detects SniffPass, a password monitoring software that listens on the network and captures passwords over POP3, IMAP4, SMTP, FTP, and HTTP."
         author = "ditekSHen"
+        description = "Detects SniffPass, a password monitoring software that listens on the network and captures passwords over POP3, IMAP4, SMTP, FTP, and HTTP."
     strings:
         $s1 = "\\Release\\SniffPass.pdb" ascii
         $s2 = "Password   Sniffer" fullword wide
@@ -211,8 +211,8 @@ rule INDICATOR_TOOL_PWS_SniffPass {
 
 rule INDICATOR_TOOL_AVBypass_AVIator {
     meta:
-        description = "Detects AVIator, which is a backdoor generator utility, which uses cryptographic and injection techniques in order to bypass AV detection. This was observed to bypass Win.Trojan.AZorult. This rule works for binaries and memory."
         author = "ditekSHen"
+        description = "Detects AVIator, which is a backdoor generator utility, which uses cryptographic and injection techniques in order to bypass AV detection. This was observed to bypass Win.Trojan.AZorult. This rule works for binaries and memory."
     strings:
         $s1 = "msfvenom -p windows/meterpreter" ascii wide
         $s2 = "payloadBox.Text" ascii wide
@@ -239,8 +239,8 @@ rule INDICATOR_TOOL_AVBypass_AVIator {
 
 rule INDICATOR_TOOL_PWS_PwDump7 {
     meta:
-        description = "Detects Pwdump7 password Dumper"
         author = "ditekSHen"
+        description = "Detects Pwdump7 password Dumper"
     strings:
         $s1 = "savedump.dat" fullword ascii
         $s2 = "Asd -_- _RegEnumKey fail!" fullword ascii
@@ -253,8 +253,8 @@ rule INDICATOR_TOOL_PWS_PwDump7 {
 
 rule INDICATOR_TOOL_LTM_SharpExec {
     meta:
-        description = "Detects SharpExec lateral movement tool"
         author = "ditekSHen"
+        description = "Detects SharpExec lateral movement tool"
     strings:
         $s1 = "fileUploaded" fullword ascii
         $s2 = "$7fbad126-e21c-4c4e-a9f0-613fcf585a71" fullword ascii
@@ -274,8 +274,8 @@ rule INDICATOR_TOOL_LTM_SharpExec {
 
 rule INDICATOR_TOOL_PRV_AdvancedRun {
     meta:
-        description = "Detects NirSoft AdvancedRun privialge escalation tool"
         author = "ditekSHen"
+        description = "Detects NirSoft AdvancedRun privialge escalation tool"
     strings:
         $s1 = "RunAsProcessName" fullword wide
         $s2 = "Process ID/Name:" fullword wide
@@ -288,8 +288,8 @@ rule INDICATOR_TOOL_PRV_AdvancedRun {
 
 rule INDICATOR_TOOL_PWS_Amady {
     meta:
-        description = "Detects password stealer DLL. Dropped by Amady"
         author = "ditekSHen"
+        description = "Detects password stealer DLL. Dropped by Amady"
     strings:
         $s1 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\AppData" fullword ascii
         $s2 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows Messaging Subsystem\\Profiles\\Outlook" ascii
@@ -305,8 +305,8 @@ rule INDICATOR_TOOL_PWS_Amady {
 
 rule INDICATOR_TOOL_SCR_Amady {
     meta:
-        description = "Detects screenshot stealer DLL. Dropped by Amady"
         author = "ditekSHen"
+        description = "Detects screenshot stealer DLL. Dropped by Amady"
     strings:
         $s1 = "User-Agent: Uploador" fullword ascii
         $s2 = "Content-Disposition: form-data; name=\"data\"; filename=\"" fullword ascii
@@ -319,8 +319,8 @@ rule INDICATOR_TOOL_SCR_Amady {
 
 rule INDICATOR_TOOL_EXP_EternalBlue {
     meta:
-        description = "Detects Windows executables containing EternalBlue explitation artifacts"
         author = "ditekSHen"
+        description = "Detects Windows executables containing EternalBlue explitation artifacts"
     strings:
         $ci1 = "CNEFileIO_" ascii wide
         $ci2 = "coli_" ascii wide
@@ -341,8 +341,8 @@ rule INDICATOR_TOOL_EXP_EternalBlue {
 
 rule INDICATOR_TOOL_EXP_WebLogic {
     meta:
-        description = "Detects Windows executables containing Weblogic exploits commands"
         author = "ditekSHen"
+        description = "Detects Windows executables containing Weblogic exploits commands"
     strings:
         $s1 = "certutil.exe -urlcache -split -f AAAAA BBBBB & cmd.exe /c BBBBB" ascii
         $s2 = "powershell (new-object System.Net.WebClient).DownloadFile('AAAAA','BBBBB')" ascii
@@ -352,8 +352,8 @@ rule INDICATOR_TOOL_EXP_WebLogic {
 
 rule INDICATOR_TOOL_EXP_ApacheStrusts {
     meta:
-        description = "Detects Windows executables containing ApacheStruts exploit artifatcs"
         author = "ditekSHen"
+        description = "Detects Windows executables containing ApacheStruts exploit artifatcs"
     strings:
         // CVE-2017-5638
         $x1 = "apache.struts2.ServletActionContext@getResponse" ascii 
@@ -373,8 +373,8 @@ rule INDICATOR_TOOL_EXP_ApacheStrusts {
 
 rule INDICATOR_TOOL_SCN_SMBTouch {
     meta:
-        description = "Detects SMBTouch scanner EternalBlue, EternalChampion, EternalRomance, EternalSynergy"
         author = "ditekSHen"
+        description = "Detects SMBTouch scanner EternalBlue, EternalChampion, EternalRomance, EternalSynergy"
     strings:
         $s1 = "[+] SMB Touch started" fullword ascii
         $s2 = "[-] Could not connect to share (0x%08X - %s)" fullword ascii
@@ -399,8 +399,8 @@ rule INDICATOR_TOOL_SCN_SMBTouch {
 
 rule INDICATOR_TOOL_SCN_NBTScan {
     meta:
-        description = "Detects NBTScan scanner for open NETBIOS nameservers on a local or remote TCP/IP network"
         author = "ditekSHen"
+        description = "Detects NBTScan scanner for open NETBIOS nameservers on a local or remote TCP/IP network"
     strings:
         $s1 = "[%s] is an invalid target (bad IP/hostname)" fullword ascii
         $s2 = "ERROR: no parse for %s -- %s" fullword ascii
@@ -419,8 +419,8 @@ rule INDICATOR_TOOL_SCN_NBTScan {
 
 rule INDICATOR_TOOL_LTM_CompiledImpacket {
     meta:
-        description = "Detects executables of compiled Impacket's python scripts"
         author = "ditekSHen"
+        description = "Detects executables of compiled Impacket's python scripts"
     strings:
         $s1 = "impacket(" fullword ascii
         $s2 = "impacket.dcerpc(" fullword ascii
@@ -439,8 +439,8 @@ rule INDICATOR_TOOL_LTM_CompiledImpacket {
 
 rule INDICATOR_TOOL_ENC_BestCrypt {
     meta:
-        description = "Detects BestEncrypt commercial disk encryption and wiping software"
         author = "ditekSHen"
+        description = "Detects BestEncrypt commercial disk encryption and wiping software"
     strings:
         $s1 = "BestCrypt Volume Encryption" wide
         $s2 = "BCWipe for " wide
@@ -452,8 +452,8 @@ rule INDICATOR_TOOL_ENC_BestCrypt {
 
 rule INDICATOR_TOOL_CNC_Earthworm {
     meta:
-        description = "Detects Earthworm C&C Windows/macOS tool"
         author = "ditekSHen"
+        description = "Detects Earthworm C&C Windows/macOS tool"
     strings:
         $s1 = "lcx_tran 0.0.0.0:%d <--[%4d usec]--> %s:%d" fullword ascii
         $s2 = "ssocksd 0.0.0.0:%d <--[%4d usec]--> socks server" fullword ascii
@@ -470,8 +470,9 @@ rule INDICATOR_TOOL_CNC_Earthworm {
 
 rule INDICATOR_TOOL_PWS_KeychainDumper {
     meta:
-        description = "Detects macOS certificate/password keychain dumping tool"
         author = "ditekSHen"
+        description = "Detects macOS certificate/password keychain dumping tool"
+        clamav_sig = "INDICATOR_Osx.Tool.PWS.KeychainDumper"
     strings:
         $s1 = "_getEmptyKeychainItemString" fullword ascii
         $s2 = "NdumpKeychainEntitlements" fullword ascii
@@ -482,8 +483,8 @@ rule INDICATOR_TOOL_PWS_KeychainDumper {
 
 rule INDICATOR_TOOL_PET_p0wnedShell {
     meta:
-        description = "Detects compiled executables of p0wnedShell post-exploitation toolkit"
         author = "ditekSHen"
+        description = "Detects compiled executables of p0wnedShell post-exploitation toolkit"
     strings:
         $s1 = "Use WinRM, PsExec, SMB/WMI to execute commands on remote systems" wide
         $s2 = "-CreateProcess \"cmd.exe\" -Username \"nt authority\\system\"" wide
@@ -510,8 +511,8 @@ rule INDICATOR_TOOL_PET_p0wnedShell {
 
 rule INDICATOR_TOOL_PWS_Rubeus {
     meta:
-        description = "Detects Rubeus kerberos defensive/offensive toolset"
         author = "ditekSHen"
+        description = "Detects Rubeus kerberos defensive/offensive toolset"
     strings:
         $s1 = "(&(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=4194304))" fullword wide
         $s2 = "(!samAccountName=krbtgt)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))" fullword wide

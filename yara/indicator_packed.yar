@@ -2,8 +2,8 @@ import "pe"
 
 rule INDICATOR_EXE_Packed_ConfuserEx {
     meta:
-        description = "Detects executables packed with ConfuserEx Mod"
         author = "ditekSHen"
+        description = "Detects executables packed with ConfuserEx Mod"
         snort2_sid = "930016-930018"
         snort3_sid = "930005-930006"
     strings:
@@ -15,8 +15,8 @@ rule INDICATOR_EXE_Packed_ConfuserEx {
 
 rule INDICATOR_EXE_Packed_ConfuserEx_Custom {
     meta:
-        description = "Detects executables packed with ConfuserEx Custom; outside of GIT"
         author = "ditekSHen"
+        description = "Detects executables packed with ConfuserEx Custom; outside of GIT"
     strings:
         $s1 = { 43 6f 6e 66 75 73 65 72 45 78 20 76 [1-2] 2e [1-2] 2e [1-2] 2d 63 75 73 74 6f 6d }
     condition:
@@ -25,8 +25,8 @@ rule INDICATOR_EXE_Packed_ConfuserEx_Custom {
 
 rule INDICATOR_EXE_Packed_ConfuserExMod_BedsProtector {
     meta:
-        description = "Detects executables packed with ConfuserEx Mod Beds Protector"
         author = "ditekSHen"
+        description = "Detects executables packed with ConfuserEx Mod Beds Protector"
         snort2_sid = "930019-930024"
         snort3_sid = "930007-930008"
     strings:
@@ -38,8 +38,8 @@ rule INDICATOR_EXE_Packed_ConfuserExMod_BedsProtector {
 
 rule INDICATOR_EXE_Packed_ConfuserExMod_Trinity {
     meta:
-        description = "Detects executables packed with ConfuserEx Mod Trinity Protector"
         author = "ditekSHen"
+        description = "Detects executables packed with ConfuserEx Mod Trinity Protector"
         snort2_sid = "930025-930030"
         snort3_sid = "930009-930010"
     strings:
@@ -52,8 +52,8 @@ rule INDICATOR_EXE_Packed_ConfuserExMod_Trinity {
 
 rule INDICATOR_EXE_Packed_PS2EXE {
     meta:
-        description = "Detects executables built or packed with PS2EXE"
         author = "ditekSHen"
+        description = "Detects executables built or packed with PS2EXE"
         snort2_sid = "930004-930006"
         snort3_sid = "930001"
     strings:
@@ -68,8 +68,8 @@ rule INDICATOR_EXE_Packed_PS2EXE {
 
 rule INDICATOR_EXE_Packed_LSD {
     meta:
-        description = "Detects executables built or packed with LSD packer"
         author = "ditekSHen"
+        description = "Detects executables built or packed with LSD packer"
         snort2_sid = "930058-930060"
         snort3_sid = "930021"
     strings:
@@ -82,8 +82,8 @@ rule INDICATOR_EXE_Packed_LSD {
 
 rule INDICATOR_EXE_Packed_AspireCrypt {
     meta:
-        description = "Detects executables packed with AspireCrypt"
         author = "ditekSHen"
+        description = "Detects executables packed with AspireCrypt"
         snort2_sid = "930013-930015"
         snort3_sid = "930004"
     strings:
@@ -96,8 +96,8 @@ rule INDICATOR_EXE_Packed_AspireCrypt {
 
 rule INDICATOR_EXE_Packed_Spices {
     meta:
-        description = "Detects executables packed with 9Rays.Net Spices.Net Obfuscator."
         author = "ditekSHen"
+        description = "Detects executables packed with 9Rays.Net Spices.Net Obfuscator."
         snort2_sid = "930001-930003"
         snort3_sid = "930000"
     strings:
@@ -109,8 +109,8 @@ rule INDICATOR_EXE_Packed_Spices {
 
 rule INDICATOR_JAVA_Packed_Allatori {
     meta:
-        description = "Detects files packed with Allatori Java Obfuscator"
         author = "ditekSHen"
+        description = "Detects files packed with Allatori Java Obfuscator"
     strings:
         $s1 = "# Obfuscation by Allatori Obfuscator" ascii wide
     condition:
@@ -119,8 +119,8 @@ rule INDICATOR_JAVA_Packed_Allatori {
 
 rule INDICATOR_EXE_Packed_ASPack {
     meta:
-        description = "Detects executables packed with ASPack"
         author = "ditekSHen"
+        description = "Detects executables packed with ASPack"
         snort2_sid = "930007-930009"
         snort3_sid = "930002"
     //strings:
@@ -136,8 +136,8 @@ rule INDICATOR_EXE_Packed_ASPack {
 
 rule INDICATOR_EXE_Packed_Titan {
     meta:
-        description = "Detects executables packed with Titan"
         author = "ditekSHen"
+        description = "Detects executables packed with Titan"
         snort2_sid = "930010-930012"
         snort3_sid = "930003"
     strings:
@@ -153,8 +153,8 @@ rule INDICATOR_EXE_Packed_Titan {
 
 rule INDICATOR_EXE_Packed_aPLib {
     meta:
-        description = "Detects executables packed with aPLib."
         author = "ditekSHen"
+        description = "Detects executables packed with aPLib."
     strings:
         $header = { 41 50 33 32 18 00 00 00 [0-35] 4D 38 5A 90 }
     condition:
@@ -163,8 +163,8 @@ rule INDICATOR_EXE_Packed_aPLib {
 
 rule INDICATOR_EXE_Packed_LibZ {
     meta:
-        description = "Detects executables built or packed with LibZ"
         author = "ditekSHen"
+        description = "Detects executables built or packed with LibZ"
         snort2_sid = "930055-930057"
         snort3_sid = "930019-930020"
     strings:
@@ -184,8 +184,8 @@ rule INDICATOR_EXE_Packed_LibZ {
 
 rule INDICATOR_EXE_Packed_Enigma {
     meta:
-        description = "Detects executables packed with Enigma"
         author = "ditekSHen"
+        description = "Detects executables packed with Enigma"
         snort2_sid = "930052-930054"
         snort3_sid = "930018"
     strings:
@@ -207,8 +207,8 @@ rule INDICATOR_EXE_Packed_Enigma {
 
 rule INDICATOR_EXE_Python_Byte_Compiled {
     meta:
-        description = "Detects python-byte compiled executables"
         author = "ditekSHen"
+        description = "Detects python-byte compiled executables"
     strings:
         $s1 = "b64decode" ascii
         $s2 = "decompress" ascii
@@ -218,8 +218,8 @@ rule INDICATOR_EXE_Python_Byte_Compiled {
 
 rule INDICATOR_MSI_EXE2MSI {
     meta:
-        description = "Detects executables converted to .MSI packages using a free online converter."
         author = "ditekSHen"
+        description = "Detects executables converted to .MSI packages using a free online converter."
         snort2_sid = "930061-930063"
         snort3_sid = "930022"
     strings:
@@ -231,8 +231,8 @@ rule INDICATOR_MSI_EXE2MSI {
 
 rule INDICATOR_EXE_Packed_MPress {
     meta:
-        description = "Detects executables built or packed with MPress PE compressor"
         author = "ditekSHen"
+        description = "Detects executables built or packed with MPress PE compressor"
         snort2_sid = "930031-930033"
         snort3_sid = "930011"
     strings:
@@ -250,8 +250,8 @@ rule INDICATOR_EXE_Packed_MPress {
 
 rule INDICATOR_EXE_Packed_Nate {
     meta:
-        description = "Detects executables built or packed with Nate packer"
         author = "ditekSHen"
+        description = "Detects executables built or packed with Nate packer"
         snort2_sid = "930034-930036"
         snort3_sid = "930012"
     strings:
@@ -269,8 +269,8 @@ rule INDICATOR_EXE_Packed_Nate {
 
 rule INDICATOR_EXE_Packed_VMProtect {
     meta:
-        description = "Detects executables packed with VMProtect."
         author = "ditekSHen"
+        description = "Detects executables packed with VMProtect."
         snort2_sid = "930049-930051"
         snort3_sid = "930017"
     strings:
@@ -288,19 +288,19 @@ rule INDICATOR_EXE_Packed_VMProtect {
 
 rule INDICATOR_EXE_Packed_Salfram {
     meta:
+        author = "ditekSHen"
         description = "Detects Salfram executables"
         reference = "https://blog.talosintelligence.com/2020/09/salfram-robbing-place-without-removing.html"
-        author = "ditekSHen"
     strings:
-        $s1 = "This Salfram cannot be run is DOS mode" fullword ascii
+        $s1 = "This Salfram cannot be run is DOS mode" ascii
     condition:
         uint16(0) == 0x5a4d and all of them
 }
 
 rule INDICATOR_EXE_DotNET_Encrypted {
     meta:
-        description = "Detects encrypted or obfuscated .NET executables"
         author = "ditekSHen"
+        description = "Detects encrypted or obfuscated .NET executables"
     strings:
         $s1 = "FromBase64String" fullword ascii
         $s2 = "ToCharArray" fullword ascii
@@ -338,8 +338,8 @@ rule INDICATOR_EXE_DotNET_Encrypted {
 
 rule INDICATOR_PY_Packed_PyMinifier {
     meta:
-        description = "Detects python code potentially obfuscated using PyMinifier"
         author = "ditekSHen"
+        description = "Detects python code potentially obfuscated using PyMinifier"
     strings:
         $s1 = "exec(lzma.decompress(base64.b64decode("
     condition:
@@ -348,8 +348,8 @@ rule INDICATOR_PY_Packed_PyMinifier {
 
 rule INDICATOR_EXE_Packed_BoxedApp {
     meta:
-        description = "Detects executables packed with BoxedApp"
         author = "ditekSHen"
+        description = "Detects executables packed with BoxedApp"
         snort2_sid = "930037-930042"
         snort3_sid = "930013-930014"
     strings:
@@ -368,8 +368,8 @@ rule INDICATOR_EXE_Packed_BoxedApp {
 
 rule INDICATOR_EXE_Packed_eXPressor {
     meta:
-        description = "Detects executables packed with eXPressor"
         author = "ditekSHen"
+        description = "Detects executables packed with eXPressor"
         snort2_sid = "930043-930048"
         snort3_sid = "930015-930016"
     strings:
@@ -388,8 +388,8 @@ rule INDICATOR_EXE_Packed_eXPressor {
 
 rule INDICATOR_EXE_Packed_MEW {
     meta:
-        description = "Detects executables packed with MEW"
         author = "ditekSHen"
+        description = "Detects executables packed with MEW"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0 .. pe.number_of_sections) : (
@@ -402,8 +402,8 @@ rule INDICATOR_EXE_Packed_MEW {
 
 rule INDICATOR_EXE_Packed_RLPack {
     meta:
-        description = "Detects executables packed with RLPACK"
         author = "ditekSHen"
+        description = "Detects executables packed with RLPACK"
         snort2_sid = "930064-930066"
         snort3_sid = "930023"
     strings:
@@ -420,8 +420,8 @@ rule INDICATOR_EXE_Packed_RLPack {
 
 rule INDICATOR_EXE_Packed_Cassandra {
     meta:
-        description = "Detects executables packed with Cassandra/CyaX"
         author = "ditekSHen"
+        description = "Detects executables packed with Cassandra/CyaX"
     strings:
         $s1 = "AntiEM" fullword ascii wide
         $s2 = "AntiSB" fullword ascii wide
@@ -440,8 +440,8 @@ rule INDICATOR_EXE_Packed_Cassandra {
 
 rule INDICATOR_EXE_Packed_Themida {
     meta:
-        description = "Detects executables packed with Themida"
         author = "ditekSHen"
+        description = "Detects executables packed with Themida"
         snort2_sid = "930067-930069"
         snort3_sid = "930024"
     strings:
@@ -457,8 +457,8 @@ rule INDICATOR_EXE_Packed_Themida {
 
 rule INDICATOR_EXE_Packed_SilentInstallBuilder {
     meta:
-        description = "Detects executables packed with Silent Install Builder"
         author = "ditekSHen"
+        description = "Detects executables packed with Silent Install Builder"
         snort2_sid = "930070-930072"
         snort3_sid = "930025"
     strings:
@@ -470,8 +470,10 @@ rule INDICATOR_EXE_Packed_SilentInstallBuilder {
 
 rule INDICATOR_Packed_NyanXCat_CSharpLoader {
     meta:
-        description = "Detects .NET executables utilizing NyanX-CAT C# Loader"
         author = "ditekSHen"
+        description = "Detects .NET executables utilizing NyanX-CAT C# Loader"
+        snort2_sid = "930073-930075"
+        snort3_sid = "930026"
     strings:
         $s1 = { 00 50 72 6f 67 72 61 6d 00 4c 6f 61 64 65 72 00 4e 79 61 6e 00 }
     condition:
