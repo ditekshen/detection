@@ -472,6 +472,7 @@ rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
         $ne1 = "fsutil usn readdata C:\\Temp\\sample.txt" wide
         $ne2 = "fsutil transaction query {0f2d8905-6153-449a-8e03-7d3a38187ba1}" wide
         $ne3 = "fsutil resource start d:\\foobar d:\\foobar\\LogDir\\LogBLF::TxfLog d:\\foobar\\LogDir\\LogBLF::TmLog" wide
+        $ne4 = "fsutil objectid query C:\\Temp\\sample.txt" wide
     condition:
         uint16(0) == 0x5a4d and (not any of ($ne*) and (1 of ($cmd*) and 1 of ($s*)))
 }
