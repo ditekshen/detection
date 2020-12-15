@@ -3403,19 +3403,6 @@ rule INDICATOR_KB_CERT_630cf0e612f12805ffa00a41d1032d7c {
         )
 }
 
-rule INDICATOR_KB_CERT_330000014096a9ee7056fecc07000100000140 {
-    meta:
-        author = "ditekSHen"
-        description = "Detects executables signed with stolen, revoked or invalid certificates"
-        thumbprint = "98ed99a67886d020c564923b7df25e9ac019df26"
-    condition:
-        uint16(0) == 0x5a4d and
-        for any i in (0..pe.number_of_signatures): (
-            pe.signatures[i].subject contains "Microsoft Corporation" and
-            pe.signatures[i].serial == "33:00:00:01:40:96:a9:ee:70:56:fe:cc:07:00:01:00:00:01:40"
-        )
-}
-
 rule INDICATOR_KB_CERT_603bce30597089d068320fc77e400d06 {
     meta:
         author = "ditekSHen"
