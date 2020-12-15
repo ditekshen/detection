@@ -1,19 +1,20 @@
 import "pe"
 
-rule INDICATOR_SUSPICIOUS_Ransomware {
+rule INDICATOR_SUSPICIOUS_GENRansomware {
     meta:
         description = "detects command variations typically used by ransomware"
         author = "ditekSHen"
     strings:
         $cmd1 = "cmd /c \"WMIC.exe shadowcopy delet\"" ascii wide nocase
         $cmd2 = "vssadmin.exe Delete Shadows /all /quiet" ascii wide nocase
-        $cmd3 = "vssadmin Delete Shadows /all /quiet" ascii wide nocase
-        $cmd4 = "bcdedit /set {default} recoveryenabled no" ascii wide nocase
-        $cmd5 = "bcdedit /set {default} bootstatuspolicy ignoreallfailures" ascii wide nocase
+        $cmd3 = "Delete Shadows /all /quiet" ascii wide nocase
+        $cmd4 = "/set {default} recoveryenabled no" ascii wide nocase
+        $cmd5 = "/set {default} bootstatuspolicy ignoreallfailures" ascii wide nocase
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
-        $wp1 = "wbadmin delete catalog -quiet" ascii wide nocase
+        $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
+        $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
-        $wp3 = "wbadmin delete systemstatebackup" ascii wide nocase
+        $wp3 = "delete systemstatebackup" ascii wide nocase
     condition:
         (uint16(0) == 0x5a4d and 2 of ($cmd*) or (1 of ($cmd*) and 1 of ($wp*))) or (4 of them)
 }
@@ -416,8 +417,8 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
 
 rule INDICATOR_SUSPICIOUS_ClearWinLogs {
     meta:
-        description = "Detects executables containing commands for clearing Windows Event Logs"
         author = "ditekSHen"
+        description = "Detects executables containing commands for clearing Windows Event Logs"
     strings:
         $cmd1 = "wevtutil.exe clear-log" ascii wide nocase
         $cmd2 = "wevtutil.exe cl " ascii wide nocase
@@ -425,17 +426,23 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         $cmd4 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
         $cmd5 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
         $cmd6 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
+        $t1 = "wevtutil" ascii wide nocase
+        $l1 = "cl Application" ascii wide nocase
+        $l2 = "cl System" ascii wide nocase
+        $l3 = "cl Setup" ascii wide nocase
+        $l4 = "cl Security" ascii wide nocase
+        $l5 = "sl Security /e:false" ascii wide nocase
         $ne1 = "wevtutil.exe cl Aplicaci" fullword wide
         $ne2 = "wevtutil.exe cl Application /bu:C:\\admin\\backup\\al0306.evtx" fullword wide
         $ne3 = "wevtutil.exe cl Application /bu:C:\\admin\\backups\\al0306.evtx" fullword wide
     condition:
-        uint16(0) == 0x5a4d and (1 of ($cmd*) and not any of ($ne*))
+        uint16(0) == 0x5a4d and not any of ($ne*) and ((1 of ($cmd*)) or (1 of ($t*) and 4 of ($l*)))
 }
 
 rule INDICATOR_SUSPICIOUS_DisableWinDefender {
     meta:
-        description = "Detects executables containing artifcats associated with disabling Widnows Defender"
         author = "ditekSHen"
+        description = "Detects executables containing artifcats associated with disabling Widnows Defender"
     strings:
         $reg1 = "SOFTWARE\\Microsoft\\Windows Defender\\Features" ascii wide nocase
         $reg2 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
@@ -451,4 +458,46 @@ rule INDICATOR_SUSPICIOUS_DisableWinDefender {
         $s10 = "Set-MpPreference -SevereThreatDefaultAction 6" ascii wide nocase
     condition:
         uint16(0) == 0x5a4d and (1 of ($reg*) and 1 of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables containing anti-forensic artifcats of deletiing USN change journal. Observed in ransomware"
+    strings:
+        $cmd1 = "fsutil.exe" ascii wide nocase
+        $s1 = "usn deletejournal /D C:" ascii wide nocase
+        $s2 = "fsutil.exe usn deletejournal" ascii wide nocase
+        $s3 = "fsutil usn deletejournal" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($cmd*) and 1 of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_GENInfoStealer {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables containing common artifcats observed in infostealers"
+    strings:
+        $f1 = "FileZilla\\recentservers.xml" ascii wide
+        $f2 = "FileZilla\\sitemanager.xml" ascii wide
+        $f3 = "SOFTWARE\\\\Martin Prikryl\\\\WinSCP 2\\\\Sessions" ascii wide
+        $b1 = "Chrome\\User Data\\" ascii wide
+        $b2 = "Mozilla\\Firefox\\Profiles" ascii wide
+        $b3 = "Software\\Microsoft\\Internet Explorer\\IntelliForms\\Storage2" ascii wide
+        $b4 = "Opera Software\\Opera Stable\\Login Data" ascii wide
+        $b5 = "YandexBrowser\\User Data\\" ascii wide
+        $s1 = "key3.db" nocase ascii wide
+        $s2 = "key4.db" nocase ascii wide
+        $s3 = "cert8.db" nocase ascii wide
+        $s4 = "logins.json" nocase ascii wide
+        $s5 = "account.cfn" nocase ascii wide
+        $s6 = "wand.dat" nocase ascii wide
+        $s7 = "wallet.dat" nocase ascii wide
+        $a1 = "username_value" ascii wide
+        $a2 = "password_value" ascii wide
+        $a3 = "encryptedUsername" ascii wide
+        $a4 = "encryptedPassword" ascii wide
+        $a5 = "httpRealm" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and ((2 of ($f*) and 2 of ($b*) and 1 of ($s*) and 3 of ($a*)) or (14 of them))
 }
