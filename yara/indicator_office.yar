@@ -733,7 +733,7 @@ rule INDICATOR_PDF_IPDropper {
         uint32(0) == 0x46445025 and all of them
 }
 
-rule INDICATOR_OLE_Excel4Macros_DL {
+rule INDICATOR_OLE_Excel4Macros_DL1 {
     meta:
         description = "Detects OLE Excel 4 Macros documents acting as downloaders"
         author = "ditekSHen"
@@ -757,4 +757,54 @@ rule INDICATOR_OLE_Excel4Macros_DL {
         $fa_js = ".js" ascii nocase
     condition:
         uint16(0) == 0xcfd0 and (3 of ($s*) and 1 of ($cmd*) and 1 of ($fa*))
+}
+
+rule INDICATOR_OLE_Excel4Macros_DL2 {
+    meta:
+        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
+        author = "ditekSHen"
+    strings:
+        $e1 = "Macros Excel 4.0" ascii
+        $e2 = { 00 4d 61 63 72 6f 31 85 00 }
+        $a1 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
+        $a2 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
+        $a3 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-close
+        $a4 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-clos
+        $a5 = "auto_open" ascii nocase
+        $a6 = "auto_close" ascii nocase
+        $x1 = "* #,##0" ascii
+        $x2 = "=EXEC(CHAR(" ascii
+        $x3 = "-w 1 stARt`-s" ascii nocase
+        $x4 = ")&CHAR(" ascii
+        $x5 = "Reverse" fullword ascii
+    condition:
+        uint16(0) == 0xcfd0 and (1 of ($e*) and 1 of ($a*) and (#x1 > 3 or 2 of ($x*)))
+}
+
+rule INDICATOR_RTF_Embedded_Excel_URLDownloadToFile {
+    meta:
+        author = "ditekSHen"
+        description = "Detects RTF documents that embed Excel documents for detection evation."
+    strings:
+        // Excel
+        $clsid1 = "2008020000000000c000000000000046" ascii nocase
+        // Embedded Objects
+        $obj1 = "\\objhtml" ascii
+        $obj2 = "\\objdata" ascii
+        $obj3 = "\\objupdate" ascii
+        $obj4 = "\\objemb" ascii
+        $obj5 = "\\objautlink" ascii
+        $obj6 = "\\objlink" ascii
+        // OLE Signature
+        $ole1 = { d0 cf 11 e0 a1 b1 1a e1 }
+        $ole2 = "d0cf11e0a1b11ae1" ascii nocase
+        $ole3 = "64306366313165306131623131616531" ascii
+        $ole4 = "640a300a630a660a310a310a650a300a610a310a620a310a310a610a650a31"
+        $ole5 = { 64 30 63 66 [0-2] 31 31 65 30 61 31 62 31 31 61 65 31 }
+        $ole6 = "D0cf11E" ascii nocase
+        // Lib
+        $s1 = "55524c446f776e6c6f6164546f46696c6541" ascii nocase // URLDownloadToFile
+        $s2 = "55524c4d4f4e" ascii nocase                         // UrlMon
+    condition:
+        uint32(0) == 0x74725c7b and (1 of ($clsid*) and 1 of ($obj*) and 1 of ($ole*) and 1 of ($s*))
 }

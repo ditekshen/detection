@@ -283,18 +283,12 @@ rule INDICATOR_EXE_Packed_VMProtect {
                 pe.sections[i].name == ".vmp0" or
                 pe.sections[i].name == ".vmp1"
             )
+        ) or
+        for any i in (0 .. pe.number_of_sections - 1) : (
+            pe.sections[i].characteristics & 0x60000060 or
+            pe.sections[i].characteristics & 0xe0000060 or
+            pe.sections[i].characteristics & 0x60000040
         )
-}
-
-rule INDICATOR_EXE_Packed_Salfram {
-    meta:
-        author = "ditekSHen"
-        description = "Detects Salfram executables"
-        reference = "https://blog.talosintelligence.com/2020/09/salfram-robbing-place-without-removing.html"
-    strings:
-        $s1 = "This Salfram cannot be run is DOS mode" ascii
-    condition:
-        uint16(0) == 0x5a4d and all of them
 }
 
 rule INDICATOR_EXE_DotNET_Encrypted {
@@ -468,7 +462,7 @@ rule INDICATOR_EXE_Packed_SilentInstallBuilder {
         uint16(0) == 0x5a4d and 1 of them
 }
 
-rule INDICATOR_Packed_NyanXCat_CSharpLoader {
+rule INDICATOR_EXE_Packed_NyanXCat_CSharpLoader {
     meta:
         author = "ditekSHen"
         description = "Detects .NET executables utilizing NyanX-CAT C# Loader"
@@ -478,4 +472,34 @@ rule INDICATOR_Packed_NyanXCat_CSharpLoader {
         $s1 = { 00 50 72 6f 67 72 61 6d 00 4c 6f 61 64 65 72 00 4e 79 61 6e 00 }
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_EXE_Packed_Loader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects packed executables observed in Molerats"
+    strings:
+        $l1 = "loaderx86.dll" fullword ascii
+        $l2 = "loaderx86" fullword ascii
+        $l3 = "loaderx64.dll" fullword ascii
+        $l4 = "loaderx64" fullword ascii
+        $s1 = "ImportCall_Zw" wide
+        $s2 = "DllInstall" ascii wide
+        $s3 = "evb*.tmp" fullword wide
+        $s4 = "WARNING ZwReadFileInformation" ascii
+        $s5 = "LoadLibrary failed with module " fullword wide
+    condition:
+        uint16(0) == 0x5a4d and 2 of ($l*) and 4 of ($s*)
+}
+
+rule INDICATOR_EXE_Packed_Bonsai {
+    meta:
+        description = "Detects .NET executables developed using Bonsai"
+    strings:
+        $bonsai1 = "<Bonsai." ascii
+        $bonsai2 = "Bonsai.Properties" ascii
+        $bonsai3 = "Bonsai.Core.dll" fullword wide
+        $bonsai4 = "Bonsai.Design." wide
+    condition:
+        uint16(0) == 0x5a4d and 2 of ($bonsai*)
 }

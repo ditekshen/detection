@@ -415,6 +415,76 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
         uint16(0) == 0x5a4d and 6 of them
 }
 
+rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many cryptocurrency mining wallets or apps. Observed in information stealers"
+    strings:
+        $app1 = "Ethereum" nocase ascii wide
+        $app2 = "Bitcoin" nocase ascii wide
+        $app3 = "Litecoin" nocase ascii wide
+        $app4 = "NavCoin4" nocase ascii wide
+        $app5 = "ByteCoin" nocase ascii wide
+        $app6 = "PotCoin" nocase ascii wide
+        $app7 = "Gridcoin" nocase ascii wide
+        $app8 = "VERGE" nocase ascii wide
+        $app9 = "DogeCoin" nocase ascii wide
+        $app10 = "FlashCoin" nocase ascii wide
+        $app11 = "Sia" nocase ascii wide
+        $app12 = "Reddcoin" nocase ascii wide
+        $app13 = "Electrum" nocase ascii wide
+        $app14 = "Emercoin" nocase ascii wide
+        $app15 = "Exodus" nocase ascii wide
+        $app16 = "BBQCoin" nocase ascii wide
+        $app17 = "Franko" nocase ascii wide
+        $app18 = "IOCoin" nocase ascii wide
+        $app19 = "Ixcoin" nocase ascii wide
+        $app20 = "Mincoin" nocase ascii wide
+        $app21 = "YACoin" nocase ascii wide
+        $app22 = "Zcash" nocase ascii wide
+        $app23 = "devcoin" nocase ascii wide
+        $app24 = "Dash" nocase ascii wide
+        $app25 = "Monero" nocase ascii wide
+        $app26 = "Riot Games\\" nocase ascii wide
+        $app27 = "qBittorrent\\" nocase ascii wide
+        $app28 = "Battle.net\\" nocase ascii wide
+        $app29 = "Steam\\" nocase ascii wide
+        $app30 = "Valve\\Steam\\" nocase ascii wide
+        $app31 = "Anoncoin" nocase ascii wide
+        $app32 = "DashCore" nocase ascii wide
+        $app33 = "DevCoin" nocase ascii wide
+        $app34 = "DigitalCoin" nocase ascii wide
+        $app35 = "Electron" nocase ascii wide
+        $app36 = "ElectrumLTC" nocase ascii wide
+        $app37 = "FlorinCoin" nocase ascii wide
+        $app38 = "FrancoCoin" nocase ascii wide
+        $app39 = "JAXX" nocase ascii wide
+        $app40 = "MultiDoge" ascii wide
+        $app41 = "TerraCoin" ascii wide
+        $app42 = "Electrum-LTC" ascii wide
+        $app43 = "ElectrumG" ascii wide
+        $app44 = "Electrum-btcp" ascii wide
+        $app45 = "MultiBitHD" ascii wide
+        $app46 = "monero-project" ascii wide
+        $app47 = "Bitcoin-Qt" ascii wide
+        $app48 = "BitcoinGold-Qt" ascii wide
+        $app49 = "Litecoin-Qt" ascii wide
+        $app50 = "BitcoinABC-Qt" ascii wide
+        $app51 = "Exodus Eden" ascii wide
+        $app52 = "myether" ascii wide
+        $app53 = "factores-Binance" ascii wide
+        $app54 = "metamask" ascii wide
+        $app55 = "kucoin" ascii wide
+        $app56 = "cryptopia" ascii wide
+        $app57 = "binance" ascii wide
+        $app58 = "hitbtc" ascii wide
+        $app59 = "litebit" ascii wide
+        $app60 = "coinEx" ascii wide
+        $app61 = "blockchain" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and 6 of them
+}
+
 rule INDICATOR_SUSPICIOUS_ClearWinLogs {
     meta:
         author = "ditekSHen"
@@ -504,4 +574,138 @@ rule INDICATOR_SUSPICIOUS_GENInfoStealer {
         $a5 = "httpRealm" ascii wide
     condition:
         uint16(0) == 0x5a4d and ((2 of ($f*) and 2 of ($b*) and 1 of ($s*) and 3 of ($a*)) or (14 of them))
+}
+
+rule INDICATOR_SUSPICIOUS_NTLM_Exfiltration_IPPattern {
+    meta:
+        author = "ditekSHen"
+        description = "Detects NTLM hashes exfiltration patterns in command line and various file types"
+    strings:
+        // Example (CMD): net use \\1.2.3.4@80\t
+        $s1 = /net\suse\s\\\\([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (PDF): /F (\\\\IP@80\\t)
+        $s2 = /\/F\s\(\\\\\\\\([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (LNK): URL=file://IP@80/t.htm
+        $s3 = /URL=file:\/\/([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (ICO): IconFile=\\IP@80\t.ico
+        $s4 = /IconFile=\\\\([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (DOC, DOCX): Target="file://IP@80/t.dotx"
+        $s5 = /Target=\x22:\/\/([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (Subdoc ??): ///IP@80/t
+        $s6 = /\/\/\/([0-9]{1,3}\.){3}[0-9]{1,3}@(80|443|445)/ ascii wide
+        // Example (over SSL) - DavWWWRoot keyword actually triggers WebDAV forcibly
+        $s7 = /\\\\([0-9]{1,3}\.){3}[0-9]{1,3}@SSL@\d+\\DavWWWRoot/ ascii wide
+
+        // OOXML in addtion to PK magic
+        $mso1 = "word/" ascii
+        $mso2 = "ppt/" ascii
+        $mso3 = "xl/" ascii
+        $mso4 = "[Content_Types].xml" ascii
+    condition:
+        ((uint32(0) == 0x46445025 or (uint16(0) == 0x004c and uint32(4) == 0x00021401) or uint32(0) == 0x00010000 or (uint16(0) == 0x4b50 and 1 of ($mso*))) and 1 of ($s*)) or 1 of ($s*)
+}
+
+rule INDICATOR_SUSPICIOUS_PWSH_B64Encoded_Concatenated_FileEXEC {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PowerShell scripts containing patterns of base64 encoded files, concatenation and execution"
+    strings:
+        $b1 = "::WriteAllBytes(" ascii
+        $b2 = "::FromBase64String(" ascii
+        $b3 = "::UTF8.GetString(" ascii
+
+        $s1 = "-join" nocase ascii
+        $s2 = "[Char]$_"
+        $s3 = "reverse" nocase ascii
+        $s4 = " += " ascii
+
+        $e1 = "System.Diagnostics.Process" ascii
+        $e2 = /StartInfo\.(Filename|UseShellExecute)/ ascii
+        $e3 = /-eq\s'\.(exe|dll)'\)/ ascii
+        $e4 = /(Get|Start)-(Process|WmiObject)/ ascii
+    condition:
+        #s4 > 10 and ((3 of ($b*)) or (1 of ($b*) and 2 of ($s*) and 1 of ($e*)) or (8 of them))
+}
+
+rule INDICATOR_SUSPICIOUS_PWSH_AsciiEncoded_EXE {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PowerShell scripts containing ASCII encoded files"
+    strings:
+        $enc1 = "[char[]]([char]97..[char]122)" ascii
+        $enc2 = "[char[]]([char]65..[char]90)" ascii
+        $s1 = ".DownloadData($" ascii
+        $s2 = "[Net.SecurityProtocolType]::TLS12" ascii
+        $s3 = "::WriteAllBytes($" ascii
+        $s4 = "::FromBase64String($" ascii
+        $s5 = "Get-Random" ascii
+    condition:
+        1 of ($enc*) and 4 of ($s*)
+}
+
+rule INDICATOR_SUSPICIOUS_JS_Hex_B64Encoded_EXE {
+    meta:
+        author = "ditekSHen"
+        description = "Detects JavaScript files hex and base64 encoded executables"
+    strings:
+        $s1 = ".SaveToFile" ascii
+        $s2 = ".Run" ascii
+        $s3 = "ActiveXObject" ascii
+        $s4 = "fromCharCode" ascii
+        $s5 = "\\x66\\x72\\x6F\\x6D\\x43\\x68\\x61\\x72\\x43\\x6F\\x64\\x65" ascii
+        $binary = "\\x54\\x56\\x71\\x51\\x41\\x41" ascii
+        $pattern = /[\s\{\(\[=]_0x[0-9a-z]{3,6}/ ascii
+    condition:
+        $binary and $pattern and 2 of ($s*)
+}
+
+rule INDICATOR_SUSPICIOUS_JS_LocalPersistence {
+    meta:
+        author = "ditekSHen"
+        description = "Detects JavaScript files used for persistence and executable or script execution"
+    strings:
+        $s1 = "ActiveXObject" ascii
+        $s2 = "Shell.Application" ascii
+        $s3 = "ShellExecute" ascii
+
+        $ext1 = ".exe" ascii
+        $ext2 = ".ps1" ascii
+        $ext3 = ".lnk" ascii
+        $ext4 = ".hta" ascii
+        $ext5 = ".dll" ascii
+        $ext6 = ".vb" ascii
+        $ext7 = ".com" ascii
+        $ext8 = ".js" ascii
+
+        $action = "\"Open\"" ascii
+    condition:
+       $action and any of ($s*) and 1 of ($ext*)
+}
+
+rule INDICATOR_SUSPICIOUS_WMIC_Downloader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects files utilizing WMIC for whitelisting bypass and downloading second stage payloads"
+    strings:
+        $s1 = "WMIC.exe os get /format:\"http" wide
+        $s2 = "WMIC.exe computersystem get /format:\"http" wide
+        $s3 = "WMIC.exe dcomapp get /format:\"http" wide
+        $s4 = "WMIC.exe desktop get /format:\"http" wide
+    condition:
+        (uint16(0) == 0x004c or uint16(0) == 0x5a4d) and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_AMSI_Bypass {
+    meta:
+        author = "ditekSHen"
+        description = "Detects AMSI bypass pattern"
+    strings:
+        $v1_1 = "[Ref].Assembly.GetType(" ascii nocase
+        $v1_2 = "System.Management.Automation.AmsiUtils" ascii
+        $v1_3 = "GetField(" ascii nocase
+        $v1_4 = "amsiInitFailed" ascii
+        $v1_5 = "NonPublic,Static" ascii
+        $v1_6 = "SetValue(" ascii nocase
+    condition:
+        5 of them
 }

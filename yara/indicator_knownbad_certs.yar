@@ -3610,3 +3610,81 @@ rule INDICATOR_KB_CERT_1fb984d5a7296ba74445c23ead7d20aa {
             pe.signatures[i].serial == "1f:b9:84:d5:a7:29:6b:a7:44:45:c2:3e:ad:7d:20:aa"
         )
 }
+
+rule INDICATOR_KB_CERT_c314a8736f82c411b9f02076a6db4771 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9c49d7504551ad4ddffad206b095517a386e8a14"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Cbcbaeaabbfcebfcbbeeffeadfc" and
+            pe.signatures[i].serial == "c3:14:a8:73:6f:82:c4:11:b9:f0:20:76:a6:db:47:71"
+        )
+}
+
+rule INDICATOR_KB_CERT_5f7ef778d51cd33a5fc0d2e035ccd29d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "87229a298b8de0c7b8d4e23119af1e7850a073f5"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Ffadbcfabbe" and
+            pe.signatures[i].serial == "5f:7e:f7:78:d5:1c:d3:3a:5f:c0:d2:e0:35:cc:d2:9d"
+        )
+}
+
+rule INDICATOR_KB_CERT_00ab1d5e43e4dde77221381e21a764c082 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b84a817517ed50dbae5439be54248d30bd7a3290"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Dadddbffbfcbdaaeeccecbbffac" and
+            pe.signatures[i].serial == "00:ab:1d:5e:43:e4:dd:e7:72:21:38:1e:21:a7:64:c0:82"
+        )
+}
+
+rule INDICATOR_KB_CERT_4743e140c05b33f0449023946bd05acb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7b32c8cc35b86608c522a38c4fe38ebaa57f27675504cba32e0ab6babbf5094a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "STROI RENOV SARL" and
+            pe.signatures[i].serial == "47:43:e1:40:c0:5b:33:f0:44:90:23:94:6b:d0:5a:cb"
+        )
+}
+
+rule INDICATOR_KB_CERT_2c1ee9b583310b5e34a1ee6945a34b26 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7af96a09b6c43426369126cfffac018f11e5562cb64d32e5140cff3f138ffea4"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "OOO Artmarket" and
+            pe.signatures[i].serial == "2c:1e:e9:b5:83:31:0b:5e:34:a1:ee:69:45:a3:4b:26"
+        )
+}
+
+rule INDICATOR_KB_CERT_00d338f8a490e37e6c2be80a0e349929fa {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "480a9ce15fc76e03f096fda5af16e44e0d6a212d6f09a898f51ad5206149bbe1"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SAGUARO ApS" and
+            pe.signatures[i].serial == "00:d3:38:f8:a4:90:e3:7e:6c:2b:e8:0a:0e:34:99:29:fa"
+        )
+}
