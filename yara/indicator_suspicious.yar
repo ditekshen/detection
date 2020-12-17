@@ -483,7 +483,7 @@ rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
         $app61 = "blockchain" ascii wide
 
         $ne1 = "C:\\src\\pgriffais_incubator-w7\\Steam\\main\\src\\external\\libjingle-0.4.0\\talk/base/scoped_ptr.h" fullword wide
-        $ne2 = "\"%s\\bin\\%slauncher.exe\" -hproc %x -hthread %x -baseoverlayname %s\%s" fullword ascii
+        $ne2 = "\"%s\\bin\\%slauncher.exe\" -hproc %x -hthread %x -baseoverlayname %s\\%s" fullword ascii
     condition:
         uint16(0) == 0x5a4d and (not any of ($ne*) and 6 of them)
 }
