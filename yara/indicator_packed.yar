@@ -283,11 +283,6 @@ rule INDICATOR_EXE_Packed_VMProtect {
                 pe.sections[i].name == ".vmp0" or
                 pe.sections[i].name == ".vmp1"
             )
-        ) or
-        for any i in (0 .. pe.number_of_sections - 1) : (
-            pe.sections[i].characteristics & 0x60000060 or
-            pe.sections[i].characteristics & 0xe0000060 or
-            pe.sections[i].characteristics & 0x60000040
         )
 }
 

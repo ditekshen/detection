@@ -643,7 +643,7 @@ rule INDICATOR_SUSPICIOUS_PWSH_AsciiEncoded_EXE {
         $s4 = "::FromBase64String($" ascii
         $s5 = "Get-Random" ascii
     condition:
-        1 of ($enc*) and 4 of ($s*)
+        1 of ($enc*) and 4 of ($s*) and filesize < 2500KB
 }
 
 rule INDICATOR_SUSPICIOUS_JS_Hex_B64Encoded_EXE {
@@ -659,7 +659,7 @@ rule INDICATOR_SUSPICIOUS_JS_Hex_B64Encoded_EXE {
         $binary = "\\x54\\x56\\x71\\x51\\x41\\x41" ascii
         $pattern = /[\s\{\(\[=]_0x[0-9a-z]{3,6}/ ascii
     condition:
-        $binary and $pattern and 2 of ($s*)
+        $binary and $pattern and 2 of ($s*) and filesize < 2500KB
 }
 
 rule INDICATOR_SUSPICIOUS_JS_LocalPersistence {
@@ -682,7 +682,7 @@ rule INDICATOR_SUSPICIOUS_JS_LocalPersistence {
 
         $action = "\"Open\"" ascii
     condition:
-       $action and 2 of ($s*) and 1 of ($ext*)
+       $action and 2 of ($s*) and 1 of ($ext*) and filesize < 500KB
 }
 
 rule INDICATOR_SUSPICIOUS_WMIC_Downloader {
@@ -710,5 +710,44 @@ rule INDICATOR_SUSPICIOUS_AMSI_Bypass {
         $v1_5 = "NonPublic,Static" ascii
         $v1_6 = "SetValue(" ascii nocase
     condition:
-        5 of them
+        5 of them and filesize < 2000KB
+}
+
+rule INDICATOR_SUSPICIOUS_PE_ResourceTuner {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables with modified PE resources usning the unpaid version of Resource Tuner"
+    strings:
+        $s1 = "Modified by an unpaid evaluation copy of Resource Tuner 2 (www.heaventools.com)" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and all of them 
+}
+
+rule INDICATOR_SUSPICIOUS_ASEP_REG_Reverse {
+    meta:
+        author = "ditekSHen"
+        description = "Detects file containing reversed ASEP Autorun registry keys"
+    strings:
+        $s1 = "nuR\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s2 = "ecnOnuR\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s3 = "secivreSnuR\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s4 = "xEecnOnuR\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s5 = "ecnOsecivreSnuR\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s6 = "yfitoN\\nogolniW\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s7 = "tiniresU\\nogolniW\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s8 = "nuR\\rerolpxE\\seiciloP\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s9 = "stnenopmoC dellatsnI\\puteS evitcA\\tfosorciM" ascii wide nocase
+        $s10 = "sLLD_tinIppA\\swodniW\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s11 = "snoitpO noitucexE eliF egamI\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s12 = "llehS\\nogolniW\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s13 = "daol\\swodniW\\noisreVtnerruC\\TN swodniW\\tfosorciM" ascii wide nocase
+        $s14 = "daoLyaleDtcejbOecivreSllehS\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s15 = "nuRotuA\\rossecorP\\dnammoC\\tfosorciM" ascii wide nocase
+        $s16 = "putratS\\sredloF llehS resU\\rerolpxE\\noisreVtnerruC\\swodniW\\tfosorciM" ascii wide nocase
+        $s17 = "sllDtreCppA\\reganaM noisseS\\lortnoC\\teSlortnoCtnerruC\\metsyS" ascii wide nocase
+        $s18 = "sllDtreCppA\\reganaM noisseS\\lortnoC\\100teSlortnoC\\metsyS" ascii wide nocase
+        $s19 = ")tluafeD(\\dnammoC\\nepO\\llehS\\elifexE\\sessalC\\erawtfoS" ascii wide nocase
+        $s20 = ")tluafeD(\\dnammoC\\nepO\\llehS\\elifexE\\sessalC\\edoN2346woW\\erawtfoS" ascii wide nocase
+    condition:
+        1 of them and filesize < 2000KB
 }
