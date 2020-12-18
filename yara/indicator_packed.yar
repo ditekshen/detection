@@ -434,7 +434,7 @@ rule INDICATOR_EXE_Packed_Themida {
         snort2_sid = "930067-930069"
         snort3_sid = "930024"
     strings:
-        $s1 = "@.themida" fullword ascii
+        $s1 = ".themida" fullword ascii
     condition:
         uint16(0) == 0x5a4d and all of them or
         for any i in (0 .. pe.number_of_sections) : (

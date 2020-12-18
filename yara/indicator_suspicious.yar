@@ -630,7 +630,7 @@ rule INDICATOR_SUSPICIOUS_PWSH_B64Encoded_Concatenated_FileEXEC {
         #s4 > 10 and ((3 of ($b*)) or (1 of ($b*) and 2 of ($s*) and 1 of ($e*)) or (8 of them))
 }
 
-rule INDICATOR_SUSPICIOUS_PWSH_AsciiEncoded_EXE {
+rule INDICATOR_SUSPICIOUS_PWSH_AsciiEncoding_Pattern {
     meta:
         author = "ditekSHen"
         description = "Detects PowerShell scripts containing ASCII encoded files"
@@ -750,4 +750,23 @@ rule INDICATOR_SUSPICIOUS_ASEP_REG_Reverse {
         $s20 = ")tluafeD(\\dnammoC\\nepO\\llehS\\elifexE\\sessalC\\edoN2346woW\\erawtfoS" ascii wide nocase
     condition:
         1 of them and filesize < 2000KB
+}
+
+rule INDICATOR_SUSPICIOUS_SQLQuery_ConfidentialDataStore {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables containing SQL queries to confidential data stores. Observed in infostealers"
+    strings:
+        $select = "select " ascii wide nocase
+        $table1 = " from credit_cards" ascii wide nocase
+        $table2 = " from logins" ascii wide nocase
+        $table3 = " from cookies" ascii wide nocase
+        $table4 = " from moz_cookies" ascii wide nocase
+        $column1 = "name" ascii wide nocase
+        $column2 = "password_value" ascii wide nocase
+        $column3 = "encrypted_value" ascii wide nocase
+        $column4 = "card_number_encrypted" ascii wide nocase
+        $column5 = "isHttpOnly" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 2 of ($table*) and 2 of ($column*) and $select
 }

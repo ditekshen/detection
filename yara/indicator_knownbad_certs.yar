@@ -3688,3 +3688,81 @@ rule INDICATOR_KB_CERT_00d338f8a490e37e6c2be80a0e349929fa {
             pe.signatures[i].serial == "00:d3:38:f8:a4:90:e3:7e:6c:2b:e8:0a:0e:34:99:29:fa"
         )
 }
+
+rule INDICATOR_KB_CERT_778906d40695f65ba518db760df44cd3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1103debcb1e48f7dda9cec4211c0a7a9c1764252"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "\\xD0\\x9E\\xD0\\x9E\\xD0\\x9E \"\\xD0\\x98\\xD0\\x9D\\xD0\\xA2\\xD0\\x95\\xD0\\x9B\\xD0\\x9B\\xD0\\x98\\xD0\\xA2\"" and
+            pe.signatures[i].serial == "77:89:06:d4:06:95:f6:5b:a5:18:db:76:0d:f4:4c:d3"
+        )
+}
+
+rule INDICATOR_KB_CERT_45eb9187a2505d8e6c842e6d366ad0c8 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "63938d34572837514929fa7ae3cfebedf6d2cb65"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BAKERA s.r.o." and
+            pe.signatures[i].serial == "45:eb:91:87:a2:50:5d:8e:6c:84:2e:6d:36:6a:d0:c8"
+        )
+}
+
+rule INDICATOR_KB_CERT_cbc2af7d82295a8535f3b26b47522640 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "08d2c03d0959905b4b04caee1202b8ed748a8bd0"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Eabfdafffefaccaedaec" and
+            pe.signatures[i].serial == "cb:c2:af:7d:82:29:5a:85:35:f3:b2:6b:47:52:26:40"
+        )
+}
+
+rule INDICATOR_KB_CERT_0ca1d9391cf5fe3e696831d98d6c35a6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0689776ca5ca0ca9641329dc29efdb61302d7378"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "www.norton.com" and
+            pe.signatures[i].serial == "0c:a1:d9:39:1c:f5:fe:3e:69:68:31:d9:8d:6c:35:a6"
+        )
+}
+
+rule INDICATOR_KB_CERT_43a36a26ebc78e111a874d8211a95e3f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a346bda33b5b3bea04b299fe87c165c4f221645a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Efacefcafeabbdcbcea" and
+            pe.signatures[i].serial == "43:a3:6a:26:eb:c7:8e:11:1a:87:4d:82:11:a9:5e:3f"
+        )
+}
+
+rule INDICATOR_KB_CERT_5172caa2119185382343fcbe09c43bee {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "fd9b3f6b0eb9bd9baf7cbdc79ae7979b7ddad770"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Aefcdac" and
+            pe.signatures[i].serial == "51:72:ca:a2:11:91:85:38:23:43:fc:be:09:c4:3b:ee"
+        )
+}
