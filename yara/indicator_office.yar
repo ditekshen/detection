@@ -735,8 +735,8 @@ rule INDICATOR_PDF_IPDropper {
 
 rule INDICATOR_OLE_Excel4Macros_DL1 {
     meta:
-        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
         author = "ditekSHen"
+        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
     strings:
         $s1 = "Macros Excel 4.0" fullword ascii
         $s2 = { 00 4d 61 63 72 6f 31 85 00 }
@@ -761,17 +761,18 @@ rule INDICATOR_OLE_Excel4Macros_DL1 {
 
 rule INDICATOR_OLE_Excel4Macros_DL2 {
     meta:
-        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
         author = "ditekSHen"
+        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
     strings:
         $e1 = "Macros Excel 4.0" ascii
         $e2 = { 00 4d 61 63 72 6f 31 85 00 }
         $a1 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
         $a2 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
-        $a3 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-close
-        $a4 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-clos
-        $a5 = "auto_open" ascii nocase
-        $a6 = "auto_close" ascii nocase
+        $a3 = { 18 00 21 00 20 00 00 01 12 00 00 00 00 00 00 00 00 00 01 3a ff }    // auto-open
+        $a4 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-close
+        $a5 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-clos
+        $a6 = "auto_open" ascii nocase
+        $a7 = "auto_close" ascii nocase
         $x1 = "* #,##0" ascii
         $x2 = "=EXEC(CHAR(" ascii
         $x3 = "-w 1 stARt`-s" ascii nocase
@@ -807,4 +808,39 @@ rule INDICATOR_RTF_Embedded_Excel_URLDownloadToFile {
         $s2 = "55524c4d4f4e" ascii nocase                         // UrlMon
     condition:
         uint32(0) == 0x74725c7b and (1 of ($clsid*) and 1 of ($obj*) and 1 of ($ole*) and 1 of ($s*))
+}
+
+rule INDICATOR_OLE_Excel4Macros_DL3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects OLE Excel 4 Macros documents acting as downloaders"
+    strings:
+        $a1 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
+        $a2 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 01 3a 00 } // auto-open
+        $a3 = { 18 00 21 00 20 00 00 01 12 00 00 00 00 00 00 00 00 00 01 3a ff }    // auto-open
+        $a4 = { 18 00 17 00 20 00 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-close
+        $a5 = { 18 00 17 00 aa 03 00 01 07 00 00 00 00 00 00 00 00 00 00 02 3a 00 } // auto-clos
+        $a6 = "auto_open" ascii nocase
+        $a7 = "auto_close" ascii nocase
+        $s1 = "* #,##0" ascii
+        $s2 = "URLMon" ascii
+        $s3 = "DownloadToFileA" ascii
+        $s4 = "DllRegisterServer" ascii
+    condition:
+        uint16(0) == 0xcfd0 and 1 of ($a*) and all of ($s*) and #s1 > 3
+}
+
+rule INDICATOR_DOC_PhishingPatterns {
+    meta:
+        author = "ditekSHen"
+        description = "Detects OLE, RTF and PDF documents with common phishing strings"
+    strings:
+        $s1 = "PERFORM THE FOLLOWING STEPS TO PERFORM DECRYPTION" ascii nocase
+        $s2 = ", please click Enable Editing" ascii nocase
+        $s3 = ", please click Enable Content" ascii nocase
+        $s4 = "WHY I CANNOT OPEN THIS DOCUMENT?" ascii nocase
+        $s5 = "You are using iOS or Android, please use Desktop PC" ascii nocase
+        $s6 = "You are trying to view this document using Online Viewer" ascii nocase
+    condition:
+        (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025) and 2 of them
 }

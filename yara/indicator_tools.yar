@@ -289,7 +289,7 @@ rule INDICATOR_TOOL_PRV_AdvancedRun {
 rule INDICATOR_TOOL_PWS_Amady {
     meta:
         author = "ditekSHen"
-        description = "Detects password stealer DLL. Dropped by Amady"
+        description = "Detects password stealer DLL. Dropped by Amadey"
     strings:
         $s1 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\AppData" fullword ascii
         $s2 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows Messaging Subsystem\\Profiles\\Outlook" ascii
@@ -306,7 +306,7 @@ rule INDICATOR_TOOL_PWS_Amady {
 rule INDICATOR_TOOL_SCR_Amady {
     meta:
         author = "ditekSHen"
-        description = "Detects screenshot stealer DLL. Dropped by Amady"
+        description = "Detects screenshot stealer DLL. Dropped by Amadey"
     strings:
         $s1 = "User-Agent: Uploador" fullword ascii
         $s2 = "Content-Disposition: form-data; name=\"data\"; filename=\"" fullword ascii
