@@ -772,35 +772,6 @@ rule INDICATOR_SUSPICIOUS_SQLQuery_ConfidentialDataStore {
         uint16(0) == 0x5a4d and 2 of ($table*) and 2 of ($column*) and $select
 }
 
-rule INDICATOR_SUSPICIOUS_ProcessNameManipulation {
-    meta:
-        author = "ditekSHen"
-        description = "Detects executables containing manipulated Windows system process names"
-    strings:
-        $s1 = "svhost.exe" nocase ascii wide
-        $s2 = "svhhost.exe" nocase ascii wide
-        $s3 = "svvhost.exe" nocase ascii wide
-        $s4 = "svchosts.exe" nocase ascii wide
-        $s5 = "svch0st.exe" nocase ascii wide
-        $s6 = "svch0sts.exe" nocase ascii wide
-        $s7 = "svhostss.exe" nocase ascii wide
-        $s8 = "skhosts.exe" nocase ascii wide
-        $s9 = "svhoost" nocase ascii wide
-        $s10 = "svchosts" nocase ascii wide
-        $s11 = "scvhost.exe" nocase ascii wide
-        $s12 = "svschost.exe" nocase ascii wide
-        $s13 = "spoolsrv.exe" nocase ascii wide
-        $s14 = "spoolsvc.exe" nocase ascii wide
-        $s15 = "spoolsvr.exe" nocase ascii wide
-        $s16 = "spoolscv.exe" nocase ascii wide
-        $s17 = "dllh0st.exe" nocase ascii wide
-        $s18 = "srvhost.exe" nocase ascii wide
-        $s19 = "swchost.exe" nocase ascii wide
-        $s20 = "taskh0st.exe" nocase ascii wide
-    condition:
-       uint16(0) == 0x5a4d and 1 of them
-}
-
 rule INDICATOR_SUSPICIOUS_References_SecurityTools {
     meta:
         author = "ditekSHen"
@@ -840,28 +811,6 @@ rule INDICATOR_SUSPICIOUS_References_SecurityTools {
         $s32 = "CaptureFileMonitor.sys" nocase ascii wide
     condition:
          uint16(0) == 0x5a4d and 4 of them
-}
-
-rule INDICATOR_SUSPICIOUS_ClearHistory {
-    meta:
-        author = "ditekSHen"
-        description = "Detects bash scripts and ELF binaries that clear history"
-    strings:
-        $a1 = "history -c" ascii wide
-        $a2 = "export HISTFILE=/dev/null" ascii wide
-        $a3 = "export HISTFILE = /dev/null" ascii wide
-        $a4 = "export HISTSIZE=0" ascii wide
-        $a5 = "export HISTFILESIZE=0" ascii wide
-        $a6 = "export HISTSIZE = 0" ascii wide
-        $a7 = "export HISTFILESIZE = 0" ascii wide
-        $unset = "unset" ascii wide
-        $h1 = "HISTORY" ascii wide
-        $h2 = "HISTFILE" ascii wide
-        $h3 = "HISTSAVE" ascii wide
-        $h4 = "HISTZONE" ascii wide
-        $h5 = "HISTLOG" ascii wide
-    condition:
-        (uint16(0) == 0x457f or uint16(0) == 0x2f23) and (1 of ($a*) or ($unset and 1 of ($h*)))
 }
 
 rule INDICATOR_SUSPICIOUS_References_Sandbox_Artifacts {
