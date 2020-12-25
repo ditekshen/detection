@@ -499,6 +499,7 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         $cmd4 = "Foreach-Object {wevtutil cl \"$_\"}" ascii wide nocase
         $cmd5 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
         $cmd6 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
+        $cmd7 = "('wevtutil.exe el') DO wevtutil.exe cl \"%s\"" ascii wide nocase
         $t1 = "wevtutil" ascii wide nocase
         $l1 = "cl Application" ascii wide nocase
         $l2 = "cl System" ascii wide nocase
@@ -846,4 +847,47 @@ rule INDICATOR_SUSPICIOUS_References_Sandbox_Artifacts {
         $s26 = "d:\\sandbox_svc.exe" ascii wide
     condition:
         uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_Embedded_Gzip_B64Encoded_File {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables containing bas64 encoded gzip files"
+    strings:
+        $s1 = "H4sIAAAAAAAEA" ascii
+        $s2 = "AEAAAAAAAIs4H" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_RawGist_URL {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables containing URLs to raw contents of a Github gist"
+    strings:
+        $s1 = "https://gist.githubusercontent.com/" ascii wide
+        $s2 = "/raw/" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables containing URLs to raw contents of a paste"
+    strings:
+        $u1 = "https://pastebin.com/" ascii wide
+        $u2 = "https://paste.ee/" ascii wide
+        $u3 = "https:/pastecode.xyz/" ascii wide
+        $u4 = "https://rentry.co/" ascii wide
+        $u5 = "https://paste.nrecom.net/" ascii wide
+        $u6 = "https://hastebin.com/" ascii wide
+        $u7 = "https://privatebin.info/" ascii wide
+        $u8 = "https://penyacom.org/" ascii wide
+        $u9 = "https://controlc.com/" ascii wide
+        $u10 = "https://tiny-paste.com/" ascii wide
+        $u11 = "https://paste.teknik.io/" ascii wide
+        $s1 = "/raw/" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($u*) and all of ($s*))
 }
