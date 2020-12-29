@@ -715,7 +715,7 @@ rule INDICATOR_SUSPICIOUS_AMSI_Bypass {
         5 of them and filesize < 2000KB
 }
 
-rule INDICATOR_SUSPICIOUS_PE_ResourceTuner {
+rule INDICATOR_SUSPICIOUS_EXE_PE_ResourceTuner {
     meta:
         author = "ditekSHen"
         description = "Detects executables with modified PE resources using the unpaid version of Resource Tuner"
@@ -725,7 +725,7 @@ rule INDICATOR_SUSPICIOUS_PE_ResourceTuner {
         uint16(0) == 0x5a4d and all of them 
 }
 
-rule INDICATOR_SUSPICIOUS_ASEP_REG_Reverse {
+rule INDICATOR_SUSPICIOUS_EXE_ASEP_REG_Reverse {
     meta:
         author = "ditekSHen"
         description = "Detects file containing reversed ASEP Autorun registry keys"
@@ -754,7 +754,7 @@ rule INDICATOR_SUSPICIOUS_ASEP_REG_Reverse {
         1 of them and filesize < 2000KB
 }
 
-rule INDICATOR_SUSPICIOUS_SQLQuery_ConfidentialDataStore {
+rule INDICATOR_SUSPICIOUS_EXE_SQLQuery_ConfidentialDataStore {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing SQL queries to confidential data stores. Observed in infostealers"

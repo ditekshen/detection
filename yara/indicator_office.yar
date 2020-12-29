@@ -833,14 +833,28 @@ rule INDICATOR_OLE_Excel4Macros_DL3 {
 rule INDICATOR_DOC_PhishingPatterns {
     meta:
         author = "ditekSHen"
-        description = "Detects OLE, RTF and PDF documents with common phishing strings"
+        description = "Detects OLE, RTF, PDF and OOXML (decompressed) documents with common phishing strings"
     strings:
         $s1 = "PERFORM THE FOLLOWING STEPS TO PERFORM DECRYPTION" ascii nocase
-        $s2 = ", please click Enable Editing" ascii nocase
-        $s3 = ", please click Enable Content" ascii nocase
+        $s2 = "Enable Editing" ascii nocase
+        $s3 = "Enable Content" ascii nocase
         $s4 = "WHY I CANNOT OPEN THIS DOCUMENT?" ascii nocase
         $s5 = "You are using iOS or Android, please use Desktop PC" ascii nocase
         $s6 = "You are trying to view this document using Online Viewer" ascii nocase
     condition:
-        (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025) and 2 of them
+        (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025 or uint32(0) == 0x6d783f3c) and 2 of them
+}
+
+rule INDICATOR_OOXML_Excel4Macros_EXEC {
+    meta:
+        author = "ditekSHen"
+        description = "Detects OOXML (decompressed) documents with Excel 4 Macros XLM macrosheet"
+        clamav_sig = "INDICATOR.OOXML.Excel4MacrosEXEC"
+    strings:
+        $ms = "<xm:macrosheet" ascii nocase
+        $s1 = ">FORMULA.FILL(" ascii nocase
+        $s2 = ">REGISTER(" ascii nocase
+        $s3 = ">EXEC(" ascii nocase
+    condition:
+        uint32(0) == 0x6d783f3c and $ms and 2 of ($s*)
 }
