@@ -5,3 +5,7 @@ A set of interrelated network and host detection rules with the aim of improving
 ## Supported Rules
 
 Currently, Snort, Yara and ClamAV rules are supported. Additional singatures and formats are work in progress.
+
+## Scripts
+
+Currently, only scripts available are used to aid in auto-generation of hash-based and certificate-based Yara rules.
