@@ -469,7 +469,7 @@ rule INDICATOR_EXE_Packed_NyanXCat_CSharpLoader {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_EXE_Packed_Loader {
+rule INDICATOR_EXE_Packed_MOLLoader {
     meta:
         author = "ditekSHen"
         description = "Detects packed executables observed in Molerats"
@@ -500,17 +500,20 @@ rule INDICATOR_EXE_Packed_Bonsai {
         uint16(0) == 0x5a4d and 2 of ($bonsai*)
 }
 
+/*
+Can lead to many FPs?
+
 rule INDICATOR_EXE_Packed_UPolyX {
     meta:
         author = "ditekSHen"
         description = "Detects executables packed with UPolyX"
     strings:
         $s1 = { 81 fd 00 fb ff ff 83 d1 ?? 8d 14 2f 83 fd fc 76 ?? 8a 02 42 88 07 47 49 75 }
-        //$s2 = { e2 ?? ff ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 }
-        //$s3 = { 55 8b ec ?? 00 bd 46 00 8b ?? b9 ?? 00 00 00 80 ?? ?? 51 }
-        //$s4 = { bb ?? ?? ?? ?? 83 ec 04 89 1c 24 ?? b9 ?? 00 00 00 80 33 }
-        //$s5 = { e8 00 00 00 00 59 83 c1 07 51 c3 c3 }
-        //$s6 = { 83 ec 04 89 ?? 24 59 ?? ?? 00 00 00 }
+        $s2 = { e2 ?? ff ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 }
+        $s3 = { 55 8b ec ?? 00 bd 46 00 8b ?? b9 ?? 00 00 00 80 ?? ?? 51 }
+        $s4 = { bb ?? ?? ?? ?? 83 ec 04 89 1c 24 ?? b9 ?? 00 00 00 80 33 }
+        $s5 = { e8 00 00 00 00 59 83 c1 07 51 c3 c3 }
+        $s6 = { 83 ec 04 89 ?? 24 59 ?? ?? 00 00 00 }
     condition:
         uint16(0) == 0x5a4d and 1 of them and
         for any i in (0 .. pe.number_of_sections) : (
@@ -518,4 +521,44 @@ rule INDICATOR_EXE_Packed_UPolyX {
                 pe.sections[i].name contains "UPX"
             )
         )
+}
+*/
+
+rule INDICATOR_EXE_Packed_TriumphLoader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects TriumphLoader"
+        snort2_sid = "920101"
+        snort3_sid = "920099"
+    strings:
+        $id1 = "User-Agent: TriumphLoader" ascii wide
+        $id2 = "\\loader\\absent-loader-master\\client\\full\\absentclientfull\\absentclientfull\\absent\\json.hpp" wide
+        $id3 = "\\triumphloader\\triumphloaderfiles\\triumph\\json.h" wide
+        $s1 = "current == '\\\"'" fullword wide
+        $s2 = "00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263" ascii
+        $s3 = "646566676869707172737475767778798081828384858687888990919293949596979899object key" fullword ascii
+        $s4 = "endptr == token_buffer.data() + token_buffer.size()" fullword wide
+        $s5 = "last - first >= 2 + (-kMinExp - 1) + std::numeric_limits<FloatType>::max_digits10" fullword wide
+        $s6 = "p2 <= (std::numeric_limits<std::uint64_t>::max)() / 10" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($id*) or all of ($s*) or (3 of ($s*) and 1 of ($id*)) or (4 of them and pe.imphash() == "784001f4b755832ae9085d98afc9ce83"))
+}
+
+rule INDICATOR_EXE_Packed_LLVMLoader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects LLVM obfuscator/loader"
+    strings:
+        $s1 = "exeLoaderDll_LLVMO.dll" fullword ascii
+        $s2 = "StartFunc" fullword ascii
+        $s3 = "\\X!;\\Y!," fullword ascii
+        $b = { 64 6c 6c 00 53 74 61 72 74 46 75 6e 63 00 00 00
+               ?? ?? 00 00 00 00 00 00 00 00 00 ?? 96 01 00 00
+               ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+               00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? 00 00
+               00 00 00 00 00 00 00 00 00 00 00 ?? ?? 45 78 69
+               74 50 72 6f 63 65 73 73 00 4b 45 52 4e 45 4c 33
+               32 2e 64 6c 6c 00 00 00 00 00 00 }
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x0158) and ((pe.exports("StartFunc") and 1 of ($s*)) or all of ($s*) or ($b))
 }
