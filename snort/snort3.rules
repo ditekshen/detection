@@ -112,6 +112,7 @@ alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"MALWARE-CNC Win.Tro
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"MALWARE-CNC Win.Ransomware.Ziggy outbound connection detected"; flow:to_server,established; http_uri; content:"/ziggy/api/info.php",fast_pattern; content:"id="; metadata:ruleset community, service http; rem:"yara:MALWARE_Win_Ziggy, clamav:MALWARE.Win.Ransomware.Ziggy"; classtype:trojan-activity; sid:920096; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"MALWARE-CNC Win.Trojan.IceRAT stealer download check detected"; flow:to_server,established; http_uri; content:"/dow_stil.txt",fast_pattern; metadata:ruleset community, service http; classtype:trojan-activity; sid:920097; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"MALWARE-CNC Win.Trojan.IceRAT coinminer download check detected"; flow:to_server,established; http_uri; content:"/dow_klip.txt",fast_pattern; metadata:ruleset community, service http; classtype:trojan-activity; sid:920098; rev:1; )
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"MALWARE-CNC Win.Trojan.TriumphLoader outbound connection detected"; flow:to_server,established; http_header:field user-agent; content:"TriumphLoader",fast_pattern; metadata:ruleset community, service http; classtype:trojan-activity; sid:920099; rev:1; )
 ################################################
 # INDICATOR PACKED
 ################################################

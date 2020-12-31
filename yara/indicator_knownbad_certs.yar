@@ -1504,7 +1504,10 @@ rule INDICATOR_KB_CERT_00c04f5d17af872cb2c37e3367fe761d0d {
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "DES SP Z O O" and
-            pe.signatures[i].serial == "00:c0:4f:5d:17:af:87:2c:b2:c3:7e:33:67:fe:76:1d:0d"
+            (
+                pe.signatures[i].serial == "00:c0:4f:5d:17:af:87:2c:b2:c3:7e:33:67:fe:76:1d:0d" or
+                pe.signatures[i].serial == "c0:4f:5d:17:af:87:2c:b2:c3:7e:33:67:fe:76:1d:0d"    
+            )
         )
 }
 
@@ -3972,5 +3975,31 @@ rule INDICATOR_KB_CERT_0084817e07288a5025b9435570e7fec1d3 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "\\xE8\\xB4\\xBC\\xE8\\x89\\xBE\\xE5\\xBE\\xB7\\xE8\\xB4\\xBC\\xE6\\x8F\\x90\\xD0\\xAD\\xD0\\xAD\\xE6\\x8F\\x90\\xE8\\xB4\\xBC\\xE8\\xB4\\xBC\\xD0\\xAD\\xE5\\xBE\\xB7\\xE8\\xB4\\xBC\\xE8\\xB4\\xBC\\xE5\\xB0\\x94\\xE6\\x8F\\x90\\xE8\\x89\\xBE\\xE6\\x8F\\x90\\xE8\\xB4\\xBC\\xE5\\xB0\\x94\\xE6\\x8F\\x90\\xE8\\xB4\\xBC\\xE8\\x89\\xBE\\xD0\\xAD\\xE8\\x89\\xBE" and
             pe.signatures[i].serial == "00:84:81:7e:07:28:8a:50:25:b9:43:55:70:e7:fe:c1:d3"
+        )
+}
+
+rule INDICATOR_KB_CERT_4d26bab89fcf7ff9fa4dc4847e563563 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2be34a7a39df38f66d5550dcfa01850c8f165c81"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "qvarn pty ltd" and
+            pe.signatures[i].serial == "4d:26:ba:b8:9f:cf:7f:f9:fa:4d:c4:84:7e:56:35:63"
+        )
+}
+
+rule INDICATOR_KB_CERT_00d9d419c9095a79b1f764297addb935da {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7d45ec21c0d6fd0eb84e4271655eb0e005949614"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "OOO Nova soft" and
+            pe.signatures[i].serial == "00:d9:d4:19:c9:09:5a:79:b1:f7:64:29:7a:dd:b9:35:da"
         )
 }

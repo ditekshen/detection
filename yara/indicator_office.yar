@@ -841,6 +841,9 @@ rule INDICATOR_DOC_PhishingPatterns {
         $s4 = "WHY I CANNOT OPEN THIS DOCUMENT?" ascii nocase
         $s5 = "You are using iOS or Android, please use Desktop PC" ascii nocase
         $s6 = "You are trying to view this document using Online Viewer" ascii nocase
+        $s7 = "This document was edited in a different version of" ascii nocase
+        $s8 = "document are locked and will not" ascii nocase
+        $s9 = "until the \"Enable\" button is pressed" ascii nocase
     condition:
         (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025 or uint32(0) == 0x6d783f3c) and 2 of them
 }
