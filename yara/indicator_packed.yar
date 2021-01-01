@@ -530,6 +530,7 @@ rule INDICATOR_EXE_Packed_TriumphLoader {
         description = "Detects TriumphLoader"
         snort2_sid = "920101"
         snort3_sid = "920099"
+        clamav_sig = "INDICATOR.Packed.TriumphLoader"
     strings:
         $id1 = "User-Agent: TriumphLoader" ascii wide
         $id2 = "\\loader\\absent-loader-master\\client\\full\\absentclientfull\\absentclientfull\\absent\\json.hpp" wide
@@ -548,6 +549,7 @@ rule INDICATOR_EXE_Packed_LLVMLoader {
     meta:
         author = "ditekSHen"
         description = "Detects LLVM obfuscator/loader"
+        clamav_sig = "INDICATOR.Packed.LLVMLoader"
     strings:
         $s1 = "exeLoaderDll_LLVMO.dll" fullword ascii
         $s2 = "StartFunc" fullword ascii
