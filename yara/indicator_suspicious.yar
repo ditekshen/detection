@@ -860,15 +860,16 @@ rule INDICATOR_SUSPICIOUS_EXE_Embedded_Gzip_B64Encoded_File {
         uint16(0) == 0x5a4d and 1 of them
 }
 
-rule INDICATOR_SUSPICIOUS_EXE_RawGist_URL {
+rule INDICATOR_SUSPICIOUS_EXE_RawGitHub_URL {
      meta:
         author = "ditekSHen"
         description = "Detects executables containing URLs to raw contents of a Github gist"
     strings:
-        $s1 = "https://gist.githubusercontent.com/" ascii wide
-        $s2 = "/raw/" ascii wide
+        $url1 = "https://gist.githubusercontent.com/" ascii wide
+        $url2 = "https://raw.githubusercontent.com/" ascii wide
+        $raw = "/raw/" ascii wide
     condition:
-        uint16(0) == 0x5a4d and all of them
+        uint16(0) == 0x5a4d and (($url1 and $raw) or ($url2))
 }
 
 rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
@@ -878,7 +879,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
     strings:
         $u1 = "https://pastebin.com/" ascii wide
         $u2 = "https://paste.ee/" ascii wide
-        $u3 = "https:/pastecode.xyz/" ascii wide
+        $u3 = "https://pastecode.xyz/" ascii wide
         $u4 = "https://rentry.co/" ascii wide
         $u5 = "https://paste.nrecom.net/" ascii wide
         $u6 = "https://hastebin.com/" ascii wide
@@ -890,4 +891,31 @@ rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
         $s1 = "/raw/" ascii wide
     condition:
         uint16(0) == 0x5a4d and (1 of ($u*) and all of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_PWSH_Downloader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects downloader agent, using PowerShell"
+    strings:
+        $pwsh = "powershell" fullword ascii
+        $bitstansfer = "Start-BitsTransfer" ascii wide
+        $s1 = "GET %s HTTP/1" ascii
+        $s2 = "User-Agent:" ascii
+        $s3 = "-WindowStyle Hidden -ep bypass -file \"" fullword ascii
+        $s4 = "LdrLoadDll" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and $pwsh and ($bitstansfer or 2 of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_PWSH_PasswordCredential_RetrievePassword {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PowerShell content designed to retrieve passwords from host"
+    strings:
+        $namespace = "Windows.Security.Credentials.PasswordVault" ascii wide nocase
+        $method1 = "RetrieveAll()" ascii wide nocase
+        $method2 = ".RetrievePassword()" ascii wide nocase
+    condition:
+       $namespace and 1 of ($method*)
 }

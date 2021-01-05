@@ -3700,7 +3700,7 @@ rule INDICATOR_KB_CERT_778906d40695f65ba518db760df44cd3 {
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
-            pe.signatures[i].subject contains "\\xD0\\x9E\\xD0\\x9E\\xD0\\x9E \"\\xD0\\x98\\xD0\\x9D\\xD0\\xA2\\xD0\\x95\\xD0\\x9B\\xD0\\x9B\\xD0\\x98\\xD0\\xA2\"" and
+            //pe.signatures[i].subject contains "\\xD0\\x9E\\xD0\\x9E\\xD0\\x9E \"\\xD0\\x98\\xD0\\x9D\\xD0\\xA2\\xD0\\x95\\xD0\\x9B\\xD0\\x9B\\xD0\\x98\\xD0\\xA2\"" and
             pe.signatures[i].serial == "77:89:06:d4:06:95:f6:5b:a5:18:db:76:0d:f4:4c:d3"
         )
 }
@@ -4042,3 +4042,70 @@ rule INDICATOR_KB_CERT_c501b7176b29a3cb737361cf85414874 {
             pe.signatures[i].serial == "c5:01:b7:17:6b:29:a3:cb:73:73:61:cf:85:41:48:74"
         )
 }
+
+rule INDICATOR_KB_CERT_234bf4ef892df307373638014b35ab37 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "348f7e395c77e29c1e17ef9d9bd24481657c7ae7"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            //pe.signatures[i].subject contains "\\xD0\\x9E\\xD0\\x9E\\xD0\\x9E \"\\xD0\\xA1\\xD0\\x9A\\xD0\\x90\\xD0\\xA0\\xD0\\x90\\xD0\\x91\\xD0\\x95\\xD0\\x99\"" and
+            pe.signatures[i].serial == "23:4b:f4:ef:89:2d:f3:07:37:36:38:01:4b:35:ab:37"
+        )
+}
+
+rule INDICATOR_KB_CERT_c650ae531100a91389a7f030228b3095 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "05eebfec568abc5fc4b2fd9e5eca087b02e49f53"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "POKEROWA STRUNA SP Z O O" and
+            pe.signatures[i].serial == "c6:50:ae:53:11:00:a9:13:89:a7:f0:30:22:8b:30:95"
+        )
+}
+
+rule INDICATOR_KB_CERT_4f8ebbb263f3cbe558d37118c43f8d58 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3f27a35fe7af06977138d02ad83ddbf13a67b7c3"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Maxthon Technology Co, Ltd." and
+            pe.signatures[i].serial == "4f:8e:bb:b2:63:f3:cb:e5:58:d3:71:18:c4:3f:8d:58"
+        )
+}
+
+rule INDICATOR_KB_CERT_01ea62e443cb2250c870ff6bb13ba98e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f293eed3ff3d548262cddc43dce58cfc7f763622"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Tencent Technology(Shenzhen) Company Limited" and
+            pe.signatures[i].serial == "01:ea:62:e4:43:cb:22:50:c8:70:ff:6b:b1:3b:a9:8e"
+        )
+}
+
+/*
+rule INDICATOR_KB_CERT_726ee7f5999b9e8574ec59969c04955c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects IntelliAdmin commercial remote administration signing certificate"
+        thumbprint = "2fb952bc1e3fcf85f68d6e2cb5fc46a519ce3fa9"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "IntelliAdmin, LLC" and
+            pe.signatures[i].serial == "72:6e:e7:f5:99:9b:9e:85:74:ec:59:96:9c:04:95:5c"
+        )
+}
+*/
