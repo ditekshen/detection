@@ -576,7 +576,7 @@ rule INDICATOR_XML_OLE_AutoLoad_Document {
         uint32(0) == 0x6d783f3c and all of ($s*)
 }
 
-rule Indicator_XML_Squiblydoo_1 {
+rule INDICATOR_XML_Squiblydoo_1 {
     meta:
         description = "detects Squiblydoo variants extracted from exploit RTF documents."
         author = "ditekSHen"

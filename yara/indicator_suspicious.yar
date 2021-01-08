@@ -1,4 +1,5 @@
 import "pe"
+import "time"
 
 rule INDICATOR_SUSPICIOUS_GENRansomware {
     meta:
@@ -918,4 +919,38 @@ rule INDICATOR_SUSPICIOUS_PWSH_PasswordCredential_RetrievePassword {
         $method2 = ".RetrievePassword()" ascii wide nocase
     condition:
        $namespace and 1 of ($method*)
+}
+
+rule INDICATOR_SUSPICIOUS_Stomped_PECompilation_Timestamp_InTheFuture {
+    meta:
+        author = "ditekSHen"
+        description = "Detect executables with stomped PE compilation timestamp that is greater than local current time"
+    condition:
+        uint16(0) == 0x5a4d and pe.timestamp > time.now()
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_UACBypass_EnvVarScheduledTasks {
+    meta:
+        author = "ditekSHen"
+        description = "detects Windows exceutables potentially bypassing UAC (ab)using Environment Variables in Scheduled Tasks"
+    strings:
+        $s1 = "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup" ascii wide
+        $s2 = "\\Environment" ascii wide
+        $s3 = "schtasks" ascii wide
+        $s4 = "/v windir" ascii wide
+    condition:
+       all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_UACBypass_fodhelper {
+    meta:
+        author = "ditekSHen"
+        description = "detects Windows exceutables potentially bypassing UAC using fodhelper.exe"
+    strings:
+        $s1 = "\\software\\classes\\ms-settings\\shell\\open\\command" ascii wide nocase
+        $s2 = "DelegateExecute" ascii wide
+        $s3 = "fodhelper" ascii wide
+        $s4 = "ConsentPromptBehaviorAdmin" ascii wide
+    condition:
+       all of them
 }

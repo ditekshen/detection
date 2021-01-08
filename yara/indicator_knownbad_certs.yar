@@ -4109,3 +4109,43 @@ rule INDICATOR_KB_CERT_726ee7f5999b9e8574ec59969c04955c {
         )
 }
 */
+
+rule INDICATOR_KB_CERT_0a005d2e2bcd4137168217d8c727747c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "df788aa00eb400b552923518108eb1d4f5b7176b"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Beijing JoinHope Image Technology Ltd." and
+            pe.signatures[i].serial == "0a:00:5d:2e:2b:cd:41:37:16:82:17:d8:c7:27:74:7c"
+        )
+}
+
+rule INDICATOR_KB_CERT_00d3d74ae548830d5b1bca9856e16c564a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3f996b75900d566bc178f36b3f4968e2a08365e8"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Insite Software Inc." and
+            pe.signatures[i].serial == "00:d3:d7:4a:e5:48:83:0d:5b:1b:ca:98:56:e1:6c:56:4a"
+        )
+}
+
+rule INDICATOR_KB_CERT_41f8253e1ceafbfd8e49f32c34a68f9e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "02e739740b88328ac9c4a6de0ee703b7610f977b"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Shenzhen Smartspace Software technology Co.,Limited" and
+            pe.signatures[i].serial == "41:f8:25:3e:1c:ea:fb:fd:8e:49:f3:2c:34:a6:8f:9e"
+        )
+}
+
