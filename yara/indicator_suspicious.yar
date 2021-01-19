@@ -955,6 +955,7 @@ rule INDICATOR_SUSPICIOUS_EXE_UACBypass_fodhelper {
        all of them
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_Contains_MD5_Named_DLL {
     meta:
         author = "ditekSHen"
@@ -964,3 +965,4 @@ rule INDICATOR_SUSPICIOUS_EXE_Contains_MD5_Named_DLL {
     condition:
        uint16(0) == 0x5a4d and all of them
 }
+*/
