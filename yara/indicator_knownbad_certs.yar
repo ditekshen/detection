@@ -4149,3 +4149,95 @@ rule INDICATOR_KB_CERT_41f8253e1ceafbfd8e49f32c34a68f9e {
         )
 }
 
+rule INDICATOR_KB_CERT_0a5b4f67ad8b22afc2debe6ce5f8f679 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1213865af7ddac1568830748dbdda21498dfb0ba"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Farad LLC" and
+            pe.signatures[i].serial == "0a:5b:4f:67:ad:8b:22:af:c2:de:be:6c:e5:f8:f6:79"
+        )
+}
+
+rule INDICATOR_KB_CERT_65cd323c2483668b90a44a711d2a6b98 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "188810cf106a5f38fe8aa0d494cbd027da9edf97"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "OOO Giperion" and
+            pe.signatures[i].serial == "65:cd:32:3c:24:83:66:8b:90:a4:4a:71:1d:2a:6b:98"
+        )
+}
+
+rule INDICATOR_KB_CERT_0d07705fa0e0c4827cc287cfcdec20c4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ba5f8c3d961d0df838361b4aa5ec600a70abe1e0"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Binance Holdings Limited" and
+            pe.signatures[i].serial == "0d:07:70:5f:a0:e0:c4:82:7c:c2:87:cf:cd:ec:20:c4"
+        )
+}
+
+rule INDICATOR_KB_CERT_0f7e3fda780e47e171864d8f5386bc05 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1e3dd5576fc57fa2dd778221a60bd33f97087f74"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Louhos Solutions Oy" and
+            pe.signatures[i].serial == "0f:7e:3f:da:78:0e:47:e1:71:86:4d:8f:53:86:bc:05"
+        )
+}
+
+rule INDICATOR_KB_CERT_0f9d91c6aba86f4e54cbb9ef57e68346 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3c92c9274ab6d3dd520b13029a2490c4a1d98bc0"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Kaspersky Lab" and
+            pe.signatures[i].serial == "0f:9d:91:c6:ab:a8:6f:4e:54:cb:b9:ef:57:e6:83:46"
+        )
+}
+
+rule INDICATOR_KB_CERT_07f9d80b85ceff7ee3f58dc594fe66b6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bf9254919794c1075ea027889c5d304f1121c653"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Kaspersky Lab" and
+            pe.signatures[i].serial == "07:f9:d8:0b:85:ce:ff:7e:e3:f5:8d:c5:94:fe:66:b6"
+        )
+}
+
+/*
+rule INDICATOR_KB_CERT_c2cbbd946bc3fdb944d522931d61d51a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with Sordum Software certificate, particularly Defender Control"
+        thumbprint = "f5e71628a478a248353bf0177395223d2c5a0e43"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Sordum Software" and
+            pe.signatures[i].serial == "c2:cb:bd:94:6b:c3:fd:b9:44:d5:22:93:1d:61:d5:1a"
+        )
+}
+*/

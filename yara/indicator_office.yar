@@ -863,7 +863,7 @@ rule INDICATOR_OOXML_Excel4Macros_EXEC {
         uint32(0) == 0x6d783f3c and $ms and 2 of ($s*)
 }
 
-rule INDICATOR_OLE_CreateObject_Suspiciou_Pattern_1 {
+rule INDICATOR_OLE_CreateObject_Suspicious_Pattern_1 {
     meta:
         author = "ditekSHen"
         description = "Detects OLE with specific waves of pattern"

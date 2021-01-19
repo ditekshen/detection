@@ -597,3 +597,46 @@ rule INDICATOR_TOOL_REM_IntelliAdmin {
     condition:
         uint16(0) == 0x5a4d and (all of ($pdb*) or 2 of ($s*))
 }
+
+rule INDICATOR_TOOL_PET_SharpWMI {
+    meta:
+        author = "ditekSHen"
+        description = "Detects SharpWMI"
+    strings:
+        $s1 = "scriptKillTimeout" fullword ascii
+        $s2 = "RemoteWMIExecuteWithOutput" fullword ascii
+        $s3 = "RemoteWMIFirewall" fullword ascii
+        $s4 = "iex([char[]](@({0})|%{{$_-bxor{1}}}) -join '')" fullword wide
+        $s5 = "\\\\{0}\\root\\subscription" fullword wide
+        $s6 = "_Context##RANDOM##" fullword wide
+        $s7 = "executevbs" fullword wide
+        $s8 = "scriptb64" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_PET_DefenderControl {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Defender Control"
+    strings:
+        $s1 = "Windows Defender Control" wide
+        $s2 = "www.sordum.org" wide ascii
+        $s3 = "AutoIt" wide
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_TOOL_PET_Mulit_VenomAgent {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Venom Proxy Agent"
+    strings:
+        $s1 = "github.com/Dliv3/Venom/" ascii
+        $s2 = "3HpKQVB3nT3qaNQPT-ZU/SKJ55ofz5TEmg5O3ROWA/CUs_-gfa04tGVO633Z4G/OSeEpRRb0Sq_5R6ArIi-" ascii
+        $s3 = "venom_agent -" ascii
+        $s4 = "bufferssh-userauthtransmitfileunknown portwirep: p->m= != sweepgen" ascii
+        $s5 = "golang.org/x/crypto/ssh.(*handshakeTransport).readPacket"
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f or uint16(0) == 0xfacf) and 3 of them
+}

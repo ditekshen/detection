@@ -469,7 +469,7 @@ rule INDICATOR_EXE_Packed_NyanXCat_CSharpLoader {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_EXE_Packed_MOLLoader {
+rule INDICATOR_EXE_Packed_Loader {
     meta:
         author = "ditekSHen"
         description = "Detects packed executables observed in Molerats"
