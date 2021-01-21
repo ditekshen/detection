@@ -4241,3 +4241,55 @@ rule INDICATOR_KB_CERT_c2cbbd946bc3fdb944d522931d61d51a {
         )
 }
 */
+
+rule INDICATOR_KB_CERT_6e3b09f43c3a0fd53b7d600f08fae2b5 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "677054afcbfecb313f93f27ed159055dc1559ad0"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Divisible Limited" and
+            pe.signatures[i].serial == "6e:3b:09:f4:3c:3a:0f:d5:3b:7d:60:0f:08:fa:e2:b5"
+        )
+}
+
+rule INDICATOR_KB_CERT_00aa12c95d2bcde0ce141c6f1145b0d7ef {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1383c4aa2900882f9892696c537e83f1fb20a43f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "PROKON, OOO" and
+            pe.signatures[i].serial == "00:aa:12:c9:5d:2b:cd:e0:ce:14:1c:6f:11:45:b0:d7:ef"
+        )
+}
+
+rule INDICATOR_KB_CERT_03e9eb4dff67d4f9a554a422d5ed86f3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8f2de7e770a8b1e412c2de131064d7a52da62287"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "philandro Software GmbH" and
+            pe.signatures[i].serial == "03:e9:eb:4d:ff:67:d4:f9:a5:54:a4:22:d5:ed:86:f3"
+        )
+}
+
+rule INDICATOR_KB_CERT_4a7f07c5d4ad2e23f9e8e03f0e229dd4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b37e7f9040c4adc6d29da6829c7a35a2f6a56fdb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Danalis LLC" and
+            pe.signatures[i].serial == "4a:7f:07:c5:d4:ad:2e:23:f9:e8:e0:3f:0e:22:9d:d4"
+        )
+}

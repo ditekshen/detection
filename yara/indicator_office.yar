@@ -688,9 +688,9 @@ rule INDICATOR_RTF_MalVer_Objects {
         uint32(0) == 0x74725c7b and ((not uint8(4) == 0x66 or not uint8(5) == 0x31 or not uint8(6) == 0x5c) and 1 of ($obj*))
 }
 
-rule INDICATOR_PPT_MAL {
+rule INDICATOR_PPT_MasterMana {
     meta:
-        description = "Detects known malicious pattern in PowerPoint documents."
+        description = "Detects known malicious pattern (MasterMana) in PowerPoint documents."
         author = "ditekSHen"
     strings:
         $a1 = "auto_close" ascii nocase
@@ -863,6 +863,7 @@ rule INDICATOR_OOXML_Excel4Macros_EXEC {
         uint32(0) == 0x6d783f3c and $ms and 2 of ($s*)
 }
 
+/*
 rule INDICATOR_OLE_CreateObject_Suspicious_Pattern_1 {
     meta:
         author = "ditekSHen"
@@ -876,3 +877,4 @@ rule INDICATOR_OLE_CreateObject_Suspicious_Pattern_1 {
     condition:
         uint16(0) == 0xcfd0 and 1 of ($action*) and 2 of ($s*) and $pattern
 }
+*/

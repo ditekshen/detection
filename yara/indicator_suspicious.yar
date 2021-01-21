@@ -164,6 +164,7 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxHookingDLL {
         $dll21 = "LOG_API32.DLL" nocase fullword ascii wide
         $dll22 = "vmcheck32.dll" nocase ascii wide
         $dll23 = "vmcheck64.dll" nocase ascii wide
+        $dll24 = "cuckoomon.dll" nocase ascii wide
     condition:
         uint16(0) == 0x5a4d and 3 of them
 }
