@@ -2720,7 +2720,6 @@ rule INDICATOR_KB_CERT_00c88af896b6452241fe00e3aaec11b1f8 {
         )
 }
 
-/*
 rule INDICATOR_KB_CERT_09e015e98e4fabcc9ac43e042c96090d {
     meta:
         author = "ditekSHen"
@@ -2735,7 +2734,6 @@ rule INDICATOR_KB_CERT_09e015e98e4fabcc9ac43e042c96090d {
             pe.signatures[i].serial == "09:e0:15:e9:8e:4f:ab:cc:9a:c4:3e:04:2c:96:09:0d"
         )
 }
-*/
 
 rule INDICATOR_KB_CERT_118d813d830f218c0f46d4fc {
     meta:
@@ -3036,9 +3034,6 @@ rule INDICATOR_KB_CERT_4808c88ea243eefa47610d5f5f0d02a2 {
         )
 }
 
-/*
-AprelTech, llc
-Silent Install Builder
 rule INDICATOR_KB_CERT_2f184a6f054dc9f7c74a63714b14ce33 {
     meta:
         author = "ditekSHen"
@@ -3051,7 +3046,6 @@ rule INDICATOR_KB_CERT_2f184a6f054dc9f7c74a63714b14ce33 {
             pe.signatures[i].serial == "2f:18:4a:6f:05:4d:c9:f7:c7:4a:63:71:4b:14:ce:33"
         )
 }
-*/
 
 rule INDICATOR_KB_CERT_00ced72cc75aa0ebce09dc0283076ce9b1 {
     meta:
@@ -4095,7 +4089,6 @@ rule INDICATOR_KB_CERT_01ea62e443cb2250c870ff6bb13ba98e {
         )
 }
 
-/*
 rule INDICATOR_KB_CERT_726ee7f5999b9e8574ec59969c04955c {
     meta:
         author = "ditekSHen"
@@ -4108,7 +4101,6 @@ rule INDICATOR_KB_CERT_726ee7f5999b9e8574ec59969c04955c {
             pe.signatures[i].serial == "72:6e:e7:f5:99:9b:9e:85:74:ec:59:96:9c:04:95:5c"
         )
 }
-*/
 
 rule INDICATOR_KB_CERT_0a005d2e2bcd4137168217d8c727747c {
     meta:
@@ -4227,7 +4219,6 @@ rule INDICATOR_KB_CERT_07f9d80b85ceff7ee3f58dc594fe66b6 {
         )
 }
 
-/*
 rule INDICATOR_KB_CERT_c2cbbd946bc3fdb944d522931d61d51a {
     meta:
         author = "ditekSHen"
@@ -4240,7 +4231,6 @@ rule INDICATOR_KB_CERT_c2cbbd946bc3fdb944d522931d61d51a {
             pe.signatures[i].serial == "c2:cb:bd:94:6b:c3:fd:b9:44:d5:22:93:1d:61:d5:1a"
         )
 }
-*/
 
 rule INDICATOR_KB_CERT_6e3b09f43c3a0fd53b7d600f08fae2b5 {
     meta:
@@ -4291,5 +4281,44 @@ rule INDICATOR_KB_CERT_4a7f07c5d4ad2e23f9e8e03f0e229dd4 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "Danalis LLC" and
             pe.signatures[i].serial == "4a:7f:07:c5:d4:ad:2e:23:f9:e8:e0:3f:0e:22:9d:d4"
+        )
+}
+
+rule INDICATOR_KB_CERT_c6d7ad852af211bf48f19cc0242dcd72 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bddcef09f222ea4270d4a1811c10f4fcf98e4125"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "APDZQKILIIQVIJSCTY" and
+            pe.signatures[i].serial == "c6:d7:ad:85:2a:f2:11:bf:48:f1:9c:c0:24:2d:cd:72"
+        )
+}
+
+rule INDICATOR_KB_CERT_0084888d5a12228e8950683ecdab62fe7a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "390b23ed9750745e8441e35366b294a2a5c66fcd"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Ub30 Limited" and
+            pe.signatures[i].serial == "00:84:88:8d:5a:12:22:8e:89:50:68:3e:cd:ab:62:fe:7a"
+        )
+}
+
+rule INDICATOR_KB_CERT_709d547a2f09d39c4c2334983f2cbf50 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f10095c5e36e6bce0759f52dd11137756adc3b53"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BMUZVYUGWSQWLAIISX" and
+            pe.signatures[i].serial == "70:9d:54:7a:2f:09:d3:9c:4c:23:34:98:3f:2c:bf:50"
         )
 }
