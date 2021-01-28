@@ -8,7 +8,6 @@ Notes:
     - Identities may be used as false flags
 */
 
-
 rule INDICATOR_KB_ID_BazarLoader {
     meta:
         author = "ditekShen"
@@ -20,7 +19,6 @@ rule INDICATOR_KB_ID_BazarLoader {
     condition:
         uint16(0) == 0x5a4d and any of them
 }
-
 
 rule INDICATOR_KB_ID_Ransomware_LockerGoga {
     meta:
@@ -133,6 +131,39 @@ rule INDICATOR_KB_ID_Ransomware_Epsilon {
         $s1 = "neftet@tutanota.com" ascii wide nocase
     condition:
         any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_Thanos {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Thanos ransomware"
+    strings:
+        $s1 = "my-contact-email@protonmail.com" ascii wide nocase
+        $s2 = "get-my-data@protonmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_LNK_BOI_MAC {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Windows Shortcut .lnk files with previously known bad Birth Object ID and MAC address combination"
+    strings:
+        // Birth Object IDs
+        $boi1 = { 2C ED AC EC 94 7A E8 11 9F DE 00 0C 29 A1 A9 40 }
+        $boi2 = { 3F 54 89 18 46 CB E8 11 BD 0E 08 00 27 6D D5 D9 }
+        $boi3 = { DE 63 02 FE 57 A2 E8 11 92 E8 5C F3 70 8B 16 F2 }
+        $boi4 = { C2 CC 13 98 18 B9 E2 41 82 40 54 A8 AD E2 0A 9A }
+        $boi5 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D }
+        $boi6 = { E4 51 EC 20 66 61 EA 11 85 CD B2 FC 36 31 EE 21 }
+        // Mac Addresses
+        $mac1 = { 00 0C 29 A1 A9 40 }
+        $mac2 = { 08 00 27 6D D5 D9 }
+        $mac3 = { 5C F3 70 8B 16 F2 }
+        $mac4 = { 00 0C 29 5A 39 04 }
+        $mac5 = { B2 FC 36 31 EE 21 }
+    condition:
+      uint16(0) == 0x004c and uint32(4) == 0x00021401 and filesize < 3KB and (1 of ($boi*) and 1 of ($mac*))
 }
 
 rule INDICATOR_KB_ID_Infostealer {
@@ -908,4 +939,59 @@ rule INDICATOR_KB_ID_Infostealer {
         $account768 = "ach@accauto.co" ascii wide nocase
     condition:
         any of them
+}
+
+rule INDICATOR_KB_GoBuildID_Zebrocy {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"l6RAKXh3Wg1yzn63nita/b2_Y0DGY05NFWuZ_4gUT/H91sCRktnyyYVzECfvvA/l8f-yII0L_miSjIe-VQu\"" ascii
+        $s2 = "Go build ID: \"fiGGvLVFcvIhuJsSaail/jLt9TEPQiusg7IpRkp4H/hlcoXZIfsl1D4521LqEL/yL8dN86mCNc39WqQTgGn\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_GoStealer {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"xQV-b1Fr7d576TTTpbXi/gq4FgVQqMcg--9tmY13y/76rKNEUBENlDFDcecmm_/mbw17A_6WrROaNCYDEQF\"" ascii
+        $s2 = "Go build ID: \"x4VqrSSsx8iysxVdfB-z/gIF3p7SUxiZsVgTuq7bN/93XHuILGnGYq2L83fRpj/eoY6nTqwk1sdMHTaXzlw\"" ascii
+        $s3 = "Go build ID: \"BPRThIYWbHcZQQ4K1y2t/2mO0-FjLC50P0QZuMTgC/9i6TYw_akiEF9ZPN0s3p/s1XoqXr7EyXMDVw5TTP3\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_GoldenAxe {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"BrJuyMRdiZ7pC9Cah0is/rbDB__hXWimivbSGiCLi/B35SPLQwHal3ccR2gXNx/hEmVzhJWWatsrKwnENh_\"" ascii
+        $s2 = "Go build ID: \"5bgieaBe9PcZCZf23WFp/bCZ0AUHYlqQmX8GJASV6/fGxRLMDDYrTm1jcLMt8j/Wof3n5634bwiwLHFKHTn\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_Nemty {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"R6dvaUktgv2SjVXDoMdo/kKgwagwoLRC88DpIXAmx/eipNq7_PQCTCOhZ6Q74q/RHJkCaNdTbd6qgYiA-EC\"" ascii
+        $s2 = "Go build ID: \"vsdndTwlj03gbEoDu06S/anJkXGh7N08537M0RMms/VG58d99axcdeD_z1JIko/tfDVbCdWUId-VX90kuT7\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_QnapCrypt {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"XcBqbQohm7UevdYNABvs/2RcJz1616naXSRu2xvTX/b6F3Jt1-5WAIexSyzeun/MpHqs5fJA5G2D9gVuUCe\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
 }

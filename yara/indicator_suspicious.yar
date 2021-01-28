@@ -13,6 +13,7 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd5 = "/set {default} bootstatuspolicy ignoreallfailures" ascii wide nocase
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
         $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
+        $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase
         $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
         $wp3 = "delete systemstatebackup" ascii wide nocase
@@ -775,7 +776,7 @@ rule INDICATOR_SUSPICIOUS_EXE_SQLQuery_ConfidentialDataStore {
         uint16(0) == 0x5a4d and 2 of ($table*) and 2 of ($column*) and $select
 }
 
-rule INDICATOR_SUSPICIOUS_References_SecurityTools {
+rule INDICATOR_SUSPICIOUS_References_SecTools {
     meta:
         author = "ditekSHen"
         description = "Detects executables referencing many IR and analysis tools"
@@ -812,6 +813,52 @@ rule INDICATOR_SUSPICIOUS_References_SecurityTools {
         $s30 = "CaptureProcessMonitor.sys" nocase ascii wide
         $s31 = "CaptureRegistryMonitor.sys" nocase ascii wide
         $s32 = "CaptureFileMonitor.sys" nocase ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_SUSPICIOUS_References_SecTools_B64Encoded {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many base64-encoded IR and analysis tools names"
+    strings:
+        $s1 = "VGFza21ncg==" ascii wide  // Taskmgr
+        $s2 = "dGFza21ncg==" ascii wide  // taskmgr
+        $s3 = "UHJvY2Vzc0hhY2tlcg" ascii wide // ProcessHacker
+        $s4 = "cHJvY2V4cA" ascii wide  // procexp
+        $s5 = "cHJvY2V4cDY0" ascii wide  // procexp64
+        $s6 = "aHR0cCBhbmFseXplci" ascii wide // http analyzer
+        $s7 = "ZmlkZGxlcg" ascii wide // fiddler
+        $s8 = "ZWZmZXRlY2ggaHR0cCBzbmlmZmVy" ascii wide // effetech http sniffer
+        $s9 = "ZmlyZXNoZWVw" ascii wide // firesheep
+        $s10 = "SUVXYXRjaCBQcm9mZXNzaW9uYWw" ascii wide // IEWatch Professional
+        $s11 = "ZHVtcGNhcA" ascii wide // dumpcap
+        $s12 = "d2lyZXNoYXJr" ascii wide //wireshark
+        $s13 = "c3lzaW50ZXJuYWxzIHRjcHZpZXc" ascii wide // sysinternals tcpview
+        $s14 = "TmV0d29ya01pbmVy" ascii wide // NetworkMiner
+        $s15 = "TmV0d29ya1RyYWZmaWNWaWV3" ascii wide // NetworkTrafficView
+        $s16 = "SFRUUE5ldHdvcmtTbmlmZmVy" ascii wide // HTTPNetworkSniffer
+        $s17 = "dGNwZHVtcA" ascii wide // tcpdump
+        $s18 = "aW50ZXJjZXB0ZXI" ascii wide // intercepter
+        $s19 = "SW50ZXJjZXB0ZXItTkc" ascii wide // Intercepter-NG
+        $s20 = "b2xseWRiZw" ascii wide // ollydbg
+        $s21 = "eDY0ZGJn" ascii wide // x64dbg
+        $s22 = "eDMyZGJn" ascii wide // x32dbg
+        $s23 = "ZG5zcHk" ascii wide // dnspy
+        $s24 = "ZGU0ZG90" ascii wide // de4dot
+        $s25 = "aWxzcHk" ascii wide // ilspy
+        $s26 = "ZG90cGVla" ascii wide // dotpeek
+        $s27 = "aWRhNjQ" ascii wide // ida64
+        $s28 = "UkRHIFBhY2tlciBEZXRlY3Rvcg" ascii wide // RDG Packer Detector
+        $s29 = "Q0ZGIEV4cGxvcmVy" ascii wide // CFF Explorer
+        $s30 = "UEVpRA" ascii wide // PEiD
+        $s31 = "cHJvdGVjdGlvbl9pZA" ascii wide // protection_id
+        $s32 = "TG9yZFBF" ascii wide // LordPE
+        $s33 = "cGUtc2lldmU=" ascii wide // pe-sieve
+        $s34 = "TWVnYUR1bXBlcg" ascii wide // MegaDumper
+        $s35 = "VW5Db25mdXNlckV4" ascii wide // UnConfuserEx
+        $s36 = "VW5pdmVyc2FsX0ZpeGVy" ascii wide // Universal_Fixer
+        $s37 = "Tm9GdXNlckV4" ascii wide // NoFuserEx
     condition:
          uint16(0) == 0x5a4d and 4 of them
 }
@@ -967,3 +1014,13 @@ rule INDICATOR_SUSPICIOUS_EXE_Contains_MD5_Named_DLL {
        uint16(0) == 0x5a4d and all of them
 }
 */
+
+rule INDICATOR_SUSPICIOUS_Finger_Download_Pattern {
+    meta:
+        author = "ditekSHen"
+        description = "Detects files embedding and abusing the finger command for download"
+    strings:
+        $pat1 = /finger(\.exe)?\s.{1,50}@.{7,}\|/ ascii wide
+    condition:
+       any of them
+}
