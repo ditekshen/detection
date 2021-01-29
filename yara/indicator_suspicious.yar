@@ -243,7 +243,7 @@ rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
         author = "ditekSHen"
     strings:
         $s1 = "Uran\\User Data" nocase ascii wide
-        $s2 = "Amigo\\User\\User Data" nocase ascii wide
+        $s2 = "Amigo\\User Data" nocase ascii wide
         $s3 = "Torch\\User Data" nocase ascii wide
         $s4 = "Chromium\\User Data" nocase ascii wide
         $s5 = "Nichrome\\User Data" nocase ascii wide
@@ -301,6 +301,20 @@ rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
         $s57 = "\\AdLibs\\" nocase ascii wide
         $s58 = "Moonchild Production\\Pale Moon" nocase ascii wide
         $s59 = "Firefox\\Profiles" nocase ascii wide
+        $s60 = "AVG\\Browser\\User Data" nocase ascii wide
+        $s61 = "Kinza\\User Data" nocase ascii wide
+        $s62 = "URBrowser\\User Data" nocase ascii wide
+        $s63 = "AVAST Software\\Browser\\User Data" nocase ascii wide
+        $s64 = "SalamWeb\\User Data" nocase ascii wide
+        $s65 = "Slimjet\\User Data" nocase ascii wide
+        $s66 = "Iridium\\User Data" nocase ascii wide
+        $s67 = "Blisk\\User Data" nocase ascii wide
+        $s68 = "uCozMedia\\Uran\\User Data" nocase ascii wide
+        $s69 = "setting\\modules\\ChromiumViewer" nocase ascii wide
+        $s70 = "Citrio\\User Data" nocase ascii wide
+        $s71 = "Coowon\\User Data" nocase ascii wide
+        $s72 = "liebao\\User Data" nocase ascii wide
+        $s73 = "Edge\\User Data" nocase ascii wide
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 6 of them
 }
@@ -363,6 +377,8 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
         $s35 = "Microsoft\\Windows Live Mail"  nocase ascii wide
         $s36 = "Google\\Google Talk" nocase ascii wide
         $s37 = "Yahoo\\Pager" nocase ascii wide
+        $s38 = "BatMail\\" nocase ascii wide
+        $s39 = "POP Peeper\\poppeeper.ini" nocase ascii wide
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
@@ -414,6 +430,11 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
         $s40 = "MAS-Soft\\FTPInfo\\" ascii wide
         $s41 = "SoftX.org\\FTPClient\\Sites" ascii wide
         $s42 = "BulletProof Software\\BulletProof FTP Client\\" ascii wide
+        $s43 = "BitKinex\\bitkinex.ds" ascii wide
+        $s44 = "Frigate3\\FtpSite.XML" ascii wide
+        $s45 = "Directory Opus\\ConfigFiles" ascii wide
+        $s56 = "SoftX.org\\FTPClient\\Sites" ascii wide
+        $s57 = "South River Technologies\\WebDrive\\Connections" ascii wide
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }

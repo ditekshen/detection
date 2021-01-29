@@ -154,14 +154,17 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $boi2 = { 3F 54 89 18 46 CB E8 11 BD 0E 08 00 27 6D D5 D9 }
         $boi3 = { DE 63 02 FE 57 A2 E8 11 92 E8 5C F3 70 8B 16 F2 }
         $boi4 = { C2 CC 13 98 18 B9 E2 41 82 40 54 A8 AD E2 0A 9A }
-        $boi5 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D }
-        $boi6 = { E4 51 EC 20 66 61 EA 11 85 CD B2 FC 36 31 EE 21 }
+        $boi5 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D } // MineBridge
+        $boi6 = { E4 51 EC 20 66 61 EA 11 85 CD B2 FC 36 31 EE 21 } // MineBridge
+        $boi7 = { 6E DD CE 86 0F 07 90 4B AF 18 38 2F 97 FB 53 62 } // ZINC
+        $boi8 = { 25 41 87 AE F1 D2 EA 11 93 97 00 50 56 C0 00 08 } // ZINC
         // Mac Addresses
         $mac1 = { 00 0C 29 A1 A9 40 }
         $mac2 = { 08 00 27 6D D5 D9 }
         $mac3 = { 5C F3 70 8B 16 F2 }
         $mac4 = { 00 0C 29 5A 39 04 }
-        $mac5 = { B2 FC 36 31 EE 21 }
+        $mac5 = { B2 FC 36 31 EE 21 } // MineBridge
+        $mac6 = { 00 50 56 C0 00 08 } // ZINC
     condition:
       uint16(0) == 0x004c and uint32(4) == 0x00021401 and filesize < 3KB and (1 of ($boi*) and 1 of ($mac*))
 }

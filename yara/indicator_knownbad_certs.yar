@@ -4441,3 +4441,55 @@ rule INDICATOR_KB_CERT_2abd2eef14d480dfea9ca9fdd823cf03 {
             pe.signatures[i].serial == "2a:bd:2e:ef:14:d4:80:df:ea:9c:a9:fd:d8:23:cf:03"
         )
 }
+
+rule INDICATOR_KB_CERT_08622b9dd9d78e67678ecc21e026522e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a7d86073742ea55af134e07a00aefa355dc123be"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Kayak Republic af 2015 APS" and
+            pe.signatures[i].serial == "08:62:2b:9d:d9:d7:8e:67:67:8e:cc:21:e0:26:52:2e"
+        )
+}
+
+rule INDICATOR_KB_CERT_5a17d5de74fd8f09df596df3123139bb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1da887a57dddd7376a18f75841559c9682f78b04"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ACTA FIS d.o.o." and
+            pe.signatures[i].serial == "5a:17:d5:de:74:fd:8f:09:df:59:6d:f3:12:31:39:bb"
+        )
+}
+
+rule INDICATOR_KB_CERT_15da61d7e1a631803431561674fb9b90 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9a9bc3974e3cbbabdeb2b6debdc0455586e128a4"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "JAY DANCE STUDIO d.o.o." and
+            pe.signatures[i].serial == "15:da:61:d7:e1:a6:31:80:34:31:56:16:74:fb:9b:90"
+        )
+}
+
+rule INDICATOR_KB_CERT_58aa64564a50e8b2d6e31d5cd6250fde {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a7b43a5190e6a72c68e20f661f69ddc24b5a2561"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Foreground" and
+            pe.signatures[i].serial == "58:aa:64:56:4a:50:e8:b2:d6:e3:1d:5c:d6:25:0f:de"
+        )
+}
