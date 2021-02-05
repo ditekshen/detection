@@ -1042,6 +1042,7 @@ rule INDICATOR_SUSPICIOUS_Finger_Download_Pattern {
         description = "Detects files embedding and abusing the finger command for download"
     strings:
         $pat1 = /finger(\.exe)?\s.{1,50}@.{7,}\|/ ascii wide
+        $ne1 = "Nmap service detection probe list" ascii
     condition:
-       any of them
+       not any of ($ne*) and any of ($pat*)
 }

@@ -4493,3 +4493,188 @@ rule INDICATOR_KB_CERT_58aa64564a50e8b2d6e31d5cd6250fde {
             pe.signatures[i].serial == "58:aa:64:56:4a:50:e8:b2:d6:e3:1d:5c:d6:25:0f:de"
         )
 }
+
+rule INDICATOR_KB_CERT_00bbd4dc3768a51aa2b3059c1bad569276 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "36936c4aa401c3bbeb227ce5011ec3bdc02fdd14"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "JJ ELECTRICAL SERVICES LIMITED" and
+            pe.signatures[i].serial == "00:bb:d4:dc:37:68:a5:1a:a2:b3:05:9c:1b:ad:56:92:76"
+        )
+}
+
+rule INDICATOR_KB_CERT_3a236f003bdefc0c55aa42d9c6c0b08e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5ba147ebae6089f99823b1640c305b337b1a4c36"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Assurio" and
+            pe.signatures[i].serial == "3a:23:6f:00:3b:de:fc:0c:55:aa:42:d9:c6:c0:b0:8e"
+        )
+}
+
+rule INDICATOR_KB_CERT_010000000001302693cb45 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bc5fcb5a2b5e0609e2609cff5e272330f79b2375"
+        hash = "74069d20e8b8299590420c9af2fdc8856c14d94929c285948585fc89ab2f938f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AutoIt Consulting Ltd" and
+            pe.signatures[i].serial == "01:00:00:00:00:01:30:26:93:cb:45"
+        )
+}
+
+rule INDICATOR_KB_CERT_0407abb64e9990180789eacb81f5f914 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bcb40c7d23c9db41766c780b5388fb70f3d570bf"
+        hash = "f1fdac82e4e4da91ba2a9d8122a5f27e11a8342308b18376b189d2cc7468557b"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "VideoLAN" and
+            pe.signatures[i].serial == "04:07:ab:b6:4e:99:90:18:07:89:ea:cb:81:f5:f9:14"
+        )
+}
+
+rule INDICATOR_KB_CERT_3f8d23c136ae9cbeeac7605b24ec0391 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ff481ea6a887f3b5b941ff7d99a6cdf90c814c40"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Bandicam Company" and
+            pe.signatures[i].serial == "3f:8d:23:c1:36:ae:9c:be:ea:c7:60:5b:24:ec:03:91"
+        )
+}
+
+rule INDICATOR_KB_CERT_3972443af922b751d7d36c10dd313595 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d89e3bd43d5d909b47a18977aa9d5ce36cee184c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Sore Loser Games ApS" and
+            pe.signatures[i].serial == "39:72:44:3a:f9:22:b7:51:d7:d3:6c:10:dd:31:35:95"
+        )
+}
+
+rule INDICATOR_KB_CERT_37f3384b16d4eef0a9b3344b50f1d8a3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3fcdcf15c35ef74dc48e1573ad1170b11a623b40"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Sore Loser Games ApS" and
+            pe.signatures[i].serial == "37:f3:38:4b:16:d4:ee:f0:a9:b3:34:4b:50:f1:d8:a3"
+        )
+}
+
+rule INDICATOR_KB_CERT_00b3969cd6b2f913acc99c3f61fc14852f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bd9cadcfb5cde90f493a92e43f49bf99db177724"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "S.O.M GmbH" and
+            pe.signatures[i].serial == "00:b3:96:9c:d6:b2:f9:13:ac:c9:9c:3f:61:fc:14:85:2f"
+        )
+}
+
+rule INDICATOR_KB_CERT_0d83e7f47189cdbfc7fa3e5f58882329 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ba4bf6d8caac468c92dd7cd4303cbdb2c9f58886"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "THE WIZARD GIFT CORPORATION" and
+            pe.signatures[i].serial == "0d:83:e7:f4:71:89:cd:bf:c7:fa:3e:5f:58:88:23:29"
+        )
+}
+
+rule INDICATOR_KB_CERT_008385684419ab26a3f2640b1496e1fe94 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ee1d7d90957f3f2ccfcc069f5615a5bafdac322f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "CAUSE FOR CHANGE LTD" and
+            pe.signatures[i].serial == "00:83:85:68:44:19:ab:26:a3:f2:64:0b:14:96:e1:fe:94"
+        )
+}
+
+rule INDICATOR_KB_CERT_1aec3d3f752a38617c1d7a677d0b5591 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1d41b9f7714f221d76592e403d2fbb0f0310e697"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SILVER d.o.o." and
+            pe.signatures[i].serial == "1a:ec:3d:3f:75:2a:38:61:7c:1d:7a:67:7d:0b:55:91"
+        )
+}
+
+rule INDICATOR_KB_CERT_e5b2af04ea4b84a94609a47eba3164ec {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7785d50066faee71d1a463584c1a97f34431ddfe"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "RRGRQJRWZHRTLFAUVK" and
+            pe.signatures[i].serial == "e5:b2:af:04:ea:4b:84:a9:46:09:a4:7e:ba:31:64:ec"
+        )
+}
+
+rule INDICATOR_KB_CERT_Dummy01 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint1 = "16b7eb40b97149f49e8ec885b0a7fa7598f5a00f"
+        thumbprint2 = "902bf957b57f134619443d80cb8767250e034110"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Dummy certificate" and
+            pe.signatures[i].serial == "01"
+        )
+}
+
+rule INDICATOR_KB_CERT_00a7e1dc5352c3852c5523030f57f2425c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "09232474b95fc2cfb07137e1ada82de63ffe6fcd"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Pushka LLC" and
+            pe.signatures[i].serial == "00:a7:e1:dc:53:52:c3:85:2c:55:23:03:0f:57:f2:42:5c"
+        )
+}

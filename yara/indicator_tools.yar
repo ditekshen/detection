@@ -653,3 +653,55 @@ rule INDICATOR_TOOL_HFS_WebServer {
     condition:
         uint16(0) == 0x5a4d and all of them
 }
+
+rule INDICATOR_TOOL_PROX_lanproxy {
+    meta:
+        author = "ditekSHen"
+        description = "Detects lanproxy-go-client"
+    strings:
+        $s1 = "serverShare" fullword ascii
+        $s2 = "parkingOnChan" fullword ascii
+        $s3 = "{{join .Names \", \"}}{{\"\\t\"}}{{.Usage}}{{end}}{{end}}{{end}}{{end}}{{" ascii
+        $s4 = "</table></thead></tbody>" fullword ascii
+        $s5 = "value=aacute;abreve;addressagrave;alt -> andand;angmsd;angsph;any -> apacir;approx;articleatilde;barvee;barwed;bdoUxXvbecaus;ber" ascii
+        $s6 = "/dev/urandom127.0.0.1:" ascii
+        $s7 = "non-IPv4 addressnon-IPv6 addressntrianglelefteq;object is remotepacer: H_m_prev=reflect mismatchregexp: Compile(remote I/O error" ascii
+        $s8 = ".WithDeadline(.in-addr.arpa." ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and 6 of them
+}
+
+rule INDICATOR_TOOL_PET_Peirates {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Kubernetes penetration tool Peirates"
+    strings:
+        $s1 = "DeprecatedServiceAccount" fullword ascii
+        $s2 = "LivenessProbe" fullword ascii
+        $s3 = "\\t\\tkubectl expose rs nginx --port=80 --target-port=8000" ascii
+        $s4 = "\\t\\tkubectl run hazelcast --image=hazelcast --port=5701" ascii
+        $s5 = "COMPREPLY[$i]=${COMPREPLY[$i]#\"$colon_word\"}" ascii
+        $s6 = "%*polymorphichelpers.HistoryViewerFunc" ascii
+        $s7 = "ListenAndServeTLS" ascii
+        $s8 = "DownwardAPI" ascii
+        $s9 = "; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);proto:" ascii
+        $s10 = "name: attack-" ascii
+    condition:
+       uint16(0) == 0x457f and 9 of them
+}
+
+rule INDICATOR_TOOL_PET_BOtB {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Break out the Box (BOtB)"
+    strings:
+        $s1 = "to unallocated span%%!%c(*big.Float=%s), RecursionDesired: /usr/share/zoneinfo//{Bucket}/{Key+}?acl/{Bucket}?accelerate/{Bucket}?encryption/{Bucket}?" ascii
+        $s2 = "exploit CVE-2019-5736 with command: [ERROR] In Enabling CGROUP Notifications -> 'echo 1 > [INFO] CGROUP may exist, attempting exploit regardless" ascii
+        $s3 = "main.execShellCmd" ascii
+        $s4 = "[*] Data uploaded to:[+]" ascii
+        $s5 = "whitespace or line breakfailed to find credentials in the environment.failed to get %s EC2 instance role credentialsfirst" ascii
+        $s6 = "This process will exit IF an EXECVE is called in the Container or if the Container is manually stoppedPerform reverse DNS lookups" ascii
+        $s7 = "http: request too largehttp://100.100.100.200/http://169.254.169.254/index out of range" ascii
+    condition:
+       uint16(0) == 0x457f and 6 of them
+}

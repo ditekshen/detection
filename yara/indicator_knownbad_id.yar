@@ -144,6 +144,16 @@ rule INDICATOR_KB_ID_Ransomware_Thanos {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Vovalex {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Vovalex ransomware"
+    strings:
+        $s1 = "vovanandlexus@cock.li" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -154,10 +164,12 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $boi2 = { 3F 54 89 18 46 CB E8 11 BD 0E 08 00 27 6D D5 D9 }
         $boi3 = { DE 63 02 FE 57 A2 E8 11 92 E8 5C F3 70 8B 16 F2 }
         $boi4 = { C2 CC 13 98 18 B9 E2 41 82 40 54 A8 AD E2 0A 9A }
-        $boi5 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D } // MineBridge
-        $boi6 = { E4 51 EC 20 66 61 EA 11 85 CD B2 FC 36 31 EE 21 } // MineBridge
-        $boi7 = { 6E DD CE 86 0F 07 90 4B AF 18 38 2F 97 FB 53 62 } // ZINC
-        $boi8 = { 25 41 87 AE F1 D2 EA 11 93 97 00 50 56 C0 00 08 } // ZINC
+        $boi5 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D }  // MineBridge
+        $boi6 = { E4 51 EC 20 66 61 EA 11 85 CD B2 FC 36 31 EE 21 }  // MineBridge
+        $boi7 = { 6E DD CE 86 0F 07 90 4B AF 18 38 2F 97 FB 53 62 }  // ZINC
+        $boi8 = { 25 41 87 AE F1 D2 EA 11 93 97 00 50 56 C0 00 08 }  // ZINC
+        $boi9 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D }  // finger.exe dropper
+        $boi10 = { 5C 46 EC 05 A6 60 EB 11 85 EB 8C 16 45 31 19 7F } // finger.exe dropper
         // Mac Addresses
         $mac1 = { 00 0C 29 A1 A9 40 }
         $mac2 = { 08 00 27 6D D5 D9 }
@@ -165,8 +177,40 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $mac4 = { 00 0C 29 5A 39 04 }
         $mac5 = { B2 FC 36 31 EE 21 } // MineBridge
         $mac6 = { 00 50 56 C0 00 08 } // ZINC
+        $mac7 = { 8C 16 45 31 19 7F } // finger.exe dropper
     condition:
       uint16(0) == 0x004c and uint32(4) == 0x00021401 and filesize < 3KB and (1 of ($boi*) and 1 of ($mac*))
+}
+
+rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Vovalex ransomware"
+    strings:
+        $s1 = "tinytim10110110@gmail.com" ascii wide nocase
+        $s2 = "noreplay.info.01@gmail.com" ascii wide nocase
+        $s3 = "krzarpon@mail.com" ascii wide nocase
+        $s4 = "m.sumaree.2019@gmail.com" ascii wide nocase
+        $s5 = "joezaonly@mail.com" ascii wide nocase
+        $s6 = "setiaadin2@gmail.com" ascii wide nocase
+        $s7 = "nastain.annas86@gmail.com" ascii wide nocase
+        $s8 = "fef.federfico@gmail.com" ascii wide nocase
+        $s9 = "imacatandadog@protonmail.com" ascii wide nocase
+        $s10 = "varun.sa2007@gmail.com" ascii wide nocase
+        $s11 = "thefog_66@yahoo.com" ascii wide nocase
+        $s12 = "abdulla.abousaif@gmail.com" ascii wide nocase
+        $s13 = "nastain.annas2019@gmail.com" ascii wide nocase
+        $s14 = "defensauser1@gmail.com" ascii wide nocase
+        $s15 = "defensauser2@gmail.com" ascii wide nocase
+        $s16 = "naujienustritis@gmail.com" ascii wide nocase
+        $s17 = "geraskazkas@gmail.com" ascii wide nocase
+        $s18 = "mertisnietgay@hotmail.com" ascii wide nocase
+        $s19 = "mertakdag06@hotmail.com" ascii wide nocase
+        $s20 = "balbllla238@gmail.com" ascii wide nocase
+        $s21 = "christian.vorhofer@yahoo.de" ascii wide nocase
+        $s22 = "estudupy@gmail.com" ascii wide nocase
+    condition:
+        any of them
 }
 
 rule INDICATOR_KB_ID_Infostealer {
