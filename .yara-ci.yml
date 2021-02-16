@@ -1,4 +1,4 @@
-# Not FPs
+# Not FPs.
 false_positives:
   ignore:
     - rule: "INDICATOR_EXE_Packed_ASPack"
