@@ -170,6 +170,8 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $boi8 = { 25 41 87 AE F1 D2 EA 11 93 97 00 50 56 C0 00 08 }  // ZINC
         $boi9 = { C4 9D 3A D4 C2 29 3D 47 A9 20 EE A4 D8 A7 D8 7D }  // finger.exe dropper
         $boi10 = { 5C 46 EC 05 A6 60 EB 11 85 EB 8C 16 45 31 19 7F } // finger.exe dropper
+        $boi11 = { 30 8B 17 86 9B 35 C5 40 A7 9D 48 5C D6 3D F3 5C } // CULNADY LTD LTD
+        $boi12 = { E5 21 1D 04 9D A4 E9 11 A9 37 00 0C 29 0F 29 89 } // CULNADY LTD LTD
         // Mac Addresses
         $mac1 = { 00 0C 29 A1 A9 40 }
         $mac2 = { 08 00 27 6D D5 D9 }
@@ -178,6 +180,7 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $mac5 = { B2 FC 36 31 EE 21 } // MineBridge
         $mac6 = { 00 50 56 C0 00 08 } // ZINC
         $mac7 = { 8C 16 45 31 19 7F } // finger.exe dropper
+        $mac8 = { 00 0C 29 0F 29 89 } // CULNADY LTD LTD
     condition:
       uint16(0) == 0x004c and uint32(4) == 0x00021401 and filesize < 3KB and (1 of ($boi*) and 1 of ($mac*))
 }
@@ -185,7 +188,7 @@ rule INDICATOR_KB_LNK_BOI_MAC {
 rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
     meta:
         author = "ditekShen"
-        description = "Detects files referencing identities associated with Vovalex ransomware"
+        description = "Detects email accounts used for exfiltration observed in PowerShellSMTPKeyLogger"
     strings:
         $s1 = "tinytim10110110@gmail.com" ascii wide nocase
         $s2 = "noreplay.info.01@gmail.com" ascii wide nocase
@@ -209,6 +212,18 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s20 = "balbllla238@gmail.com" ascii wide nocase
         $s21 = "christian.vorhofer@yahoo.de" ascii wide nocase
         $s22 = "estudupy@gmail.com" ascii wide nocase
+        $s23 = "lolmacteur1@gmail.com" ascii wide nocase
+        $s24 = "lolmacteur@gmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_PowerShellWiFiStealer {
+    meta:
+        author = "ditekShen"
+        description = "Detects email accounts used for exfiltration observed in PowerShellWiFiStealer"
+    strings:
+        $s1 = "hajdebebreidekreide@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -984,6 +999,15 @@ rule INDICATOR_KB_ID_Infostealer {
         $account766 = "josh@accauto.co" ascii wide nocase
         $account767 = "divi@accauto.co" ascii wide nocase
         $account768 = "ach@accauto.co" ascii wide nocase
+        $account769 = "mailduplicate@yandex.com" ascii wide nocase
+        $account770 = "yumi@jljjmetals.com" ascii wide nocase
+        $account771 = "admin@adipico.com" ascii wide nocase
+        $account772 = "jason.samtani@rxcleco.com" ascii wide nocase
+        $account773 = "mibrahim@hffiiltration.com" ascii wide nocase
+        $account774 = "mrst@mrst-kr.icu" ascii wide nocase
+        $account775 = "noor.akbari@petrolnas.icu" ascii wide nocase
+        $account776 = "contabilidad@idolz.pw" ascii wide nocase
+        $account777 = "ashfaq.ali@nationalfuels.pw" ascii wide nocase
     condition:
         any of them
 }

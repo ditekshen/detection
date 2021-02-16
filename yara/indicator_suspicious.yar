@@ -534,7 +534,7 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         $ne2 = "wevtutil.exe cl Application /bu:C:\\admin\\backup\\al0306.evtx" fullword wide
         $ne3 = "wevtutil.exe cl Application /bu:C:\\admin\\backups\\al0306.evtx" fullword wide
     condition:
-        uint16(0) == 0x5a4d and not any of ($ne*) and ((1 of ($cmd*)) or (1 of ($t*) and 4 of ($l*)))
+        uint16(0) == 0x5a4d and not any of ($ne*) and ((1 of ($cmd*)) or (1 of ($t*) and 3 of ($l*)))
 }
 
 rule INDICATOR_SUSPICIOUS_DisableWinDefender {
@@ -568,12 +568,13 @@ rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
         $s1 = "usn deletejournal /D C:" ascii wide nocase
         $s2 = "fsutil.exe usn deletejournal" ascii wide nocase
         $s3 = "fsutil usn deletejournal" ascii wide nocase
+        $s4 = "fsutil file setZeroData offset=0" ascii wide nocase
         $ne1 = "fsutil usn readdata C:\\Temp\\sample.txt" wide
         $ne2 = "fsutil transaction query {0f2d8905-6153-449a-8e03-7d3a38187ba1}" wide
         $ne3 = "fsutil resource start d:\\foobar d:\\foobar\\LogDir\\LogBLF::TxfLog d:\\foobar\\LogDir\\LogBLF::TmLog" wide
         $ne4 = "fsutil objectid query C:\\Temp\\sample.txt" wide
     condition:
-        uint16(0) == 0x5a4d and (not any of ($ne*) and (1 of ($cmd*) and 1 of ($s*)))
+        uint16(0) == 0x5a4d and (not any of ($ne*) and ((1 of ($cmd*) and 1 of ($s*)) or 1 of ($s*)))
 }
 
 rule INDICATOR_SUSPICIOUS_GENInfoStealer {
@@ -963,21 +964,6 @@ rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
         uint16(0) == 0x5a4d and (1 of ($u*) and all of ($s*))
 }
 
-rule INDICATOR_SUSPICIOUS_EXE_PWSH_Downloader {
-    meta:
-        author = "ditekSHen"
-        description = "Detects downloader agent, using PowerShell"
-    strings:
-        $pwsh = "powershell" fullword ascii
-        $bitstansfer = "Start-BitsTransfer" ascii wide
-        $s1 = "GET %s HTTP/1" ascii
-        $s2 = "User-Agent:" ascii
-        $s3 = "-WindowStyle Hidden -ep bypass -file \"" fullword ascii
-        $s4 = "LdrLoadDll" fullword ascii
-    condition:
-        uint16(0) == 0x5a4d and $pwsh and ($bitstansfer or 2 of ($s*))
-}
-
 rule INDICATOR_SUSPICIOUS_PWSH_PasswordCredential_RetrievePassword {
     meta:
         author = "ditekSHen"
@@ -1045,4 +1031,33 @@ rule INDICATOR_SUSPICIOUS_Finger_Download_Pattern {
         $ne1 = "Nmap service detection probe list" ascii
     condition:
        not any of ($ne*) and any of ($pat*)
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_UACBypass_CMSTPCMD {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Windows exceutables bypassing UAC using CMSTP utility, command line and INF"
+    strings:
+        $s1 = "c:\\windows\\system32\\cmstp.exe" ascii wide nocase
+        $s2 = "taskkill /IM cmstp.exe /F" ascii wide nocase
+        $s3 = "CMSTPBypass" fullword ascii
+        $s4 = "CommandToExecute" fullword ascii
+        $s5 = "RunPreSetupCommands=RunPreSetupCommandsSection" fullword wide
+        $s6 = "\"HKLM\", \"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\CMMGR32.EXE\", \"ProfileInstallPath\", \"%UnexpectedError%\", \"\"" fullword wide nocase
+    condition:
+       uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_JS_WMI_ExecQuery {
+    meta:
+        author = "ditekSHen"
+        description = "Detects JS potentially executing WMI queries"
+    strings:
+        $ex = ".ExecQuery(" ascii nocase
+        $s1 = "GetObject(" ascii nocase
+        $s2 = "String.fromCharCode(" ascii nocase
+        $s3 = "ActiveXObject(" ascii nocase
+        $s4 = ".Sleep(" ascii nocase
+    condition:
+       ($ex and 2 of ($s*))
 }
