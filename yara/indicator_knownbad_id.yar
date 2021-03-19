@@ -20,6 +20,22 @@ rule INDICATOR_KB_ID_BazarLoader {
         uint16(0) == 0x5a4d and any of them
 }
 
+rule INDICATOR_KB_ID_QakBot {
+    meta:
+        author = "ditekShen"
+        description = "Detects QakBot executables with specific email addresses found in the code signing certificate"
+    strings:
+        $s1 = "hutter.s94@yahoo.com" ascii wide nocase
+        $s2 = "andrej.vrear@aol.com" ascii wide nocase
+        $s3 = "klaus.pedersen@aol.com" ascii wide nocase
+        $s4 = "a.spendl@aol.com" ascii wide nocase
+        $s5 = "mjemec@aol.com" ascii wide nocase
+        $s6 = "robert.sijanec@yahoo.com" ascii wide nocase
+        $s7 = "mitja.vidovi@aol.com" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}
+
 rule INDICATOR_KB_ID_Ransomware_LockerGoga {
     meta:
         author = "ditekShen"
@@ -154,6 +170,27 @@ rule INDICATOR_KB_ID_Ransomware_Vovalex {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_AlumniLocker {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with AlumniLocker ransomware"
+    strings:
+        $s1 = "alumnilocker@protonmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_DoejoCrypt {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with DoejoCrypt ransomware"
+    strings:
+        $s1 = "konedieyp@airmail.cc" ascii wide nocase
+        $s2 = "uenwonken@memail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -214,6 +251,14 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s22 = "estudupy@gmail.com" ascii wide nocase
         $s23 = "lolmacteur1@gmail.com" ascii wide nocase
         $s24 = "lolmacteur@gmail.com" ascii wide nocase
+        $s25 = "ouhoo.fabio@gmail.com" ascii wide nocase
+        $s36 = "yenghele@gmail.com" ascii wide nocase
+        $s37 = "mr42hacker@gmail.com" ascii wide nocase
+        $s38 = "gouthams024@gmail.com" ascii wide nocase
+        $s39 = "ameycsgo@gmail.com" ascii wide nocase
+        $s40 = "joselusov@gmail.com" ascii wide nocase
+        $s41 = "joseluissov@gmail.com" ascii wide nocase
+        $s42 = "tonitravels7@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -224,6 +269,9 @@ rule INDICATOR_KB_ID_PowerShellWiFiStealer {
         description = "Detects email accounts used for exfiltration observed in PowerShellWiFiStealer"
     strings:
         $s1 = "hajdebebreidekreide@gmail.com" ascii wide nocase
+        $s2 = "usb@pterobot.net" ascii wide nocase
+        $s3 = "umairdadaber@gmail.com" ascii wide nocase
+        $s4 = "mrumairok@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -1065,4 +1113,14 @@ rule INDICATOR_KB_GoBuildID_QnapCrypt {
         $s1 = "Go build ID: \"XcBqbQohm7UevdYNABvs/2RcJz1616naXSRu2xvTX/b6F3Jt1-5WAIexSyzeun/MpHqs5fJA5G2D9gVuUCe\"" ascii
     condition:
         uint16(0) == 0x5a4d and filesize < 8000KB and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_Snatch {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"8C2VvDTH-MuUPx8tL42E/PWF9iuE2j_Zt0ANsTlty/c64swZ5TtuaIpHuEFmga/6sS0KWNryc-YAduDnWWO\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
 }
