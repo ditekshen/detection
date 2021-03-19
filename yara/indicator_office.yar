@@ -722,10 +722,6 @@ rule INDICATOR_XML_WebRelFrame_RemoteTemplate {
         uint32(0) == 0x6d783f3c and (1 of ($target*) and $mode)
 }
 
-/frame" Target="http
-/frame" Target="file
-TargetMode="External
-
 rule INDICATOR_PDF_IPDropper {
     meta:
         description = "Detects PDF documents with Action and URL pointing to direct IP address"
