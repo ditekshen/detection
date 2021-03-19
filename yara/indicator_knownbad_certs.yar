@@ -5322,6 +5322,9 @@ rule INDICATOR_KB_CERT_047801d5b55c800b48411fd8c320ca5b {
         )
 }
 
+/*
+Disabled due to FPs
+
 rule INDICATOR_KB_CERT_07be8f83f4455021f4e24fb021fca24a {
     meta:
         author = "ditekSHen"
@@ -5335,6 +5338,7 @@ rule INDICATOR_KB_CERT_07be8f83f4455021f4e24fb021fca24a {
             pe.signatures[i].serial == "07:be:8f:83:f4:45:50:21:f4:e2:4f:b0:21:fc:a2:4a"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_ceb6b2eec12934a64f75a4592159f084 {
     meta:

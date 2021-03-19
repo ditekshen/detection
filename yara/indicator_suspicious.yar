@@ -1060,5 +1060,5 @@ rule INDICATOR_SUSPICIOUS_JS_WMI_ExecQuery {
         $s3 = "ActiveXObject(" ascii nocase
         $s4 = ".Sleep(" ascii nocase
     condition:
-       ($ex and 2 of ($s*))
+       ($ex and all of ($s*))
 }
