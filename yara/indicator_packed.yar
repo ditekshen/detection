@@ -552,8 +552,6 @@ rule INDICATOR_EXE_Packed_LLVMLoader {
         clamav_sig = "INDICATOR.Packed.LLVMLoader"
     strings:
         $s1 = "exeLoaderDll_LLVMO.dll" fullword ascii
-        $s2 = "StartFunc" fullword ascii
-        $s3 = "\\X!;\\Y!," fullword ascii
         $b = { 64 6c 6c 00 53 74 61 72 74 46 75 6e 63 00 00 00
                ?? ?? 00 00 00 00 00 00 00 00 00 ?? 96 01 00 00
                ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -594,4 +592,15 @@ rule INDICATOR_EXE_Packed_nBinder {
         $s7 = "\\Proiecte\\nBin" ascii
     condition:
         uint16(0) == 0x5a4d and 2 of them
+}
+
+rule INDICATOR_EXE_Packed_SmartAssembly {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables packed with SmartAssembly"
+    strings:
+        $s1 = "PoweredByAttribute" fullword ascii
+        $s2 = "SmartAssembly.Attributes" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them
 }

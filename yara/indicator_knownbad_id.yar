@@ -191,6 +191,17 @@ rule INDICATOR_KB_ID_Ransomware_DoejoCrypt {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Purge {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Purge ransomware"
+    strings:
+        $s1 = "rscl@dr.com" ascii wide nocase
+        $s2 = "rscl@usa.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -259,6 +270,8 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s40 = "joselusov@gmail.com" ascii wide nocase
         $s41 = "joseluissov@gmail.com" ascii wide nocase
         $s42 = "tonitravels7@gmail.com" ascii wide nocase
+        $s43 = "jaanuspaan@gmail.com" ascii wide nocase
+        $s44 = "pastaktuu@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -1121,6 +1134,19 @@ rule INDICATOR_KB_GoBuildID_Snatch {
         description = "Detects Goland Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"8C2VvDTH-MuUPx8tL42E/PWF9iuE2j_Zt0ANsTlty/c64swZ5TtuaIpHuEFmga/6sS0KWNryc-YAduDnWWO\"" ascii
+        $s2 = "Go build ID: \"UBrfJ_wztDfCHWakqvlV/LhzfkJwvKFrNhKCHtU9_/sveCupt8GVbvu6WZiyA-/GcimfL_TPl6FTPPriBDr\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_GoDownloader {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"1OzJqWaH4h1VtrLP-zk8/G9w32ha7_ziW1Fa-0Byj/gLtfhbXZ6i_W0e5e_tFF/ekG0n9hOcZjmwzRQnRqC\"" ascii
+        $s2 = "Go build ID: \"kKxyj14l4NhGbuhOgzef/ab_yr_pUn6q2idYdoBhn/hFAjO_Yxc_rN6mHFuHM9/SmS3qmOyJBc_4xV_qg3B\"" ascii
+        $3 = "Go build ID: \"MiW7XJnQsBXxlBHro8GW/HMqQknRgJg-mCXomgFRt/88ccKMrfA_s6AcOJs3aM/jSUAU_l3RrMzlV6ANEYE\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
