@@ -810,6 +810,8 @@ rule INDICATOR_TOOL_GoCLR {
         uint16(0) == 0x5a4d and all of ($s*) or (2 of ($c*) and $go)
 }
 
+/*
+Too many FPs
 rule INDICATOR_TOOL_CppHostCLR {
      meta:
         author = "ditekSHen"
@@ -823,5 +825,4 @@ rule INDICATOR_TOOL_CppHostCLR {
     condition:
         uint16(0) == 0x5a4d and (2 of ($s*) and not $go)
 }
-
-
+*/
