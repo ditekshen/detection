@@ -9,8 +9,9 @@ rule INDICATOR_EXE_Packed_ConfuserEx {
     strings:
         $s1 = "ConfuserEx " ascii
         $s2 = "ConfusedByAttribute" fullword ascii
+        $c1 = "Confuser.Core " ascii wide
     condition:
-        uint16(0) == 0x5a4d and all of them
+        uint16(0) == 0x5a4d and (all of ($s*) or all of ($c*))
 }
 
 rule INDICATOR_EXE_Packed_ConfuserEx_Custom {
@@ -603,4 +604,22 @@ rule INDICATOR_EXE_Packed_SmartAssembly {
         $s2 = "SmartAssembly.Attributes" fullword ascii
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_EXE_Packed_AgileDotNet {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables packed with Agile.NET / CliSecure"
+    strings:
+        $x1 = "AgileDotNetRT" fullword ascii
+        $x2 = "AgileDotNetRT64" fullword ascii
+        $x3 = "<AgileDotNetRT>" fullword ascii
+        $x4 = "AgileDotNetRT.dll" fullword ascii
+        $x5 = "AgileDotNetRT64.dll" fullword ascii
+        $s1 = "Callvirt" fullword ascii
+        $s2 = "_Initialize64" fullword ascii
+        $s3 = "_AtExit64" fullword ascii
+        $s4 = "DomainUnload" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and (2 of ($x*) or (1 of ($x*) and 2 of ($s*)) or all of ($s*))
 }

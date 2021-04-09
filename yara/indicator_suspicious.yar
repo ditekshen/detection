@@ -40,7 +40,7 @@ rule INDICATOR_SUSPICIOUS_ReflectiveLoader {
 rule INDICATOR_SUSPICIOUS_IMG_Embedded_Archive {
     meta:
         description = "Detects images embedding archives. Observed in TheRat RAT."
-        author = "@ditekSHen"
+        author = "ditekSHen"
     strings:
         $sevenzip1 = { 37 7a bc af 27 1c 00 04 } // 7ZIP, regardless of password-protection
         $sevenzip2 = { 37 e4 53 96 c9 db d6 07 } // 7ZIP zisofs compression format    
@@ -85,7 +85,7 @@ rule INDICATOR_SUSPICIOUS_EXE_UACBypass_CleanMgr {
 rule INDICATOR_SUSPICIOUS_EXE_Enable_OfficeMacro {
     meta:
         description = "Detects Windows executables referencing Office macro registry keys. Observed modifying Office configurations via the registy to enable macros"
-        author = "@ditekSHen"
+        author = "ditekSHen"
     strings:
         $s1 = "\\Word\\Security\\VBAWarnings" ascii wide
         $s2 = "\\PowerPoint\\Security\\VBAWarnings" ascii wide
@@ -105,7 +105,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Enable_OfficeMacro {
 rule INDICATOR_SUSPICIOUS_EXE_Disable_OfficeProtectedView {
     meta:
         description = "Detects Windows executables referencing Office ProtectedView registry keys. Observed modifying Office configurations via the registy to disable ProtectedView"
-        author = "@ditekSHen"
+        author = "ditekSHen"
     strings:
         $s1 = "\\Security\\ProtectedView\\DisableInternetFilesInPV" ascii wide
         $s2 = "\\Security\\ProtectedView\\DisableAttachementsInPV" ascii wide
@@ -338,7 +338,7 @@ rule INDICATOR_SUSPICIOUS_EXE_References_Confidential_Data_Store {
 rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
     meta:
         description = "Detects executables referencing many email and collaboration clients. Observed in information stealers"
-        author = "@ditekSHen"
+        author = "ditekSHen"
     strings:
         $s1 = "Software\\Microsoft\\Office\\15.0\\Outlook\\Profiles\\Outlook" fullword ascii wide
         $s2 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows Messaging Subsystem\\Profiles\\Outlook" fullword ascii wide
@@ -946,22 +946,46 @@ rule INDICATOR_SUSPICIOUS_EXE_RawGitHub_URL {
 rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
      meta:
         author = "ditekSHen"
-        description = "Detects executables containing URLs to raw contents of a paste"
+        description = "Detects executables (downlaoders) containing URLs to raw contents of a paste"
     strings:
-        $u1 = "https://pastebin.com/" ascii wide
-        $u2 = "https://paste.ee/" ascii wide
-        $u3 = "https://pastecode.xyz/" ascii wide
-        $u4 = "https://rentry.co/" ascii wide
-        $u5 = "https://paste.nrecom.net/" ascii wide
-        $u6 = "https://hastebin.com/" ascii wide
-        $u7 = "https://privatebin.info/" ascii wide
-        $u8 = "https://penyacom.org/" ascii wide
-        $u9 = "https://controlc.com/" ascii wide
-        $u10 = "https://tiny-paste.com/" ascii wide
-        $u11 = "https://paste.teknik.io/" ascii wide
+        $u1 = "https://pastebin.com/" ascii wide nocase
+        $u2 = "https://paste.ee/" ascii wide nocase
+        $u3 = "https://pastecode.xyz/" ascii wide nocase
+        $u4 = "https://rentry.co/" ascii wide nocase
+        $u5 = "https://paste.nrecom.net/" ascii wide nocase
+        $u6 = "https://hastebin.com/" ascii wide nocase
+        $u7 = "https://privatebin.info/" ascii wide nocase
+        $u8 = "https://penyacom.org/" ascii wide nocase
+        $u9 = "https://controlc.com/" ascii wide nocase
+        $u10 = "https://tiny-paste.com/" ascii wide nocase
+        $u11 = "https://paste.teknik.io/" ascii wide nocase
+        $u12 = "https://privnote.com/" ascii wide nocase
+        $u13 = "https://hushnote.herokuapp.com/" ascii wide nocase
         $s1 = "/raw/" ascii wide
     condition:
         uint16(0) == 0x5a4d and (1 of ($u*) and all of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_RawPaste_Reverse_URL {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables (downloaders) containing reversed URLs to raw contents of a paste"
+    strings:
+        $u1 = "/moc.nibetsap//:sptth" ascii wide nocase
+        $u2 = "/ee.etsap//:sptth" ascii wide nocase
+        $u3 = "/zyx.edocetsap//:sptth" ascii wide nocase
+        $u4 = "/oc.yrtner//:sptth" ascii wide nocase
+        $u5 = "/ten.mocern.etsap//:sptth" ascii wide nocase
+        $u6 = "/moc.nibetsah//:sptth" ascii wide nocase
+        $u7 = "/ofni.nibetavirp//:sptth" ascii wide nocase
+        $u8 = "/gro.mocaynep//:sptth" ascii wide nocase
+        $u9 = "/moc.clortnoc//:sptth" ascii wide nocase
+        $u10 = "/moc.etsap-ynit//:sptth" ascii wide nocase
+        $u11 = "/oi.kinket.etsap//:sptth" ascii wide nocase
+        $u12 = "/moc.etonvirp//:sptth" ascii wide nocase
+        $u13 = "/moc.ppaukoreh.etonhsuh//:sptth" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 1 of ($u*)
 }
 
 rule INDICATOR_SUSPICIOUS_PWSH_PasswordCredential_RetrievePassword {

@@ -5972,3 +5972,86 @@ rule INDICATOR_KB_CERT_61b11ef9726ab2e78132e01bd791b336 {
             pe.signatures[i].serial == "61:b1:1e:f9:72:6a:b2:e7:81:32:e0:1b:d7:91:b3:36"
         )
 }
+
+rule INDICATOR_KB_CERT_e339c8069126aa6313484fea85b4b326f7b8860c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e339c8069126aa6313484fea85b4b326f7b8860c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Germany classer software" and
+            pe.signatures[i].serial == "01"
+        )
+}
+
+rule INDICATOR_KB_CERT_01342592a0010cb1109c11c0519cfd24 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7649dc70eca74657c1bae0128492098ae47097ff"
+        hash = "7c0d31bca17487efc3f743bb9cb5cf56b5f2fae638cf3681fdc692a5809c94be"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Notepad++" and
+            pe.signatures[i].serial == "01:34:25:92:a0:01:0c:b1:10:9c:11:c0:51:9c:fd:24"
+        )
+}
+
+rule INDICATOR_KB_CERT_734d0baf7a6b44743ff852c8ba7a751a7ff0ec73 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "734d0baf7a6b44743ff852c8ba7a751a7ff0ec73"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Transition software (C) 2018" and
+            pe.signatures[i].serial == "01"
+        )
+}
+
+rule INDICATOR_KB_CERT_02fa994d660de659ee9037ecb437d766 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0cb6bde041b58dbd4ec64bd5a3be38c50f17bb3d"
+        hash = "0868a2a7b5e276d3a4a40cdef994de934d33d62a689d7207a31fd57d012ef948"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Piriform Software Ltd" and
+            pe.signatures[i].serial == "02:fa:99:4d:66:0d:e6:59:ee:90:37:ec:b4:37:d7:66"
+        )
+}
+
+rule INDICATOR_KB_CERT_0b446546c36525bf5f084f6bbbba7097 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "05cdf79b0effff361dac0363adaa75b066c49de0"
+        hash = "3163ffc06848f6c48ac460ab844470ef85a07b847bf187c2c9cb26c14032a1a5"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TeamViewer Germany GmbH" and
+            pe.signatures[i].serial == "0b:44:65:46:c3:65:25:bf:5f:08:4f:6b:bb:ba:70:97" and
+            1608724800 <= pe.signatures[i].not_after
+        )
+}
+
+rule INDICATOR_KB_CERT_3991d810fb336e5a7d8c2822 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d66e28b6c6a3789f3ee28afbb07e492fbe85f6a7"
+        hash = "744bcf7487aaec504d63521abec65f7c605c52e4a0bf511ab61025fd6c90977b"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Nota Inc." and
+            pe.signatures[i].serial == "39:91:d8:10:fb:33:6e:5a:7d:8c:28:22"
+        )
+}

@@ -272,6 +272,9 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s42 = "tonitravels7@gmail.com" ascii wide nocase
         $s43 = "jaanuspaan@gmail.com" ascii wide nocase
         $s44 = "pastaktuu@gmail.com" ascii wide nocase
+        $s45 = "achyutha.nr10@gmail.com" ascii wide nocase
+        $s46 = "nikalgraid@gmail.com" ascii wide nocase
+        $s47 = "user1@mail.com" ascii wide nocase
     condition:
         any of them
 }
