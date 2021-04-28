@@ -202,6 +202,29 @@ rule INDICATOR_KB_ID_Ransomware_Purge {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Zeoticus {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Zeoticus ransomware"
+    strings:
+        $s1 = "anobtanium@tutanota.com" ascii wide nocase
+        $s2 = "anobtanium@cock.li" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_JobCryptor {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with JobCryptor ransomware"
+    strings:
+        $s1 = "olaggoune235@protonmail.ch" ascii wide nocase
+        $s2 = "ouardia11@tutanota.com" ascii wide nocase
+        $s3 = "laggouneo11@gmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -275,6 +298,7 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s45 = "achyutha.nr10@gmail.com" ascii wide nocase
         $s46 = "nikalgraid@gmail.com" ascii wide nocase
         $s47 = "user1@mail.com" ascii wide nocase
+        $s48 = "democyber@kermeur.com" ascii wide nocase
     condition:
         any of them
 }
@@ -1149,7 +1173,18 @@ rule INDICATOR_KB_GoBuildID_GoDownloader {
     strings:
         $s1 = "Go build ID: \"1OzJqWaH4h1VtrLP-zk8/G9w32ha7_ziW1Fa-0Byj/gLtfhbXZ6i_W0e5e_tFF/ekG0n9hOcZjmwzRQnRqC\"" ascii
         $s2 = "Go build ID: \"kKxyj14l4NhGbuhOgzef/ab_yr_pUn6q2idYdoBhn/hFAjO_Yxc_rN6mHFuHM9/SmS3qmOyJBc_4xV_qg3B\"" ascii
-        $3 = "Go build ID: \"MiW7XJnQsBXxlBHro8GW/HMqQknRgJg-mCXomgFRt/88ccKMrfA_s6AcOJs3aM/jSUAU_l3RrMzlV6ANEYE\"" ascii
+        $s3 = "Go build ID: \"MiW7XJnQsBXxlBHro8GW/HMqQknRgJg-mCXomgFRt/88ccKMrfA_s6AcOJs3aM/jSUAU_l3RrMzlV6ANEYE\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_RanumBot {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"hOhuOA4W60aBBRoFQTDA/dl9DuLAgEcabYGK6ZT2t/ECsse3630jV_957OqqK3/ZRA_JRPFzxutK16zlEcM\"" ascii
+        $s2 = "Go build ID: \"NivDrAudWE-E6xtBXeww/3pv6fDzDqt4v0YxoTkPt/8vd79TNE-9Bt38ftxf_V/_GNqnqEUsRf-WTSmn8dM\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
