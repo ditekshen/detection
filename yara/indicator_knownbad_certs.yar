@@ -4373,7 +4373,10 @@ rule INDICATOR_KB_CERT_00818631110b5d14331dac7e6ad998b902 {
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "2 TOY GUYS LLC" and
-            pe.signatures[i].serial == "00:81:86:31:11:0b:5d:14:33:1d:ac:7e:6a:d9:98:b9:02"
+            (
+                pe.signatures[i].serial == "00:81:86:31:11:0b:5d:14:33:1d:ac:7e:6a:d9:98:b9:02" or
+                pe.signatures[i].serial == "81:86:31:11:0b:5d:14:33:1d:ac:7e:6a:d9:98:b9:02"
+            )
         )
 }
 
@@ -6065,7 +6068,10 @@ rule INDICATOR_KB_CERT_00e4e795fd1fd25595b869ce22aa7dc49f {
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "OASIS COURT LIMITED" and
-            pe.signatures[i].serial == "00:e4:e7:95:fd:1f:d2:55:95:b8:69:ce:22:aa:7d:c4:9f"
+            (
+                pe.signatures[i].serial == "00:e4:e7:95:fd:1f:d2:55:95:b8:69:ce:22:aa:7d:c4:9f" or
+                pe.signatures[i].serial == "e4:e7:95:fd:1f:d2:55:95:b8:69:ce:22:aa:7d:c4:9f"
+            )
         )
 }
 
@@ -6264,5 +6270,85 @@ rule INDICATOR_KB_CERT_65efa92a4164a3a2d888b5cf8ff073c8 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "Ghisler Software GmbH" and
             pe.signatures[i].serial == "65:ef:a9:2a:41:64:a3:a2:d8:88:b5:cf:8f:f0:73:c8"
+        )
+}
+
+rule INDICATOR_KB_CERT_00ad0a958cdf188bed43154a54bf23afba {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7d851e785ad44eb15d5cdf9c33e10fe8f49616e8"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "RHM Ltd" and
+            pe.signatures[i].serial == "00:ad:0a:95:8c:df:18:8b:ed:43:15:4a:54:bf:23:af:ba"
+        )
+}
+
+rule INDICATOR_KB_CERT_05abac07f8d0ce567f7d75ee047efee2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "68b32eac87652af4172e40e3764477437e5a5ce9"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Ultrareach Internet Corp." and
+            pe.signatures[i].serial == "05:ab:ac:07:f8:d0:ce:56:7f:7d:75:ee:04:7e:fe:e2"
+        )
+}
+
+rule INDICATOR_KB_CERT_62165b335c13a1a847ce9acff2b29368 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c4cfd244d5148c5b03cac093d49af723252b643c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "t55555Prh" and
+            pe.signatures[i].serial == "62:16:5b:33:5c:13:a1:a8:47:ce:9a:cf:f2:b2:93:68"
+        )
+}
+
+rule INDICATOR_KB_CERT_18a686a1229059017a672136ac2e7265 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e308e5b7a6f8a24574e08db9f9fa0ad939103910"
+        reference1 = "https://www.bleepingcomputer.com/news/security/vulnerable-dell-driver-puts-hundreds-of-millions-of-systems-at-risk/"
+        reference2 = "https://www.dell.com/support/kbdoc/ro-ro/000186019/dsa-2021-088-dell-client-platform-security-update-for-dell-driver-insufficient-access-control-vulnerability"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Dell Inc." and
+            pe.signatures[i].serial == "18:a6:86:a1:22:90:59:01:7a:67:21:36:ac:2e:72:65"
+        )
+}
+
+rule INDICATOR_KB_CERT_4cdffb4f02c55ae60a099652605da274 {
+    meta:
+        author = "ditekSHen"
+        description = "Enigma Protector Demo Certificate"
+        thumbprint = "4a2d33148aadf947775a15f50535842633cc3442"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DEMO" and
+            pe.signatures[i].serial == "4c:df:fb:4f:02:c5:5a:e6:0a:09:96:52:60:5d:a2:74"
+        )
+}
+
+rule INDICATOR_KB_CERT_25ad5ae68c38ad1021086f4ffc8ba470 {
+    meta:
+        author = "ditekSHen"
+        description = "Enigma Protector CA Certificate"
+        thumbprint = "a04c0281bc2203a95ef9bd6d9736486449d80905"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Enigma Protector CA" and
+            pe.signatures[i].serial == "25:ad:5a:e6:8c:38:ad:10:21:08:6f:4f:fc:8b:a4:70"
         )
 }

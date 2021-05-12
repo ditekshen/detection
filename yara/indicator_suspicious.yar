@@ -1051,7 +1051,7 @@ rule INDICATOR_SUSPICIOUS_Finger_Download_Pattern {
         author = "ditekSHen"
         description = "Detects files embedding and abusing the finger command for download"
     strings:
-        $pat1 = /finger(\.exe)?\s.{1,50}@.{7,}\|/ ascii wide
+        $pat1 = /finger(\.exe)?\s.{1,50}@.{7,10}\|/ ascii wide
         $pat2 = "-Command \"finger" ascii wide
         $ne1 = "Nmap service detection probe list" ascii
     condition:
@@ -1174,4 +1174,15 @@ rule INDICATOR_SUSPICOIUS_B64_Encoded_UserAgent {
         $s2 = "TW96aWxsYS81LjAgKFdpbmRvd3M" ascii wide
     condition:
         uint16(0) == 0x5a4d and any of them
+}
+
+rule INDICATOR_SUSPICOIUS_WindDefender_AntiEmaulation {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables containing potential Windows Defender anti-emulation checks"
+    strings:
+        $s1 = "JohnDoe" fullword ascii wide
+        $s2 = "HAL9TH" fullword ascii wide
+    condition:
+        uint16(0) == 0x5a4d and all of them
 }

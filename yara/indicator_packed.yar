@@ -602,8 +602,9 @@ rule INDICATOR_EXE_Packed_SmartAssembly {
     strings:
         $s1 = "PoweredByAttribute" fullword ascii
         $s2 = "SmartAssembly.Attributes" fullword ascii
+        $s3 = "Powered by SmartAssembly" ascii
     condition:
-        uint16(0) == 0x5a4d and all of them
+        uint16(0) == 0x5a4d and 2 of them
 }
 
 rule INDICATOR_EXE_Packed_AgileDotNet {

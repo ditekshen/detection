@@ -36,6 +36,16 @@ rule INDICATOR_KB_ID_QakBot {
         uint16(0) == 0x5a4d and any of them
 }
 
+rule INDICATOR_KB_ID_Amadey {
+    meta:
+        author = "ditekShen"
+        description = "Detects Amadey executables with specific email addresses found in the code signing certificate"
+    strings:
+        $s1 = "tochka.director@gmail.com" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}
+
 rule INDICATOR_KB_ID_Ransomware_LockerGoga {
     meta:
         author = "ditekShen"
@@ -221,6 +231,17 @@ rule INDICATOR_KB_ID_Ransomware_JobCryptor {
         $s1 = "olaggoune235@protonmail.ch" ascii wide nocase
         $s2 = "ouardia11@tutanota.com" ascii wide nocase
         $s3 = "laggouneo11@gmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_Cuba {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with JobCryptor ransomware"
+    strings:
+        $s1 = "helpadmin2@protonmail.com" ascii wide nocase
+        $s2 = "helpadmin2@cock.li" ascii wide nocase
     condition:
         any of them
 }
@@ -1162,6 +1183,7 @@ rule INDICATOR_KB_GoBuildID_Snatch {
     strings:
         $s1 = "Go build ID: \"8C2VvDTH-MuUPx8tL42E/PWF9iuE2j_Zt0ANsTlty/c64swZ5TtuaIpHuEFmga/6sS0KWNryc-YAduDnWWO\"" ascii
         $s2 = "Go build ID: \"UBrfJ_wztDfCHWakqvlV/LhzfkJwvKFrNhKCHtU9_/sveCupt8GVbvu6WZiyA-/GcimfL_TPl6FTPPriBDr\"" ascii
+        $s3 = "Go build ID: \"5zCy9jt7UZaIs5YPk4tt/1Yt6v7gCpDG---pRFyW-/7729nLSeKJik31ftz_Ve/Z5EVG3lWak3ynxNrJ4ih\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
@@ -1185,6 +1207,16 @@ rule INDICATOR_KB_GoBuildID_RanumBot {
     strings:
         $s1 = "Go build ID: \"hOhuOA4W60aBBRoFQTDA/dl9DuLAgEcabYGK6ZT2t/ECsse3630jV_957OqqK3/ZRA_JRPFzxutK16zlEcM\"" ascii
         $s2 = "Go build ID: \"NivDrAudWE-E6xtBXeww/3pv6fDzDqt4v0YxoTkPt/8vd79TNE-9Bt38ftxf_V/_GNqnqEUsRf-WTSmn8dM\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_Banload {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in known bad samples"       
+    strings:
+        $s1 = "Go build ID: \"a3629ee6ab610a57f242f59a3dd5e5f6de73da40\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
