@@ -6115,6 +6115,7 @@ rule INDICATOR_KB_CERT_3300000187721772155940c709000000000187 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_33000000c91909212ebba648810001000000c9 {
     meta:
         author = "ditekSHen"
@@ -6127,6 +6128,7 @@ rule INDICATOR_KB_CERT_33000000c91909212ebba648810001000000c9 {
             pe.signatures[i].serial == "33:00:00:00:c9:19:09:21:2e:bb:a6:48:81:00:01:00:00:00:c9"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_eb95a7bd7553533d {
     meta:
@@ -6619,6 +6621,7 @@ rule INDICATOR_KB_CERT_Sagsanlgs {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_66660552d465b31f429f7527ea6a93bf {
     meta:
         author = "ditekSHen"
@@ -6632,3 +6635,4 @@ rule INDICATOR_KB_CERT_66660552d465b31f429f7527ea6a93bf {
             pe.signatures[i].serial == "66:66:05:52:d4:65:b3:1f:42:9f:75:27:ea:6a:93:bf"
         )
 }
+*/
