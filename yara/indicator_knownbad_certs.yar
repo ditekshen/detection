@@ -6283,7 +6283,10 @@ rule INDICATOR_KB_CERT_00ad0a958cdf188bed43154a54bf23afba {
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "RHM Ltd" and
-            pe.signatures[i].serial == "00:ad:0a:95:8c:df:18:8b:ed:43:15:4a:54:bf:23:af:ba"
+            (
+                pe.signatures[i].serial == "ad:0a:95:8c:df:18:8b:ed:43:15:4a:54:bf:23:af:ba" or
+                pe.signatures[i].serial == "00:ad:0a:95:8c:df:18:8b:ed:43:15:4a:54:bf:23:af:ba"
+            )
         )
 }
 
@@ -6313,10 +6316,11 @@ rule INDICATOR_KB_CERT_62165b335c13a1a847ce9acff2b29368 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_18a686a1229059017a672136ac2e7265 {
     meta:
         author = "ditekSHen"
-        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        description = "Detects Dell vulnerable driver signing certificate"
         thumbprint = "e308e5b7a6f8a24574e08db9f9fa0ad939103910"
         reference1 = "https://www.bleepingcomputer.com/news/security/vulnerable-dell-driver-puts-hundreds-of-millions-of-systems-at-risk/"
         reference2 = "https://www.dell.com/support/kbdoc/ro-ro/000186019/dsa-2021-088-dell-client-platform-security-update-for-dell-driver-insufficient-access-control-vulnerability"
@@ -6327,6 +6331,7 @@ rule INDICATOR_KB_CERT_18a686a1229059017a672136ac2e7265 {
             pe.signatures[i].serial == "18:a6:86:a1:22:90:59:01:7a:67:21:36:ac:2e:72:65"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_4cdffb4f02c55ae60a099652605da274 {
     meta:
@@ -6552,5 +6557,78 @@ rule INDICATOR_KB_CERT_28b691272719b1ee {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "2021945 Ontario Inc." and
             pe.signatures[i].serial == "28:b6:91:27:27:19:b1:ee"
+        )
+}
+
+rule INDICATOR_KB_CERT_00e3b80c0932b52a708477939b0d32186f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1d2b5d4f0de1d7ce4abf82fdc58adc43bc28adee"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BISOYETUTU LTD LIMITED" and
+            (
+                pe.signatures[i].serial == "e3:b8:0c:09:32:b5:2a:70:84:77:93:9b:0d:32:18:6f" or
+                pe.signatures[i].serial == "00:e3:b8:0c:09:32:b5:2a:70:84:77:93:9b:0d:32:18:6f"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_00c667ffe3a5b0a5ae7cf3a9e41682e91b {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6b66ba34ff01e0dab6e68ba244d991578a69c4ad"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "NAILS UNLIMITED LIMITED" and
+            (
+                pe.signatures[i].serial == "c6:67:ff:e3:a5:b0:a5:ae:7c:f3:a9:e4:16:82:e9:1b" or
+                pe.signatures[i].serial == "00:c6:67:ff:e3:a5:b0:a5:ae:7c:f3:a9:e4:16:82:e9:1b"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_7c1118cbbadc95da3752c46e47a27438 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5b9e273cf11941fd8c6be3f038c4797bbe884268"
+        hash1 = "f8da3ee80f71b994d8921f9d902456cbd5187e1bdcd352a81f1d76e0f50ca0b8"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Simon Tatham" and
+            pe.signatures[i].serial == "7c:11:18:cb:ba:dc:95:da:37:52:c4:6e:47:a2:74:38"
+        )
+}
+
+rule INDICATOR_KB_CERT_Sagsanlgs {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a6073f35adbdfe26ddc0f647953acc3a9bd33962"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Sagsanlgs" and
+            pe.signatures[i].serial == "00"
+        )
+}
+
+rule INDICATOR_KB_CERT_66660552d465b31f429f7527ea6a93bf {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "99ebe773e163542c94817aaac3b93a6704732eee"
+        hash1 = "aef73ec2ad7d70e70816e3c0c59e4be96926a7abaae206edcc29db36255e7df3"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Symantec Corporation" and
+            pe.signatures[i].serial == "66:66:05:52:d4:65:b3:1f:42:9f:75:27:ea:6a:93:bf"
         )
 }

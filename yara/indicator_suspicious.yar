@@ -1186,3 +1186,13 @@ rule INDICATOR_SUSPICOIUS_WindDefender_AntiEmaulation {
     condition:
         uint16(0) == 0x5a4d and all of them
 }
+
+rule INDICATOR_SUSPICOIUS_attrib {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables using attrib with suspicious attributes attributes"
+    strings:
+        $s1 = "attrib +h +r +s" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}

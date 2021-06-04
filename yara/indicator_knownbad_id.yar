@@ -46,6 +46,17 @@ rule INDICATOR_KB_ID_Amadey {
         uint16(0) == 0x5a4d and any of them
 }
 
+rule INDICATOR_KB_ID_UNK01 {
+    meta:
+        author = "ditekShen"
+        description = "Detects Amadey executables with specific email addresses found in the code signing certificate"
+        hash1 = "37d08a64868c35c5bae8f5155cc669486590951ea80dd9da61ec38defb89a146"
+    strings:
+        $s1 = "etienne@tetracerous.br" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}
+
 rule INDICATOR_KB_ID_Ransomware_LockerGoga {
     meta:
         author = "ditekShen"
@@ -258,6 +269,28 @@ rule INDICATOR_KB_ID_Ransomware_Hello {
         $s5 = "kellyreiff@tutanota.com" ascii wide nocase
         $s6 = "kevindeloach@protonmail.com" ascii wide nocase
         $s7 = "sheilabeasley@tutanota.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_UnlockYourFiles {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with UnlockYourFiles ransomware"
+    strings:
+        $s1 = "4lok3r@tutanota.com" ascii wide nocase
+        $s2 = "4lok3r@protonmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_DarkSide {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with DarkSide ransomware"
+        hash1 = "bafa2efff234303166d663f967037dae43701e7d63d914efc8c894b3e5be9408"
+    strings:
+        $s1 = "breathcojunktab1987@yahoo.com" ascii wide nocase
     condition:
         any of them
 }
@@ -1133,6 +1166,7 @@ rule INDICATOR_KB_ID_Infostealer {
         $account775 = "noor.akbari@petrolnas.icu" ascii wide nocase
         $account776 = "contabilidad@idolz.pw" ascii wide nocase
         $account777 = "ashfaq.ali@nationalfuels.pw" ascii wide nocase
+        $account778 = "billbateman042@gmail.com" ascii wide nocase
     condition:
         any of them
 }
