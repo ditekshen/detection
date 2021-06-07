@@ -14,11 +14,12 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
         $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
         $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase
+        $delr = /del \/s \/f \/q(( [A-Za-z]:\\(\*\.|[Bb]ackup))(VHD|bac|bak|wbcat|bkf)?)+/ ascii wide
         $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
         $wp3 = "delete systemstatebackup" ascii wide nocase
     condition:
-        (uint16(0) == 0x5a4d and 2 of ($cmd*) or (1 of ($cmd*) and 1 of ($wp*))) or (4 of them)
+        (uint16(0) == 0x5a4d and 2 of ($cmd*) or (1 of ($cmd*) and 1 of ($wp*)) or #delr > 4) or (4 of them)
 }
 
 rule INDICATOR_SUSPICIOUS_ReflectiveLoader {
@@ -524,6 +525,7 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
         $cmd5 = "('wevtutil.exe el') DO (call :do_clear" ascii wide nocase
         $cmd6 = "| ForEach { Clear-EventLog $_.Log }" ascii wide nocase
         $cmd7 = "('wevtutil.exe el') DO wevtutil.exe cl \"%s\"" ascii wide nocase
+        $cmd8 = "Clear-EventLog -LogName application, system, security" ascii wide nocase
         $t1 = "wevtutil" ascii wide nocase
         $l1 = "cl Application" ascii wide nocase
         $l2 = "cl System" ascii wide nocase

@@ -369,6 +369,8 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s46 = "nikalgraid@gmail.com" ascii wide nocase
         $s47 = "user1@mail.com" ascii wide nocase
         $s48 = "democyber@kermeur.com" ascii wide nocase
+        $s49 = "loggkeyemisor@gmail.com" ascii wide nocase
+        $s50 = "loggkeyreceptor@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -382,6 +384,8 @@ rule INDICATOR_KB_ID_PowerShellWiFiStealer {
         $s2 = "usb@pterobot.net" ascii wide nocase
         $s3 = "umairdadaber@gmail.com" ascii wide nocase
         $s4 = "mrumairok@gmail.com" ascii wide nocase
+        $s5 = "credsenderbot@gmail.com" ascii wide nocase
+        $s6 = "easywareytb@gmail.com" ascii wide nocase
     condition:
         any of them
 }
