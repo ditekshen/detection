@@ -316,6 +316,12 @@ rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
         $s71 = "Coowon\\User Data" nocase ascii wide
         $s72 = "liebao\\User Data" nocase ascii wide
         $s73 = "Edge\\User Data" nocase ascii wide
+        $s74 = "BlackHawk\\User Data" nocase ascii wide
+        $s75 = "QQBrowser\\User Data" nocase ascii wide
+        $s76 = "GhostBrowser\\User Data" nocase ascii wide
+        $s77 = "Xvast\\User Data" nocase ascii wide
+        $s78 = "360Chrome\\Chrome\\User Data" nocase ascii wide
+        $s79 = "Brave-Browser\\User Data" nocase ascii wide
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 6 of them
 }
@@ -1167,7 +1173,7 @@ rule INDICATOR_SUSPICIOUS_XML_Liverpool_Downlaoder_UserConfig {
        uint32(0) == 0x6d783f3c and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_B64_Encoded_UserAgent {
+rule INDICATOR_SUSPICOIUS_EXE_B64_Encoded_UserAgent {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing base64 encoded User Agent"
@@ -1178,7 +1184,7 @@ rule INDICATOR_SUSPICOIUS_B64_Encoded_UserAgent {
         uint16(0) == 0x5a4d and any of them
 }
 
-rule INDICATOR_SUSPICOIUS_WindDefender_AntiEmaulation {
+rule INDICATOR_SUSPICOIUS_EXE_WindDefender_AntiEmaulation {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing potential Windows Defender anti-emulation checks"
@@ -1189,7 +1195,7 @@ rule INDICATOR_SUSPICOIUS_WindDefender_AntiEmaulation {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_attrib {
+rule INDICATOR_SUSPICOIUS_EXE_attrib {
     meta:
         author = "ditekSHen"
         description = "Detects executables using attrib with suspicious attributes attributes"
@@ -1197,4 +1203,39 @@ rule INDICATOR_SUSPICOIUS_attrib {
         $s1 = "attrib +h +r +s" ascii wide
     condition:
         uint16(0) == 0x5a4d and any of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_ClearMyTracksByProcess {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables calling ClearMyTracksByProcess"
+    strings:
+        $s1 = "InetCpl.cpl,ClearMyTracksByProcess" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_DotNetProcHook {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables with potential process hoocking"
+    strings:
+        $s1 = "UnHook" fullword ascii
+        $s2 = "SetHook" fullword ascii
+        $s3 = "CallNextHook" fullword ascii
+        $s4 = "_hook" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_TelegramChatBot {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables using Telegram Chat Bot"
+    strings:
+        $s1 = "https://api.telegram.org/bot" ascii wide
+        $s2 = "/sendMessage?chat_id=" fullword ascii
+        $s3 = "Content-Disposition: form-data; name=\"" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and 2 of them
 }
