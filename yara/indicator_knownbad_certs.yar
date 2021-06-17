@@ -4598,11 +4598,15 @@ rule INDICATOR_KB_CERT_00b3969cd6b2f913acc99c3f61fc14852f {
         author = "ditekSHen"
         description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "bd9cadcfb5cde90f493a92e43f49bf99db177724"
+        hash1 = "a4d9cf67d111b79da9cb4b366400fc3ba1d5f41f71d48ca9c8bb101cb4596327"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "S.O.M GmbH" and
-            pe.signatures[i].serial == "00:b3:96:9c:d6:b2:f9:13:ac:c9:9c:3f:61:fc:14:85:2f"
+            (
+                pe.signatures[i].serial == "b3:96:9c:d6:b2:f9:13:ac:c9:9c:3f:61:fc:14:85:2f" or
+                pe.signatures[i].serial == "00:b3:96:9c:d6:b2:f9:13:ac:c9:9c:3f:61:fc:14:85:2f"
+            )
         )
 }
 
@@ -6744,5 +6748,33 @@ rule INDICATOR_KB_CERT_b548765eebe9468348af40b9891c1e63 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "OSIRIS Corporation" and
             pe.signatures[i].serial == "b5:48:76:5e:eb:e9:46:83:48:af:40:b9:89:1c:1e:63"
+        )
+}
+
+rule INDICATOR_KB_CERT_4697c7ddd3e37fe275fdc6961a9093e3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ef24ae3635929c371d1427901082be9f76e58d9a"
+        hash1 = "fb3f622cf5557364a0a3abacc3e9acf399b3631bf3630acb8132514c486751e7"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "\\xC3\\x89tienne Hill" and
+            pe.signatures[i].serial == "46:97:c7:dd:d3:e3:7f:e2:75:fd:c6:96:1a:90:93:e3"
+        )
+}
+
+rule INDICATOR_KB_CERT_74c94ef697dc9783f845d26dccc1e7fd {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6daa64d7af228de45ded86ad4d1aeaa360295f56"
+        hash1 = "45e35c9b095871fbc9b85afff4e79dd36b7812b96a302e1ccc65ce7668667fe6"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "CIBIKART d.o.o." and
+            pe.signatures[i].serial == "74:c9:4e:f6:97:dc:97:83:f8:45:d2:6d:cc:c1:e7:fd"
         )
 }

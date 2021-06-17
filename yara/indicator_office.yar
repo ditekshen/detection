@@ -313,12 +313,12 @@ rule INDICATOR_OLE_MetadataCMD {
         // 00003e00  04 00 00 00 00 00 00 00  1e 00 00 00 >>08 00 00 00  |................|
         // 00003e10  55 73 65 72 00<< 00 00 00  1e 00 00 00 04 00 00 00  |User............|
         // Some variants don't reference the command itself, but following parts 
-        $cmd1 = { 00 1E 00 00 00 [1-4] 00 00 63 6D 64 (00|20) }  // |00 00|cmd|00|
-        $cmd2 = { 00 1E 00 00 00 [1-4] 00 00 6d 73 68 74 61 (00|20) }  // |00 00|mshta|00|
-        $cmd3 = { 00 1E 00 00 00 [1-4] 00 00 77 73 63 72 69 70 74 (00|20) }  // |00 00|wscript|00|
-        $cmd4 = { 00 1E 00 00 00 [1-4] 00 00 63 65 72 74 75 74 69 6C (00|20) } // |00 00|certutil|00|
-        $cmd5 = { 00 1E 00 00 00 [1-4] 00 00 70 6F 77 65 72 73 68 65 6C 6C (00|20) } // |00 00|powershell|00|
-        $cmd6 = { 00 1E 00 00 00 [1-4] 00 00 6E 65 74 2E 77 65 62 63 6C 69 65 6E 74 (00|20) } // |00 00|net.webclient|00|
+        $cmd1 = { 00 1E 00 00 00 [1-4] 00 00 (63|43) (6D|4D) (64|44) (00|20) }  // |00 00|cmd|00|
+        $cmd2 = { 00 1E 00 00 00 [1-4] 00 00 (6D|4D) (73|53) (68|48) (74|54) (61|41) (00|20) }  // |00 00|mshta|00|
+        $cmd3 = { 00 1E 00 00 00 [1-4] 00 00 (77|57) (73|53) (63|43) (72|52) (69|49) (70|50) (74|54) (00|20) }  // |00 00|wscript|00|
+        $cmd4 = { 00 1E 00 00 00 [1-4] 00 00 (63|42) (65|45) (72|52) (74|54) (75|55) (74|54) (69|49) (6C|4C) (00|20) } // |00 00|certutil|00|
+        $cmd5 = { 00 1E 00 00 00 [1-4] 00 00 (70|50) (6F|4F) (77|57) (65|45) (72|52) (73|43) (68|48) (65|45) (6C|4C) (6C|4C) (00|20) } // |00 00|powershell|00|
+        $cmd6 = { 00 1E 00 00 00 [1-4] 00 00 (6E|4E) (65|45) (74|54) 2E (77|57) (65|45) (62|42) (63|43) (6C|4C) (69|49) (65|45) (6E|4E) (74|54) (00|20) } // |00 00|net.webclient|00|
     condition:
         uint16(0) == 0xcfd0 and any of them
 }
@@ -335,8 +335,7 @@ rule INDICATOR_RTF_MultiExploit_Embedded_Files {
         // 00000300-0000-0000-C000-000000000046: OLE2Link
         // CVE-2017-0199, CVE-2017-8570, CVE-2017-8759 or CVE-2018-8174
         $ole2link1 = "03000000000000c000000000000046" ascii nocase
-        $ole2link2 = { 03000000000000c000000000000046 }
-        $ole2link3 = "4f4c45324c696e6b" ascii nocase // HEX
+        $ole2link2 = { (36|34) (66|46) (36|34) (63|43) (36|34) 35 33 32 (36|34) (63|43) (36|34) 39 (36|34) (65|45) (36|34) (62|42) } // HEX + manipulated
         // Embedded Objects
         $obj1 = "\\objhtml" ascii
         $obj2 = "\\objdata" ascii
@@ -345,7 +344,7 @@ rule INDICATOR_RTF_MultiExploit_Embedded_Files {
         $obj5 = "\\objautlink" ascii
         $obj6 = "\\mmath" ascii
         // OLE Package Object
-        $pkg = "5061636B616765" ascii nocase
+        $pkg = { (70|50) (61|41) (63|43) (6b|4b) (61|41) (67|47) (65|45) }
         // Embedded Files Extensions - ASCII
         $emb_exe = { 3265 (3635|3435) (3738|3538) (3635|3435) 3030 }
         $emb_scr = { 3265 (3733|3533) (3633|3433) (3532|3732) 3030 }
@@ -862,8 +861,21 @@ rule INDICATOR_OOXML_Excel4Macros_EXEC {
         $s3 = ">EXEC(" ascii nocase
         $s4 = ">RUN(" ascii nocase
     condition:
-        uint32(0) == 0x6d783f3c and $ms and 2 of ($s*)
+        uint32(0) == 0x6d783f3c and $ms and (2 of ($s*) or ($s3))
 }
+
+rule INDICATOR_OOXML_Excel4Macros_AutoOpenHidden {
+    meta:
+        author = "ditekSHen"
+        description = "Detects OOXML (decompressed) documents with Excel 4 Macros XLM macrosheet auto_open and state hidden"
+        clamav_sig = "INDICATOR.OOXML.Excel4MacrosEXEC"
+    strings:
+        $s1 = "state=\"veryhidden\"" ascii nocase
+        $s2 = "<definedName name=\"_xlnm.Auto_Open" ascii nocase
+    condition:
+        uint32(0) == 0x6d783f3c and all of them
+}
+
 
 /*
 rule INDICATOR_OLE_CreateObject_Suspicious_Pattern_1 {

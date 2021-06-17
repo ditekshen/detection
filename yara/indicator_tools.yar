@@ -895,3 +895,40 @@ rule INDICATOR_TOOL_Sliver {
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0x457f or uint16(0) == 0xfacf) and (1 of ($x*) or 5 of ($s*))
 }
+
+rule INDICATOR_TOOL_OwlProxy {
+     meta:
+        author = "ditekSHen"
+        description = "Hunt for OwlProxy"
+    strings:
+        $is1 = "call_new command: " wide
+        $is2 = "call_proxy cmd: " wide
+        $is3 = "download_file: " wide
+        $is4 = "cmdhttp_run" wide
+        $is5 = "sub_proxyhttp_run" wide
+        $is6 = "proxyhttp_run" wide
+        $is7 = "webshell_run" wide
+        $is8 = "/exchangetopicservices/" fullword wide
+        $is9 = "c:\\windows\\system32\\wmipd.dll" fullword wide
+        $iu1 = "%s://+:%d%s" wide
+        $iu2 = "%s://+:%d%spp/" wide
+        $iu3 = "%s://+:%d%spx/" wide
+    condition:
+        uint16(0) == 0x5a4d and 6 of ($is*) or (all of ($iu*) and 2 of ($is*))
+}
+
+rule INDICATOR_TOOL_Backstab {
+     meta:
+        author = "ditekSHen"
+        description = "Detect Backstab tool capable of killing antimalware protected processes by leveraging sysinternals Process Explorer (ProcExp) driver"
+    strings:
+        $s1 = "NtLoadDriver: %x" fullword ascii
+        $s2 = "POSIXLY_CORRECT" fullword ascii
+        $s3 = "\\\\.\\PROCEXP" ascii
+        $s4 = "ProcExpOpenProtectedProcess.DeviceIoControl: %" ascii
+        $s5 = "ProcExpKillHandle.DeviceIoControl" ascii
+        $s6 = "[%#llu] [%ws]: %ws" fullword ascii
+        $s7 = "D:P(A;;GA;;;SY)(A;;GRGWGX;;;BA)(A;;GR" wide
+    condition:
+        uint16(0) == 0x5a4d and 6 of them
+}
