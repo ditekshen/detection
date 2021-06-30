@@ -6778,3 +6778,33 @@ rule INDICATOR_KB_CERT_74c94ef697dc9783f845d26dccc1e7fd {
             pe.signatures[i].serial == "74:c9:4e:f6:97:dc:97:83:f8:45:d2:6d:cc:c1:e7:fd"
         )
 }
+
+rule INDICATOR_KB_CERT_5dd1cb148a90123dcc13498b54e5a798 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3a7c692345b67c7a2b21a6d94518588c8bbe514c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "33adab6a2ixdac07i4cLb4ac05j6yG2ew95e" and
+            pe.signatures[i].serial == "5d:d1:cb:14:8a:90:12:3d:cc:13:49:8b:54:e5:a7:98"
+        )
+}
+
+rule INDICATOR_KB_CERT_00a758504e7971869d0aec2775fffa03d5 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "646bbb3a37cc004bea6efcd48579d1a5776cb157"
+        hash1 = "3194e2fb68c007cf2f6deaa1fb07b2cc68292ee87f37dff70ba142377e2ca1fa"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Amcert LLC" and
+            (
+                pe.signatures[i].serial == "a7:58:50:4e:79:71:86:9d:0a:ec:27:75:ff:fa:03:d5" or
+                pe.signatures[i].serial == "00:a7:58:50:4e:79:71:86:9d:0a:ec:27:75:ff:fa:03:d5"
+            )
+        )
+}

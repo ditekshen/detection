@@ -1239,3 +1239,161 @@ rule INDICATOR_SUSPICOIUS_EXE_TelegramChatBot {
     condition:
         uint16(0) == 0x5a4d and 2 of them
 }
+
+rule INDICATOR_SUSPICOIUS_EXE_B64_Artifacts {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding bas64-encoded APIs, command lines, registry keys, etc."
+    strings:
+        $s1 = "U09GVFdBUkVcTWljcm9zb2Z0XFdpbmRvd3NcQ3VycmVudFZlcnNpb25cUnVuXA" ascii wide
+        $s2 = "L2Mgc2NodGFza3MgL2" ascii wide
+        $s3 = "QW1zaVNjYW5CdWZmZXI" ascii wide
+        $s4 = "VmlydHVhbFByb3RlY3Q" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and 2 of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_DiscordURL {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables Discord URL observed in first stage droppers"
+    strings:
+        $s1 = "https://discord.com/api/webhooks/" ascii wide nocase
+        $s2 = "https://cdn.discordapp.com/attachments/" ascii wide nocase
+        $s3 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va" ascii wide
+        $s4 = "aHR0cHM6Ly9jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobW" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and any of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableTaskManager {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling task manager"
+    strings:
+        $r1 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $r2 = "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k1 = "DisableTaskMgr" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableExplorerHidden {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling explorer displaying hidden files"
+    strings:
+        $r1 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" ascii wide nocase
+        $r2 = "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" ascii wide nocase
+        $k1 = "Hidden" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableSecurityCenter {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling Security Center features"
+    strings:
+        $r1 = "SOFTWARE\\Microsoft\\Security Center" ascii wide nocase
+        $k1 = "AntiVirusDisableNotify" ascii wide nocase
+        $k2 = "FirewallDisableNotify" ascii wide nocase
+        $k3 = "UpdatesDisableNotify" ascii wide nocase
+        $k4 = "UacDisableNotify" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableWinDefender {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling Windows Defedner features"
+    strings:
+        $r1 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
+        $k1 = "DisableAntiSpyware" ascii wide
+        $r2 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection" ascii wide nocase
+        $k2 = "DisableBehaviorMonitoring" ascii wide
+        $k3 = "DisableOnAccessProtection" ascii wide
+        $k4 = "DisableScanOnRealtimeEnable" ascii wide
+        $r3 = "SOFTWARE\\Microsoft\\Windows Defender\\Real-Time Protection" ascii wide nocase
+        $k5 = "vDisableRealtimeMonitoring" ascii wide
+        $r4 = "SOFTWARE\\Microsoft\\Windows Defender\\Spynet" ascii wide nocase
+        $k6 = "SpyNetReporting" ascii wide
+        $k7 = "SubmitSamplesConsent" ascii wide
+        $r5 = "SOFTWARE\\Microsoft\\Windows Defender\\Features" ascii wide nocase
+        $k8 = "TamperProtection" ascii wide
+        $r6 = "SOFTWARE\\Microsoft\\Windows Defender\\Exclusions\\Paths" ascii wide nocase
+        $k9 = "Add-MpPreference -ExclusionPath \"{0}\"" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_IExecuteCommandCOM {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding command execution via IExecuteCommand COM object"
+    strings:
+        $r1 = "Classes\\Folder\\shell\\open\\command" ascii wide nocase
+        $k1 = "DelegateExecute" ascii wide
+        $s1 = "/EXEFilename \"{0}" ascii wide
+        $s2 = "/WindowState \"\"" ascii wide
+        $s3 = "/PriorityClass \"\"32\"\" /CommandLine \"" ascii wide
+        $s4 = "/StartDirectory \"" ascii wide
+        $s5 = "/RunAs" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and ((1 of ($r*) and 1 of ($k*)) or (all of ($s*)))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_WMI_EnumerateVideoDevice {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables attemping to enumerate video devices using WMI"
+    strings:
+        $q1 = "Select * from Win32_CacheMemory" ascii wide nocase
+        $d1 = "{860BB310-5D01-11d0-BD3B-00A0C911CE86}" ascii wide
+        $d2 = "{62BE5D10-60EB-11d0-BD3B-00A0C911CE86}" ascii wide
+        $d3 = "{55272A00-42CB-11CE-8135-00AA004BB851}" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($q*) and 1 of ($d*))
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_DcRatBy {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables containing the string DcRatBy"
+    strings:
+        $s1 = "DcRatBy" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_Anti_WinJail {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables potentially checking for WinJail sandbox window"
+    strings:
+        $s1 = "Afx:400000:0" fullword ascii wide
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICOIUS_EXE_Anti_OldCopyPaste {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables potentially checking for WinJail sandbox window"
+    strings:
+        $s1 = "This file can't run into Virtual Machines" wide
+        $s2 = "This file can't run into Sandboxies" wide
+        $s3 = "This file can't run into RDP Servers" wide
+        $s4 = "Run without emulation" wide
+        $s5 = "Run using valid operating system" wide
+        $v1 = "SbieDll.dll" fullword wide
+        $v2 = "USER" fullword wide
+        $v3 = "SANDBOX" fullword wide
+        $v4 = "VIRUS" fullword wide
+        $v5 = "MALWARE" fullword wide
+        $v6 = "SCHMIDTI" fullword wide
+        $v7 = "CURRENTUSER" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and (3 of ($s*) or all of ($v*))
+}

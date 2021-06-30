@@ -295,6 +295,17 @@ rule INDICATOR_KB_ID_Ransomware_DarkSide {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Spyro {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with DarkSide ransomware"
+    strings:
+        $s1 = "blackspyro@tutanota.com" ascii wide nocase
+        $s2 = "blackspyro@mailfence.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -1275,6 +1286,16 @@ rule INDICATOR_KB_GoBuildID_Banload {
         description = "Detects Goland Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"a3629ee6ab610a57f242f59a3dd5e5f6de73da40\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_Hive {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in Hive ransomware"       
+    strings:
+        $s1 = "Go build ID: \"XDub7DGmWVQ2COC6W4If/XHMqRPf2lnJUiVkG1CR6/u_MaUU0go2UUmLb_INuv/WrZSyz-WMW1st_NaM935\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
