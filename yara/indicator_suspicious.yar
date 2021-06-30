@@ -1266,6 +1266,7 @@ rule INDICATOR_SUSPICOIUS_EXE_DiscordURL {
         uint16(0) == 0x5a4d and any of them
 }
 
+/*
 rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableTaskManager {
     meta:
         author = "ditekSHen"
@@ -1277,7 +1278,9 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableTaskManager {
     condition:
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
+*/
 
+/*
 rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableExplorerHidden {
     meta:
         author = "ditekSHen"
@@ -1289,7 +1292,9 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableExplorerHidden {
     condition:
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
+*/
 
+/*
 rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableSecurityCenter {
     meta:
         author = "ditekSHen"
@@ -1303,6 +1308,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableSecurityCenter {
     condition:
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
+*/
 
 rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableWinDefender {
     meta:
