@@ -6808,3 +6808,74 @@ rule INDICATOR_KB_CERT_00a758504e7971869d0aec2775fffa03d5 {
             )
         )
 }
+
+rule INDICATOR_KB_CERT_00f13a4f94bf233525 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "974eb056bb7467d54aae25a908ce661dac59c786"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SocketOptionName" and
+            (
+                pe.signatures[i].serial == "f1:3a:4f:94:bf:23:35:25" or
+                pe.signatures[i].serial == "00:f1:3a:4f:94:bf:23:35:25"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_119acead668bad57a48b4f42f294f8f0 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "11ff68da43f0931e22002f1461136c662e623366"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "PB03 TRANSPORT LTD." and
+            pe.signatures[i].serial == "11:9a:ce:ad:66:8b:ad:57:a4:8b:4f:42:f2:94:f8:f0"
+        )
+}
+
+rule INDICATOR_KB_CERT_21144343720267ba42f586105ff279de {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c56f79b4cc3a0e0894cd1e54facdf2db9d8ca62a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Varta Blue Dynamic" and
+            pe.signatures[i].serial == "21:14:43:43:72:02:67:ba:42:f5:86:10:5f:f2:79:de"
+        )
+}
+
+rule INDICATOR_KB_CERT_00a3cb8e964244768969b837ca9981de68 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5617114bc2a584532eba1dd9eb9d23108d1f9ea7"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].serial == "a3:cb:8e:96:42:44:76:89:69:b8:37:ca:99:81:de:68" or
+            pe.signatures[i].serial == "00:a3:cb:8e:96:42:44:76:89:69:b8:37:ca:99:81:de:68"
+        )
+}
+
+rule INDICATOR_KB_CERT_00bd96f0b87edca41e777507015b3b2775 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "abfa72d4a78a9e63f97c90bcccb8f46f3c14ac52"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ООО \"СМ\"" and
+            (
+                pe.signatures[i].serial == "bd:96:f0:b8:7e:dc:a4:1e:77:75:07:01:5b:3b:27:75" or
+                pe.signatures[i].serial == "00:bd:96:f0:b8:7e:dc:a4:1e:77:75:07:01:5b:3b:27:75"
+            )
+        )
+}
