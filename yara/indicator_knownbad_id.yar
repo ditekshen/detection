@@ -334,6 +334,8 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $boi10 = { 5C 46 EC 05 A6 60 EB 11 85 EB 8C 16 45 31 19 7F } // finger.exe dropper
         $boi11 = { 30 8B 17 86 9B 35 C5 40 A7 9D 48 5C D6 3D F3 5C } // CULNADY LTD LTD
         $boi12 = { E5 21 1D 04 9D A4 E9 11 A9 37 00 0C 29 0F 29 89 } // CULNADY LTD LTD
+        $boi13 = { 34 5F AC 8A 4E CE ED 4D 8E 55 83 8E EA 24 B3 4E } // 170899
+        $boi14 = { 49 77 25 3B D6 E1 EB 11 9C BB 00 D8 61 85 FD 9F } // 170899
         // Mac Addresses
         $mac1 = { 00 0C 29 A1 A9 40 }
         $mac2 = { 08 00 27 6D D5 D9 }
@@ -343,6 +345,7 @@ rule INDICATOR_KB_LNK_BOI_MAC {
         $mac6 = { 00 50 56 C0 00 08 } // ZINC
         $mac7 = { 8C 16 45 31 19 7F } // finger.exe dropper
         $mac8 = { 00 0C 29 0F 29 89 } // CULNADY LTD LTD
+        $mac9 = { 00 D8 61 85 FD 9F } // 170899 > Micro-Star INTL CO., LTD.
     condition:
       uint16(0) == 0x004c and uint32(4) == 0x00021401 and filesize < 3KB and (1 of ($boi*) and 1 of ($mac*))
 }
@@ -1315,10 +1318,30 @@ rule INDICATOR_KB_GoBuildID_Nodachi {
         author = "ditekSHen"
         description = "Detects Goland Build IDs in Nodachi"       
     strings:
-        $s1 = "Go build ID: \"3AAyhKK0wFfCYLdz5oRV/zKyiBHCsAEyDIWhaW5AW/Rb8NLT3q8A2OLm6izDGP/8G9k_gjOTX_PXKna_IMj\""
-        $s2 = "Go build ID: \"-eyFd8kbpwxUsutpqZn_/vqzQXX5Ra4qk1XHoqocW/wd-6gLzQKZyEyhVp7qOj/Jr14hyc7pLLgeIZNbfLD\""
-        $s3 = "Go build ID: \"xDSqp4KGmd0SAf5irMGh/-kA7PGjKoJcvCgsZDStn/lHeQ1LQOVyQB2NnwIwFP/-D5oEBc23ND7IGLTESdM\""
-        $s4 = "Go build ID: \"67RcwNspLH__QJrElMcB/zMJf7Go1s0ZoXqd30Lb_/NaJl4rfcuLEG5LeZ-Y4k/MzFNvW79enRRdx3LmA47\""
+        $s1 = "Go build ID: \"3AAyhKK0wFfCYLdz5oRV/zKyiBHCsAEyDIWhaW5AW/Rb8NLT3q8A2OLm6izDGP/8G9k_gjOTX_PXKna_IMj\"" ascii
+        $s2 = "Go build ID: \"-eyFd8kbpwxUsutpqZn_/vqzQXX5Ra4qk1XHoqocW/wd-6gLzQKZyEyhVp7qOj/Jr14hyc7pLLgeIZNbfLD\"" ascii
+        $s3 = "Go build ID: \"xDSqp4KGmd0SAf5irMGh/-kA7PGjKoJcvCgsZDStn/lHeQ1LQOVyQB2NnwIwFP/-D5oEBc23ND7IGLTESdM\"" ascii
+        $s4 = "Go build ID: \"67RcwNspLH__QJrElMcB/zMJf7Go1s0ZoXqd30Lb_/NaJl4rfcuLEG5LeZ-Y4k/MzFNvW79enRRdx3LmA47\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_GoBrut {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in GoBrut"       
+    strings:
+        $s1 = "Go build ID: \"sf_2_ylcjquGBe4mQ99L/aPvdLbM2z9HfoDN3RazG/8bhYeVA67N-ifbDYCDJe/UZzCu_EFL9f10gSfO4L0\"" ascii
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_KB_GoBuildID_BioPassDropper {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Goland Build IDs in BioPass dropper"       
+    strings:
+        $s1 = "Go build ID: \"OS0VlkdEIlcl3WDDr9Za/_oVwEipaaX6V4mEEYg2V/PytlyeIYgV65maz4wT2Y/IQvgbHv3bbLV42i10qq2\"" ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }

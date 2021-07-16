@@ -557,7 +557,7 @@ rule INDICATOR_TOOL_PET_SharpHound {
         description = "Detects BloodHound"
     strings:
         $id1 = "InvokeBloodHound" fullword ascii
-        $id2 = "Sharphound2" ascii
+        $id2 = "Sharphound" ascii nocase
         $s1 = "SamServerExecute" fullword ascii
         $s2 = "get_RemoteDesktopUsers" fullword ascii
         $s3 = "commandline.dll.compressed" ascii wide
@@ -565,8 +565,9 @@ rule INDICATOR_TOOL_PET_SharpHound {
         $s5 = "LDAP://" fullword wide
         $s6 = "wkui1_logon_domain" fullword ascii
         $s7 = "GpoProps" fullword ascii
+        $s8 = "a517a8de-5834-411d-abda-2d0e1766539c" fullword ascii nocase
     condition:
-        uint16(0) == 0x5a4d and (all of ($id*) or all of ($s*))
+        uint16(0) == 0x5a4d and (all of ($id*) or 6 of ($s*) or (1 of ($id*) and 4 of ($s*)))
 }
 
 rule INDICATOR_TOOL_UAC_NSISUAC {
@@ -953,4 +954,17 @@ rule INDICATOR_TOOL_EXP_SharpPrintNightmare {
         $s13 = "APD_COPY_" ascii
     condition:
         uint16(0) == 0x5a4d and 7 of them
+}
+
+rule INDICATOR_TOOL_REC_ADFind {
+     meta:
+        author = "ditekSHen"
+        description = "Detect SharpPrintNightmare"
+    strings:
+        $s1 = "\\AdFind\\AdFind\\AdFind.h" ascii
+        $s2 = "\\AdFind\\AdFind\\AdFind.cpp" ascii
+        $s3 = "\\AdFind\\Release\\AdFind.pdb" ascii
+        $s4 = "joeware_default_adfind.cf" ascii
+    condition:
+        uint16(0) == 0x5a4d and 2 of them
 }

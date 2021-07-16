@@ -14,6 +14,7 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
         $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
         $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase
+        $cmd9 = "shadowcopy where \"ID='%s'\" delete" ascii wide nocase
         $delr = /del \/s \/f \/q(( [A-Za-z]:\\(\*\.|[Bb]ackup))(VHD|bac|bak|wbcat|bkf)?)+/ ascii wide
         $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
@@ -797,6 +798,8 @@ rule INDICATOR_SUSPICIOUS_EXE_SQLQuery_ConfidentialDataStore {
         $table2 = " from logins" ascii wide nocase
         $table3 = " from cookies" ascii wide nocase
         $table4 = " from moz_cookies" ascii wide nocase
+        $table5 = " from moz_formhistory" ascii wide nocase
+        $table6 = " from moz_logins" ascii wide nocase
         $column1 = "name" ascii wide nocase
         $column2 = "password_value" ascii wide nocase
         $column3 = "encrypted_value" ascii wide nocase
@@ -1234,10 +1237,14 @@ rule INDICATOR_SUSPICOIUS_EXE_TelegramChatBot {
         description = "Detects executables using Telegram Chat Bot"
     strings:
         $s1 = "https://api.telegram.org/bot" ascii wide
-        $s2 = "/sendMessage?chat_id=" fullword ascii
+        $s2 = "/sendMessage?chat_id=" fullword ascii wide
         $s3 = "Content-Disposition: form-data; name=\"" fullword ascii
+        $s4 = "/sendDocument?chat_id=" fullword ascii wide
+        $p1 = "/sendMessage" ascii wide
+        $p2 = "/sendDocument" ascii wide
+        $p3 = "&chat_id=" ascii wide
     condition:
-        uint16(0) == 0x5a4d and 2 of them
+        uint16(0) == 0x5a4d and (2 of ($s*) or (2 of ($p*) and 1 of ($s*)))
 }
 
 rule INDICATOR_SUSPICOIUS_EXE_B64_Artifacts {
