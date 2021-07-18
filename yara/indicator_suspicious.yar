@@ -1425,3 +1425,17 @@ rule INDICATOR_SUSPICOIUS_EXE_Go_GoLazagne {
     condition:
         uint16(0) == 0x5a4d and all of them
 }
+
+rule INDICATOR_SUSPICOIUS_CSPROJ {
+    meta:
+        author = "ditekSHen"
+        description = "Detects suspicious .CSPROJ files then compiled with msbuild"
+    strings:
+        $s1 = "ToolsVersion=" ascii
+        $s2 = "/developer/msbuild/" ascii
+        $x1 = "[DllImport(\"\\x" ascii
+        $x2 = "VirtualAlloc(" ascii nocase
+        $x3 = "CallWindowProc(" ascii nocase
+    condition:
+        uint32(0) == 0x6f72503c and (all of ($s*) and 2 of ($x*))
+}
