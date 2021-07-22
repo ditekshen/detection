@@ -1426,11 +1426,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Go_GoLazagne {
         uint16(0) == 0x5a4d and all of them
 }
 
-<<<<<<< HEAD
-rule INDICATOR_SUSPICIOUS_CSPROJ {
-=======
 rule INDICATOR_SUSPICOIUS_CSPROJ {
->>>>>>> f2a192a6894c4b40acfe7d6ea8cb14b8bf22e34f
     meta:
         author = "ditekSHen"
         description = "Detects suspicious .CSPROJ files then compiled with msbuild"
@@ -1442,8 +1438,4 @@ rule INDICATOR_SUSPICOIUS_CSPROJ {
         $x3 = "CallWindowProc(" ascii nocase
     condition:
         uint32(0) == 0x6f72503c and (all of ($s*) and 2 of ($x*))
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f2a192a6894c4b40acfe7d6ea8cb14b8bf22e34f
