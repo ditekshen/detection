@@ -1176,7 +1176,7 @@ rule INDICATOR_SUSPICIOUS_XML_Liverpool_Downlaoder_UserConfig {
        uint32(0) == 0x6d783f3c and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_B64_Encoded_UserAgent {
+rule INDICATOR_SUSPICIOUS_EXE_B64_Encoded_UserAgent {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing base64 encoded User Agent"
@@ -1187,7 +1187,7 @@ rule INDICATOR_SUSPICOIUS_EXE_B64_Encoded_UserAgent {
         uint16(0) == 0x5a4d and any of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_WindDefender_AntiEmaulation {
+rule INDICATOR_SUSPICIOUS_EXE_WindDefender_AntiEmaulation {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing potential Windows Defender anti-emulation checks"
@@ -1198,7 +1198,7 @@ rule INDICATOR_SUSPICOIUS_EXE_WindDefender_AntiEmaulation {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_attrib {
+rule INDICATOR_SUSPICIOUS_EXE_attrib {
     meta:
         author = "ditekSHen"
         description = "Detects executables using attrib with suspicious attributes attributes"
@@ -1208,7 +1208,7 @@ rule INDICATOR_SUSPICOIUS_EXE_attrib {
         uint16(0) == 0x5a4d and any of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_ClearMyTracksByProcess {
+rule INDICATOR_SUSPICIOUS_EXE_ClearMyTracksByProcess {
     meta:
         author = "ditekSHen"
         description = "Detects executables calling ClearMyTracksByProcess"
@@ -1218,7 +1218,7 @@ rule INDICATOR_SUSPICOIUS_EXE_ClearMyTracksByProcess {
         uint16(0) == 0x5a4d and any of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_DotNetProcHook {
+rule INDICATOR_SUSPICIOUS_EXE_DotNetProcHook {
     meta:
         author = "ditekSHen"
         description = "Detects executables with potential process hoocking"
@@ -1231,7 +1231,7 @@ rule INDICATOR_SUSPICOIUS_EXE_DotNetProcHook {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_TelegramChatBot {
+rule INDICATOR_SUSPICIOUS_EXE_TelegramChatBot {
     meta:
         author = "ditekSHen"
         description = "Detects executables using Telegram Chat Bot"
@@ -1247,7 +1247,7 @@ rule INDICATOR_SUSPICOIUS_EXE_TelegramChatBot {
         uint16(0) == 0x5a4d and (2 of ($s*) or (2 of ($p*) and 1 of ($s*)))
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_B64_Artifacts {
+rule INDICATOR_SUSPICIOUS_EXE_B64_Artifacts {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding bas64-encoded APIs, command lines, registry keys, etc."
@@ -1260,7 +1260,7 @@ rule INDICATOR_SUSPICOIUS_EXE_B64_Artifacts {
         uint16(0) == 0x5a4d and 2 of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_DiscordURL {
+rule INDICATOR_SUSPICIOUS_EXE_DiscordURL {
     meta:
         author = "ditekSHen"
         description = "Detects executables Discord URL observed in first stage droppers"
@@ -1278,7 +1278,7 @@ rule INDICATOR_SUSPICOIUS_EXE_DiscordURL {
 }
 
 /*
-rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableTaskManager {
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableTaskManager {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding registry key / value combination indicative of disabling task manager"
@@ -1292,7 +1292,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableTaskManager {
 */
 
 /*
-rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableExplorerHidden {
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableExplorerHidden {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding registry key / value combination indicative of disabling explorer displaying hidden files"
@@ -1306,7 +1306,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableExplorerHidden {
 */
 
 /*
-rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableSecurityCenter {
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableSecurityCenter {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding registry key / value combination indicative of disabling Security Center features"
@@ -1321,7 +1321,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableSecurityCenter {
 }
 */
 
-rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableWinDefender {
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableWinDefender {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding registry key / value combination indicative of disabling Windows Defedner features"
@@ -1345,7 +1345,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_DisableWinDefender {
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_IExecuteCommandCOM {
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_IExecuteCommandCOM {
     meta:
         author = "ditekSHen"
         description = "Detects executables embedding command execution via IExecuteCommand COM object"
@@ -1361,7 +1361,7 @@ rule INDICATOR_SUSPICOIUS_EXE_RegKeyComb_IExecuteCommandCOM {
         uint16(0) == 0x5a4d and ((1 of ($r*) and 1 of ($k*)) or (all of ($s*)))
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_WMI_EnumerateVideoDevice {
+rule INDICATOR_SUSPICIOUS_EXE_WMI_EnumerateVideoDevice {
     meta:
         author = "ditekSHen"
         description = "Detects executables attemping to enumerate video devices using WMI"
@@ -1374,7 +1374,7 @@ rule INDICATOR_SUSPICOIUS_EXE_WMI_EnumerateVideoDevice {
         uint16(0) == 0x5a4d and (1 of ($q*) and 1 of ($d*))
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_DcRatBy {
+rule INDICATOR_SUSPICIOUS_EXE_DcRatBy {
     meta:
         author = "ditekSHen"
         description = "Detects executables containing the string DcRatBy"
@@ -1384,7 +1384,7 @@ rule INDICATOR_SUSPICOIUS_EXE_DcRatBy {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_Anti_WinJail {
+rule INDICATOR_SUSPICIOUS_EXE_Anti_WinJail {
     meta:
         author = "ditekSHen"
         description = "Detects executables potentially checking for WinJail sandbox window"
@@ -1394,7 +1394,7 @@ rule INDICATOR_SUSPICOIUS_EXE_Anti_WinJail {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_Anti_OldCopyPaste {
+rule INDICATOR_SUSPICIOUS_EXE_Anti_OldCopyPaste {
     meta:
         author = "ditekSHen"
         description = "Detects executables potentially checking for WinJail sandbox window"
@@ -1415,7 +1415,7 @@ rule INDICATOR_SUSPICOIUS_EXE_Anti_OldCopyPaste {
         uint16(0) == 0x5a4d and (3 of ($s*) or all of ($v*))
 }
 
-rule INDICATOR_SUSPICOIUS_EXE_Go_GoLazagne {
+rule INDICATOR_SUSPICIOUS_EXE_Go_GoLazagne {
     meta:
         author = "ditekSHen"
         description = "Detects Go executables using GoLazagne"
@@ -1424,4 +1424,18 @@ rule INDICATOR_SUSPICOIUS_EXE_Go_GoLazagne {
         $s2 = "Go build ID:" ascii
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_CSPROJ {
+    meta:
+        author = "ditekSHen"
+        description = "Detects suspicious .CSPROJ files then compiled with msbuild"
+    strings:
+        $s1 = "ToolsVersion=" ascii
+        $s2 = "/developer/msbuild/" ascii
+        $x1 = "[DllImport(\"\\x" ascii
+        $x2 = "VirtualAlloc(" ascii nocase
+        $x3 = "CallWindowProc(" ascii nocase
+    condition:
+        uint32(0) == 0x6f72503c and (all of ($s*) and 2 of ($x*))
 }

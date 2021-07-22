@@ -6908,3 +6908,59 @@ rule INDICATOR_KB_CERT_06808c5934da036a1297a936d72e93d4 {
             pe.signatures[i].serial == "06:80:8c:59:34:da:03:6a:12:97:a9:36:d7:2e:93:d4"
         )
 }
+
+rule INDICATOR_KB_CERT_97d50c7e3ab45b9a441a37d870484c10 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2e47ceb6593c9fdbd367da8b765090e48f630b33"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SHENZHEN MINIWAN TECHNOLOGY CO. LTD." and
+            pe.signatures[i].serial == "97:d5:0c:7e:3a:b4:5b:9a:44:1a:37:d8:70:48:4c:10"
+        )
+}
+
+rule INDICATOR_KB_CERT_0b2b192657b37632518b08a06e201381 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ea017224c3b209abf53941cc4110e93af7ecc7b1"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Atomic Protocol Systems" and
+            pe.signatures[i].serial == "0b:2b:19:26:57:b3:76:32:51:8b:08:a0:6e:20:13:81"
+        )
+}
+
+rule INDICATOR_KB_CERT_00945aaac27e7d6d810c0a542bedd562a4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "de7794505df4aeb1253500617e812f462592e163"
+        hash1 = "df3dabd031184b67bab7043baaae17061c21939d725e751c0a6f6b7867d0cf34"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DYNAMX BUSINESS GROUP LTD." and
+            (
+                pe.signatures[i].serial == "94:5a:aa:c2:7e:7d:6d:81:0c:0a:54:2b:ed:d5:62:a4" or
+                pe.signatures[i].serial == "00:94:5a:aa:c2:7e:7d:6d:81:0c:0a:54:2b:ed:d5:62:a4"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_6d450cc59acdb4b7 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "bd3ac678cabb6465854880dd06b7b6cd231def89"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "CancellationTokenSource" and
+            pe.signatures[i].serial == "6d:45:0c:c5:9a:cd:b4:b7"
+        )
+}
