@@ -1444,6 +1444,7 @@ rule INDICATOR_SUSPICIOUS_CSPROJ {
         uint32(0) == 0x6f72503c and (all of ($s*) and 2 of ($x*))
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_EnableLinkedConnections {
     meta:
         author = "ditekSHen"
@@ -1454,6 +1455,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_EnableLinkedConnections {
     condition:
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
+*/
 
 /*
 Too many FPs. Revise.

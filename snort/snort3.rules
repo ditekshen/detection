@@ -252,10 +252,6 @@ alert file ( msg:"INDICATOR-SUSPICIOUS FOMB binary managed object format file ma
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-SUSPICIOUS User-Agent detected - Moz5"; flow:to_server,established; http_header:field user-agent; content:"Moz5",fast_pattern; metadata:ruleset community, service http; classtype:policy-violation; sid:940065; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-SUSPICIOUS User-Agent detected - QQ____"; flow:to_server,established; http_header:field user-agent; content:"QQ____",fast_pattern; metadata:ruleset community, service http; classtype:policy-violation; sid:940066; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-SUSPICIOUS User-Agent detected - wget"; flow:to_server,established; http_header; content:"User-Agent: wget|0D 0A|",fast_pattern; content:"Accept-Language: zh-cn"; metadata:ruleset community, service http; rem:"yara:MALWARE_Win_TYRAT"; classtype:policy-violation; sid:940067; rev:1; )
-
-alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-INVESTIGATE User-Agent containing Windows 2000 version detected"; flow:to_server,established; http_header:field user-agent; content:"Windows NT 5.0|3B|",fast_pattern; metadata:ruleset community, service http; classtype:policy-violation; sid:940067; rev:1; )
-alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-INVESTIGATE User-Agent containing Windows XP version detected"; flow:to_server,established; http_header:field user-agent; content:"Windows NT 5.1|3B|",fast_pattern; metadata:ruleset community, service http; classtype:policy-violation; sid:940067; rev:1; )
-alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"INDICATOR-INVESTIGATE User-Agent containing Windows XP / Server 2003 version detected"; flow:to_server,established; http_header:field user-agent; content:"Windows NT 5.2|3B|",fast_pattern; metadata:ruleset community, service http; classtype:policy-violation; sid:940067; rev:1; )
 ################################################
 # INDICATOR POLICY
 ################################################
