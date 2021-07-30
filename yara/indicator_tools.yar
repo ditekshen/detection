@@ -1116,5 +1116,5 @@ rule INDICATOR_TOOL_EXP_SeriousSAM02 {
         $n3 = "[traceprovider-trace] Failed: %ws: %#010x" wide
         $n4 = "base\\stor\\blb\\engine\\usn\\base\\lib\\usnjournalhelper.cpp" wide
     condition:
-        uint16(0) == 0x5a4d and not 3 of ($n*) and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
+        uint16(0) == 0x5a4d and not 2 of ($n*) and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
 }

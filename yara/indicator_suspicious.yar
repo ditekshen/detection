@@ -1455,6 +1455,8 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_EnableLinkedConnections {
         uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
 }
 
+/*
+Too many FPs. Revise.
 rule INDICATOR_SUSPICIOUS_References_EDR {
     meta:
         author = "ditekSHen"
@@ -1562,6 +1564,7 @@ rule INDICATOR_SUSPICIOUS_References_EDR {
     condition:
          uint16(0) == 0x5a4d and not any of ($n*) and 10 of ($s*) 
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_FilesComb {
     meta:
