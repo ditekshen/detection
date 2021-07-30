@@ -1558,8 +1558,9 @@ rule INDICATOR_SUSPICIOUS_References_EDR {
         $s96 = "threat" ascii wide nocase
         $s97 = "xagt.exe" ascii wide nocase
         $s98 = "xagtnotif.exe" ascii wide nocase
+        $n1 = "Kaspersky Security Scan" ascii wide
     condition:
-         uint16(0) == 0x5a4d and 10 of them
+         uint16(0) == 0x5a4d and not any of ($n*) and 10 of ($s*) 
 }
 
 rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_FilesComb {

@@ -1111,6 +1111,10 @@ rule INDICATOR_TOOL_EXP_SeriousSAM02 {
         $v1 = "VolumeShadowCopy" ascii wide
         $v2 = "GLOBALROOT" ascii wide
         $v3 = "Device" ascii wide
+        $n1 = "Block Level Backup Engine Service EXE" ascii wide
+        $n2 = "|TaskID=%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X" wide
+        $n3 = "[traceprovider-trace] Failed: %ws: %#010x" wide
+        $n4 = "base\\stor\\blb\\engine\\usn\\base\\lib\\usnjournalhelper.cpp" wide
     condition:
-        uint16(0) == 0x5a4d and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
+        uint16(0) == 0x5a4d and not 3 of ($n*) and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
 }
