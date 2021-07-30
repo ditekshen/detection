@@ -878,7 +878,7 @@ rule INDICATOR_TOOL_ChromeCookiesView {
 }
 
 rule INDICATOR_TOOL_Sliver {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Detects Sliver implant cross-platform adversary emulation/red team"
     strings:
@@ -898,7 +898,7 @@ rule INDICATOR_TOOL_Sliver {
 }
 
 rule INDICATOR_TOOL_OwlProxy {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Hunt for OwlProxy"
     strings:
@@ -919,7 +919,7 @@ rule INDICATOR_TOOL_OwlProxy {
 }
 
 rule INDICATOR_TOOL_Backstab {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Detect Backstab tool capable of killing antimalware protected processes by leveraging sysinternals Process Explorer (ProcExp) driver"
     strings:
@@ -935,7 +935,7 @@ rule INDICATOR_TOOL_Backstab {
 }
 
 rule INDICATOR_TOOL_EXP_SharpPrintNightmare {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Detect SharpPrintNightmare"
     strings:
@@ -957,7 +957,7 @@ rule INDICATOR_TOOL_EXP_SharpPrintNightmare {
 }
 
 rule INDICATOR_TOOL_REC_ADFind {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Detect ADFind"
     strings:
@@ -970,7 +970,7 @@ rule INDICATOR_TOOL_REC_ADFind {
 }
 
 rule INDICATOR_TOOL_CNC_Chisel {
-     meta:
+    meta:
         author = "ditekSHen"
         description = "Detect binaries using Chisel"
     strings:
@@ -983,4 +983,134 @@ rule INDICATOR_TOOL_CNC_Chisel {
         $ws4 = "Sec-Websocket-Extensions" ascii
     condition:
         uint16(0) == 0x5a4d and (1 of ($s*) and 3 of ($ws*))
+}
+
+rule INDICATOR_TOOL_ANT_SharpEDRChecker {
+    meta:
+        author = "ditekSHen"
+        description = "Detect SharpEDRChecke, C# Implementation of Invoke-EDRChecker"
+    strings:
+        $pdb1 = "\\SharpEDRChecker.pdb" fullword ascii
+        $x1 = "EDRData" fullword ascii
+        $x2 = "bytesNeeded" fullword ascii
+        $x3 = /\] Checking (Directories|drivers|processes|modules|Registry|Services) \[/ wide
+        $s1 = "CheckService" fullword ascii
+        $s2 = "CheckModule" fullword ascii
+        $s3 = "PrivCheck" fullword ascii
+        $s4 = "ServiceChecker" fullword ascii
+        $s5 = "PrivilegeChecker" fullword ascii
+        $s6 = "FileChecker" fullword ascii
+        $s7 = "DriverChecker" fullword ascii
+        $s8 = "ProcessChecker" fullword ascii
+        $s9 = "DirectoryChecker" fullword ascii
+        $s10 = "RegistryChecker" fullword ascii
+        $s11 = "CheckDriver" fullword ascii
+        $s12 = "CheckServices" fullword ascii
+        $s13 = "CheckDirectories" fullword ascii
+        $s14 = "CheckCurrentProcessModules" fullword ascii
+        $s15 = "CheckProcesses" fullword ascii
+        $s16 = "CheckDrivers" fullword ascii
+        $s17 = "CheckProcess" fullword ascii
+        $s18 = "CheckSubDirectory" fullword ascii
+        $s19 = "CheckDirectory" fullword ascii
+        $s20 = "CheckRegistry" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and (all of ($x*) or 10 of ($s*) or (1 of ($pdb*) and (1 of ($x*) or 2 of ($s*))) or (#x3 > 4 and 2 of them))
+}
+
+rule INDICATOR_TOOL_ANT_InviZzzible {
+    meta:
+        author = "ditekSHen"
+        description = "Detect InviZzzible"
+    strings:
+        $s1 = "\\\\.\\pipe\\task_sched_se" fullword wide
+        $s2 = "\\\\\\.\\NPF_NdisWanIp" fullword wide
+        $s3 = /--action --(dtt|mra|user-input|cfg|dan|evt|pid|exc|wmi|tsh)/ fullword wide
+        $s4 = "cuckoo_%lu.ini" fullword wide
+        $s5 = "sandbox evasion" wide nocase
+        $s6 = "UnbalancedStack" fullword ascii
+        $s7 = "process_with_long_name" fullword ascii
+        $s8 = "DelaysAccumulation" fullword ascii
+        $s9 = "PidReuse" fullword ascii
+        $s10 = "DeadAnalyzer" fullword ascii
+        $s11 = "SleepDummyPatch" fullword ascii
+        $s12 = "AudioDeviceAbsence" fullword ascii
+        $s14 = "\\\\.\\PhysicalDrive%u" fullword ascii
+        $s15 = "\"countermeasures\":" ascii
+        $s16 = "_%.02u%.02u%.02u_%.02u%.02u%.02u.html" ascii
+        $f1 = ".?AVHyperV@SandboxEvasion@@" ascii
+        $f2 = ".?AVJoebox@SandboxEvasion@@" ascii
+        $f3 = ".?AVKVM@SandboxEvasion@@" ascii
+        $f4 = ".?AVMisc@SandboxEvasion@@" ascii
+        $f5 = ".?AVParallels@SandboxEvasion@@" ascii
+        $f6 = ".?AVQEMU@SandboxEvasion@@" ascii
+        $f7 = ".?AVSandboxie@SandboxEvasion@@" ascii
+        $f8 = ".?AVVBOX@SandboxEvasion@@" ascii
+        $f9 = ".?AVVirtualPC@SandboxEvasion@@" ascii
+        $f10 = ".?AVVMWare@SandboxEvasion@@" ascii
+        $f11 = ".?AVWine@SandboxEvasion@@" ascii
+        $f12 = ".?AVXen@SandboxEvasion@@" ascii
+    condition:
+        uint16(0) == 0x5a4d and (6 of ($s*) or 4 of ($f*) or (2 of ($f*) and 2 of ($s*)))
+}
+
+rule INDICATOR_TOOL_EXFIL_SharpBox {
+    meta:
+        author = "ditekSHen"
+        description = "Detect SharpBox, C# tool for compressing, encrypting, and exfiltrating data to Dropbox using the Dropbox API"
+    strings:
+        $s1 = "UploadData" fullword ascii
+        $s2 = "isAttached" fullword ascii
+        $s3 = "DecryptFile" fullword ascii
+        $s4 = "set_dbxPath" fullword ascii
+        $s5 = "set_dbxToken" fullword ascii
+        $s6 = "set_decrypt" fullword ascii
+        $s7 = "GeneratePass" fullword ascii
+        $s8 = "FileUploadToDropbox" fullword ascii
+        $s9 = "\\SharpBox.pdb" ascii
+        $s10 = "https://content.dropboxapi.com/2/files/upload" fullword wide
+        $s12 = "Dropbox-API-Arg: {\"path\":" wide
+        $s13 = "X509Certificate [{0}] Policy Error: '{1}'" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and 7 of them
+}
+
+rule INDICATOR_TOOL_EXP_SeriousSAM01 {
+    meta:
+        author = "ditekSHen"
+        description = "Detect tool variants potentially exploiting SeriousSAM / HiveNightmare CVE-2021-36934"
+    strings:
+        $s1 = "VolumeShadowCopy" fullword wide
+        $s2 = "\\\\?\\GLOBALROOT\\Device\\" fullword wide
+        $s3 = "{0}\\{1}$:aad3b435b51404eeaad3b435b51404ee:{2}" fullword wide
+        $s4 = "ASPNET_WP_PASSWORD" fullword wide
+        $s5 = "<ParseSam>b__" ascii
+        $s6 = "<DumpSecret" ascii
+        $s7 = "<ParseSecret" ascii
+        $s8 = "LsaSecretBlob" fullword ascii
+        $s9 = "systemHive" fullword ascii
+        $s10 = "ImportHiveDump" fullword ascii
+        $s11 = "FindShadowVolumes" fullword ascii
+        $s12 = "GetBootKey" fullword ascii
+        $r1 = "[*] SAM" wide
+        $r2 = "[*] SYSTEM" wide
+        $r3 = "[*] SECURITY" wide
+    condition:
+        uint16(0) == 0x5a4d and (6 of ($s*) or (all of ($r*) and 3 of ($s*)))
+}
+
+rule INDICATOR_TOOL_EXP_SeriousSAM02 {
+    meta:
+        author = "ditekSHen"
+        description = "Detect tool variants potentially exploiting SeriousSAM / HiveNightmare CVE-2021-36934"
+    strings:
+        $s1 = "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy" fullword wide
+        $s2 = /(Windows\\System32\\config)?\\(SAM|SECURITY|SYSTEM)/ ascii wide
+        $s3 = /(SAM|SECURITY|SYSTEM)-%s/ fullword wide
+        $s4 = /: (SAM|SECURITY|SYSTEM) hive from/ wide
+        $v1 = "VolumeShadowCopy" ascii wide
+        $v2 = "GLOBALROOT" ascii wide
+        $v3 = "Device" ascii wide
+    condition:
+        uint16(0) == 0x5a4d and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
 }

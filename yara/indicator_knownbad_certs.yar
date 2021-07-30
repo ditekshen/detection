@@ -5737,7 +5737,8 @@ rule INDICATOR_KB_CERT_1f3216f428f850be2c66caa056f6d821 {
         author = "ditekSHen"
         description = "Detects executables signed with stolen, revoked or invalid certificates"
         thumbprint = "d4c89b25d3e92d05b44bc32c0cbfd7693613f3ee"
-        hash = "954f62f0014b51953056dd668441cd4e116874fd6d6c75bd982ba821ea6744eb"
+        hash1 = "954f62f0014b51953056dd668441cd4e116874fd6d6c75bd982ba821ea6744eb"
+        hash2 = "8fe09855b5eebc5950fdc427fbbd17b2c757a843de687a4da322987510549eba"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
@@ -6962,5 +6963,48 @@ rule INDICATOR_KB_CERT_6d450cc59acdb4b7 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "CancellationTokenSource" and
             pe.signatures[i].serial == "6d:45:0c:c5:9a:cd:b4:b7"
+        )
+}
+
+rule INDICATOR_KB_CERT_66390fc17786d4a342f0ee89996d6522 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "80e8620ff16598cc1e157a2b7df17d528b03b6e5"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Logitech Z-" and
+            pe.signatures[i].serial == "66:39:0f:c1:77:86:d4:a3:42:f0:ee:89:99:6d:65:22"
+        )
+}
+
+rule INDICATOR_KB_CERT_00d1737e5a94d2aff121163df177ed7cf7 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ed2e4f72e8cb9b008a28b31de440f024381e4c8d"
+        hash1 = "66dfb7c408d734edc2967d50244babae27e4268ea93aa0daa5e6bbace607024c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BedstSammen ApS" and
+            (
+                pe.signatures[i].serial == "d1:73:7e:5a:94:d2:af:f1:21:16:3d:f1:77:ed:7c:f7" or
+                pe.signatures[i].serial == "00:d1:73:7e:5a:94:d2:af:f1:21:16:3d:f1:77:ed:7c:f7"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_5aa94583a95d42f1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0b27715d7c78368bca3ac0bb829a7ceb19b3b5c3"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "UInt32" and
+            pe.signatures[i].serial == "5a:a9:45:83:a9:5d:42:f1"
         )
 }

@@ -15,6 +15,7 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
         $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase
         $cmd9 = "shadowcopy where \"ID='%s'\" delete" ascii wide nocase
+        $cmd10 = "wmic.exe SHADOWCOPY /nointeractive" ascii wide nocase
         $delr = /del \/s \/f \/q(( [A-Za-z]:\\(\*\.|[Bb]ackup))(VHD|bac|bak|wbcat|bkf)?)+/ ascii wide
         $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
@@ -846,6 +847,9 @@ rule INDICATOR_SUSPICIOUS_References_SecTools {
         $s30 = "CaptureProcessMonitor.sys" nocase ascii wide
         $s31 = "CaptureRegistryMonitor.sys" nocase ascii wide
         $s32 = "CaptureFileMonitor.sys" nocase ascii wide
+        $s33 = "Control.exe" nocase ascii wide
+        $s34 = "rshell.exe" nocase ascii wide
+        $s35 = "smc.exe" nocase ascii wide
     condition:
          uint16(0) == 0x5a4d and 4 of them
 }
@@ -1426,7 +1430,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Go_GoLazagne {
         uint16(0) == 0x5a4d and all of them
 }
 
-rule INDICATOR_SUSPICOIUS_CSPROJ {
+rule INDICATOR_SUSPICIOUS_CSPROJ {
     meta:
         author = "ditekSHen"
         description = "Detects suspicious .CSPROJ files then compiled with msbuild"
@@ -1438,4 +1442,242 @@ rule INDICATOR_SUSPICOIUS_CSPROJ {
         $x3 = "CallWindowProc(" ascii nocase
     condition:
         uint32(0) == 0x6f72503c and (all of ($s*) and 2 of ($x*))
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_EnableLinkedConnections {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination ensuring mapped drives are available from an elevated prompt or process with UAC enabled. Observed in ransomware"
+    strings:
+        $r1 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k1 = "EnableLinkedConnections" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+
+rule INDICATOR_SUSPICIOUS_References_EDR {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many AV and EDR software"
+    strings:
+        $s1 = "activeconsole" ascii wide nocase
+        $s2 = "amsi.dll" ascii wide nocase
+        $s3 = "anti malware" ascii wide nocase
+        $s4 = "anti-malware" ascii wide nocase
+        $s5 = "antimalware" ascii wide nocase
+        $s6 = "anti virus" ascii wide nocase
+        $s7 = "anti-virus" ascii wide nocase
+        $s8 = "antivirus" ascii wide nocase
+        $s9 = "appsense" ascii wide nocase
+        $s10 = "authtap" ascii wide nocase
+        $s11 = "avast" ascii wide nocase
+        $s12 = "avecto" ascii wide nocase
+        $s13 = "canary" ascii wide nocase
+        $s14 = "carbonblack" ascii wide nocase
+        $s15 = "carbon black" ascii wide nocase
+        $s16 = "cb.exe" ascii wide nocase
+        $s17 = "ciscoamp" ascii wide nocase
+        $s18 = "cisco amp" ascii wide nocase
+        $s19 = "countercept" ascii wide nocase
+        $s20 = "countertack" ascii wide nocase
+        $s21 = "cramtray" ascii wide nocase
+        $s22 = "crssvc" ascii wide nocase
+        $s23 = "crowdstrike" ascii wide nocase
+        $s24 = "csagent" ascii wide nocase
+        $s25 = "csfalcon" ascii wide nocase
+        $s26 = "csshell" ascii wide nocase
+        $s27 = "cybereason" ascii wide nocase
+        $s28 = "cyclorama" ascii wide nocase
+        $s29 = "cylance" ascii wide nocase
+        $s30 = "cyoptics" ascii wide nocase
+        $s31 = "cyupdate" ascii wide nocase
+        $s32 = "cyvera" ascii wide nocase
+        $s33 = "cyserver" ascii wide nocase
+        $s34 = "cytray" ascii wide nocase
+        $s35 = "darktrace" ascii wide nocase
+        $s36 = "defendpoint" ascii wide nocase
+        $s37 = "defender" ascii wide nocase
+        $s38 = "eectrl" ascii wide nocase
+        $s39 = "elastic" ascii wide nocase
+        $s40 = "endgame" ascii wide nocase
+        $s41 = "f-secure" ascii wide nocase
+        $s42 = "forcepoint" ascii wide nocase
+        $s43 = "fireeye" ascii wide nocase
+        $s44 = "groundling" ascii wide nocase
+        $s45 = "GRRservic" ascii wide nocase
+        $s46 = "inspector" ascii wide nocase
+        $s47 = "ivanti" ascii wide nocase
+        $s48 = "kaspersky" ascii wide nocase
+        $s49 = "lacuna" ascii wide nocase
+        $s50 = "logrhythm" ascii wide nocase
+        $s51 = "malware" ascii wide nocase
+        $s52 = "mandiant" ascii wide nocase
+        $s53 = "mcafee" ascii wide nocase
+        $s54 = "morphisec" ascii wide nocase
+        $s55 = "msascuil" ascii wide nocase
+        $s56 = "msmpeng" ascii wide nocase
+        $s57 = "nissrv" ascii wide nocase
+        $s58 = "omni" ascii wide nocase
+        $s59 = "omniagent" ascii wide nocase
+        $s60 = "osquery" ascii wide nocase
+        $s61 = "Palo Alto Networks" ascii wide nocase
+        $s62 = "pgeposervice" ascii wide nocase
+        $s63 = "pgsystemtray" ascii wide nocase
+        $s64 = "privilegeguard" ascii wide nocase
+        $s65 = "procwall" ascii wide nocase
+        $s66 = "protectorservic" ascii wide nocase
+        $s67 = "qradar" ascii wide nocase
+        $s68 = "redcloak" ascii wide nocase
+        $s69 = "secureworks" ascii wide nocase
+        $s70 = "securityhealthservice" ascii wide nocase
+        $s71 = "semlaunchsv" ascii wide nocase
+        $s72 = "sentinel" ascii wide nocase
+        $s73 = "sepliveupdat" ascii wide nocase
+        $s74 = "sisidsservice" ascii wide nocase
+        $s75 = "sisipsservice" ascii wide nocase
+        $s76 = "sisipsutil" ascii wide nocase
+        $s77 = "smc.exe" ascii wide nocase
+        $s78 = "smcgui" ascii wide nocase
+        $s79 = "snac64" ascii wide nocase
+        $s80 = "sophos" ascii wide nocase
+        $s81 = "splunk" ascii wide nocase
+        $s82 = "srtsp" ascii wide nocase
+        $s83 = "symantec" ascii wide nocase
+        $s84 = "symcorpu" ascii wide nocase
+        $s85 = "symefasi" ascii wide nocase
+        $s86 = "sysinternal" ascii wide nocase
+        $s87 = "sysmon" ascii wide nocase
+        $s88 = "tanium" ascii wide nocase
+        $s89 = "tda.exe" ascii wide nocase
+        $s90 = "tdawork" ascii wide nocase
+        $s91 = "tpython" ascii wide nocase
+        $s92 = "vectra" ascii wide nocase
+        $s93 = "wincollect" ascii wide nocase
+        $s94 = "windowssensor" ascii wide nocase
+        $s95 = "wireshark" ascii wide nocase
+        $s96 = "threat" ascii wide nocase
+        $s97 = "xagt.exe" ascii wide nocase
+        $s98 = "xagtnotif.exe" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 10 of them
+}
+
+rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_FilesComb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing specific set of files observed in sandob anti-evation, and Emotet"
+    strings:
+        $s1 = "c:\\take_screenshot.ps1" ascii wide nocase
+        $s2 = "c:\\loaddll.exe" ascii wide nocase
+        $s3 = "c:\\email.doc" ascii wide nocase
+        $s4 = "c:\\email.htm" ascii wide nocase
+        $s5 = "c:\\123\\email.doc" ascii wide nocase
+        $s6 = "c:\\123\\email.docx" ascii wide nocase
+        $s7 = "c:\\a\\foobar.bmp" ascii wide nocase
+        $s8 = "c:\\a\\foobar.doc" ascii wide nocase
+        $s9 = "c:\\a\\foobar.gif" ascii wide nocase
+        $s10 = "c:\\symbols\\aagmmc.pdb" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 6 of them
+}
+
+rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_VirtDrvComb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing combination of virtualization drivers"
+    strings:
+        $p1 = "prleth.sys" ascii wide
+        $p2 = "prlfs.sys" ascii wide
+        $p3 = "prlmouse.sys" ascii wide
+        $p4 = "prlvideo.sys	" ascii wide
+        $p5 = "prltime.sys" ascii wide
+        $p6 = "prl_pv32.sys" ascii wide
+        $p7 = "prl_paravirt_32.sys" ascii wide
+        $vb1 = "VBoxMouse.sys" ascii wide
+        $vb2 = "VBoxGuest.sys" ascii wide
+        $vb3 = "VBoxSF.sys" ascii wide
+        $vb4 = "VBoxVideo.sys" ascii wide
+        $vb5 = "vboxdisp.dll" ascii wide
+        $vb6 = "vboxhook.dll" ascii wide
+        $vb7 = "vboxmrxnp.dll" ascii wide
+        $vb8 = "vboxogl.dll" ascii wide
+        $vb9 = "vboxoglarrayspu.dll" ascii wide
+        $vb10 = "vboxoglcrutil.dll" ascii wide
+        $vb11 = "vboxoglerrorspu.dll" ascii wide
+        $vb12 = "vboxoglfeedbackspu.dll" ascii wide
+        $vb13 = "vboxoglpackspu.dll" ascii wide
+        $vb14 = "vboxoglpassthroughspu.dll" ascii wide
+        $vb15 = "vboxservice.exe" ascii wide
+        $vb16 = "vboxtray.exe" ascii wide
+        $vb17 = "VBoxControl.exe" ascii wide
+        $vp1 = "vmsrvc.sys" ascii wide
+        $vp2 = "vpc-s3.sys" ascii wide
+        $vw1 = "vmmouse.sys" ascii wide
+        $vw2 = "vmnet.sys" ascii wide
+        $vw3 = "vmxnet.sys" ascii wide
+        $vw4 = "vmhgfs.sys" ascii wide
+        $vw5 = "vmx86.sys" ascii wide
+        $vw6 = "hgfs.sys" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and (
+             (2 of ($p*) and (2 of ($vb*) or 2 of ($vp*) or 2 of ($vw*))) or
+             (2 of ($vb*) and (2 of ($p*) or 2 of ($vp*) or 2 of ($vw*))) or
+             (2 of ($vp*) and (2 of ($p*) or 2 of ($vb*) or 2 of ($vw*))) or
+             (2 of ($vw*) and (2 of ($p*) or 2 of ($vb*) or 2 of ($vp*)))
+         )
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_NoneWindowsUA {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing non-Windows User-Agents"
+    strings:
+        $ua1 = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5" wide ascii
+        $ua2 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3" wide ascii
+        $ua3 = "Mozilla/5.0 (X11; OpenBSD amd64; rv:28.0) Gecko/20100101 Firefox/28.0" wide ascii
+        $ua4 = "Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101  Firefox/28.0" wide ascii
+        $ua5 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0" wide ascii
+        $ua6 = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0" wide ascii
+        $ua7 = "Mozilla/5.0 (compatible; MSIE 10.0; Macintosh; Intel Mac OS X 10_7_3; Trident/6.0)" wide ascii
+        $ua8 = "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)" wide ascii
+        $ua9 = "HTC_Touch_3G Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.11)" wide ascii
+        $ua10 = "Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; Nokia;N70)" wide ascii
+        $ua11 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.346 Mobile Safari/534.11+" wide ascii
+        $ua12 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.254 Mobile Safari/534.11+" wide ascii
+        $ua13 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.115 Mobile Safari/534.11+" wide ascii
+        $ua14 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.254 Mobile Safari/534.11+" wide ascii
+        $ua15 = "Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Comodo_Dragon/4.1.1.11 Chrome/4.1.249.1042 Safari/532.5" wide ascii
+        $ua16 = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25" wide ascii
+        $ua17 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2" wide ascii
+        $ua18 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10" wide ascii
+        $ua19 = "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko ) Version/5.1 Mobile/9B176 Safari/7534.48.3" wide ascii
+        $us20 = "User-Agent: Internal Wordpress RPC connection" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_TooManyWindowsUA {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many varying, potentially fake Windows User-Agents"
+    strings:
+        $ua1 = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36" ascii wide
+        $ua2 = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36" ascii wide
+        $ua3 = "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0" ascii wide
+        $ua4 = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20120101 Firefox/29.0" ascii wide
+        $ua5 = "Mozilla/5.0 (Windows NT 6.1; rv:27.3) Gecko/20130101 Firefox/27.3" ascii wide
+        $ua6 = "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US)" ascii wide
+        $ua7 = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)" ascii wide
+        $ua8 = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/4.0; InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64)" ascii wide
+        $ua9 = "Opera/12.0(Windows NT 5.2;U;en)Presto/22.9.168 Version/12.00" ascii wide
+        $ua10 = "Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14" ascii wide
+        $ua11 = "Mozilla/5.0 (Windows NT 6.0; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.14" ascii wide
+        $ua12 = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14" ascii wide
+        $ua13 = "Opera/12.80 (Windows NT 5.1; U; en) Presto/2.10.289 Version/12.02" ascii wide
+        $ua14 = "Opera/9.80 (Windows NT 6.1; U; es-ES) Presto/2.9.181 Version/12.00" ascii wide
+        $ua15 = "Opera/9.80 (Windows NT 5.1; U; zh-sg) Presto/2.9.181 Version/12.00" ascii wide
+        $ua16 = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/535.7 (KHTML, like Gecko) Comodo_Dragon/16.1.1.0 Chrome/16.0.912.63 Safari/535.7" ascii wide
+        $ua17 = "Mozilla/5.0 (Windows; U; Windows NT 6.1; tr-TR) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 5 of them
 }
