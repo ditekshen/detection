@@ -1587,7 +1587,7 @@ rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_FilesComb {
          uint16(0) == 0x5a4d and 6 of them
 }
 
-rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_VirtDrvComb {
+rule INDICATOR_SUSPICIOUS_VM_Evasion_VirtDrvComb {
     meta:
         author = "ditekSHen"
         description = "Detects executables referencing combination of virtualization drivers"
@@ -1636,7 +1636,7 @@ rule INDICATOR_SUSPICIOUS_Sandbox_Evasion_VirtDrvComb {
 rule INDICATOR_SUSPICIOUS_EXE_NoneWindowsUA {
     meta:
         author = "ditekSHen"
-        description = "Detects executables referencing non-Windows User-Agents"
+        description = "Detects Windows executables referencing non-Windows User-Agents"
     strings:
         $ua1 = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5" wide ascii
         $ua2 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3" wide ascii
@@ -1686,4 +1686,21 @@ rule INDICATOR_SUSPICIOUS_EXE_TooManyWindowsUA {
         $ua17 = "Mozilla/5.0 (Windows; U; Windows NT 6.1; tr-TR) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27" ascii wide
     condition:
          uint16(0) == 0x5a4d and 5 of them
+}
+
+rule INDICATOR_SUSPICIOUS_VM_Evasion_MACAddrComb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing virtualization MAC addresses"
+    strings:
+        $s1 = "00:03:FF" ascii wide nocase
+        $s2 = "00:05:69" ascii wide nocase
+        $s3 = "00:0C:29" ascii wide nocase
+        $s4 = "00:16:3E" ascii wide nocase
+        $s5 = "00:1C:14" ascii wide nocase
+        $s6 = "00:1C:42" ascii wide nocase
+        $s7 = "00:50:56" ascii wide nocase
+        $s8 = "08:00:27" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 3 of them
 }
