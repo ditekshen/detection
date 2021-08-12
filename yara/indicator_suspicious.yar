@@ -1710,6 +1710,7 @@ rule INDICATOR_SUSPICIOUS_VM_Evasion_MACAddrComb {
          uint16(0) == 0x5a4d and 3 of them
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_CAPABILITY_CaptureScreenShot {
     meta:
         author = "ditekSHen"
@@ -1722,3 +1723,4 @@ rule INDICATOR_SUSPICIOUS_CAPABILITY_CaptureScreenShot {
     condition:
          uint16(0) == 0x5a4d and ($dll and $save and (1 of ($c*)))
 }
+*/
