@@ -5739,6 +5739,7 @@ rule INDICATOR_KB_CERT_1f3216f428f850be2c66caa056f6d821 {
         thumbprint = "d4c89b25d3e92d05b44bc32c0cbfd7693613f3ee"
         hash1 = "954f62f0014b51953056dd668441cd4e116874fd6d6c75bd982ba821ea6744eb"
         hash2 = "8fe09855b5eebc5950fdc427fbbd17b2c757a843de687a4da322987510549eba"
+        hash3 = "1fbc3ddcd892c868cab037f43fcee5cd1dd67f5ce0ac882d851603bdc934ec43"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
@@ -7006,5 +7007,89 @@ rule INDICATOR_KB_CERT_5aa94583a95d42f1 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "UInt32" and
             pe.signatures[i].serial == "5a:a9:45:83:a9:5d:42:f1"
+        )
+}
+
+rule INDICATOR_KB_CERT_6ce7a0c62f27fa98f78853e1ad11173f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "638dc7cd59f1d634c19e4fc2c41b38ae08a1d2e5"
+    condition:
+        (uint16(0) == 0x5a4d or uint32(0) == 0xe011cfd0) and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "D&K ENGINEERING" and
+            pe.signatures[i].serial == "6c:e7:a0:c6:2f:27:fa:98:f7:88:53:e1:ad:11:17:3f"
+        )
+}
+
+rule INDICATOR_KB_CERT_670c3494206b9f0c18714fdcffaaa42f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "59612473a9e23dc770f3a33b1ef83c02e3cfd4b6"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ADRIATIK PORT SERVIS, d.o.o." and
+            pe.signatures[i].serial == "67:0c:34:94:20:6b:9f:0c:18:71:4f:dc:ff:aa:a4:2f"
+        )
+}
+
+rule INDICATOR_KB_CERT_5f11c47d3f8c468e5d38279de98078ce {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "29bbee51837dbc00c8e949ff2c0226d4bbb3722c"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Atera Networks LTD." and
+            pe.signatures[i].serial == "5f:11:c4:7d:3f:8c:46:8e:5d:38:27:9d:e9:80:78:ce"
+        )
+}
+
+rule INDICATOR_KB_CERT_00bdb99d5ecf8271d48e35f1039c2160ef {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "331f96a1a187723eaa5b72c9d0115c1c57f08b66"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Gavrilov Andrei Alekseevich" and
+            (
+                pe.signatures[i].serial == "bd:b9:9d:5e:cf:82:71:d4:8e:35:f1:03:9c:21:60:ef" or
+                pe.signatures[i].serial == "00:bd:b9:9d:5e:cf:82:71:d4:8e:35:f1:03:9c:21:60:ef"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_025020668f51235e9ecfff8cf00da63e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "59f82837fa672a81841d8fa4d3ba290395c10200"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Knassar DK ApS" and
+            pe.signatures[i].serial == "02:50:20:66:8f:51:23:5e:9e:cf:ff:8c:f0:0d:a6:3e"
+        )
+}
+
+rule INDICATOR_KB_CERT_00cfae7e6f538b9f2e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "3152fc5298e42de08ed2dec23d8fefcaa531c771"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SequenceDesigner" and
+            (
+                pe.signatures[i].serial == "cf:ae:7e:6f:53:8b:9f:2e" or
+                pe.signatures[i].serial == "00:cf:ae:7e:6f:53:8b:9f:2e"
+            )
         )
 }
