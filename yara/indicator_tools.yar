@@ -1135,7 +1135,7 @@ rule INDICATOR_TOOL_EXP_PetitPotam01 {
         $r4 = "RPCRT4.dll" fullword ascii
         $r5 = "NdrClientCall2" fullword ascii
     condition:
-        uint16(0) == 0x5a4d and (all of ($s*) or (all of ($r*) and 1 of ($s*)))
+        uint16(0) == 0x5a4d and (all of ($s*) and 4 of ($r*))
 }
 
 rule INDICATOR_TOOL_PET_SharpStrike {

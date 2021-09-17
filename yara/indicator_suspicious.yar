@@ -1795,16 +1795,19 @@ rule INDICATOR_SUSPICIOUS_EXE_References_VPN {
          uint16(0) == 0x5a4d and all of them
 }
 
+/*
+May generate FPs
 rule INDICATOR_SUSPICIOUS_EXE_B64_URL {
     meta:
         author = "ditekSHen"
-        description = "Detects executables referencing many VPN software clients"
+        description = "Detects executables referencing base64 encoded URL"
     strings:
         $s1 = "aHR0cHM6Ly9" ascii wide
         $s2 = "aHR0cDovL2" ascii wide
     condition:
          uint16(0) == 0x5a4d and 1 of them
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_EXE_VaultSchemaGUID {
     meta:
