@@ -1119,3 +1119,38 @@ rule INDICATOR_TOOL_EXP_SeriousSAM02 {
         // Revise
         uint16(0) == 0x5a4d and not any of ($n*) and (all of ($s*) or (all of ($v*) and 2 of ($s*)) or (all of ($v*) and #s2 > 2))
 }
+
+rule INDICATOR_TOOL_EXP_PetitPotam01 {
+    meta:
+        author = "ditekSHen"
+        description = "Detect tool potentially exploiting/attempting PetitPotam"
+    strings:
+        $s1 = "\\pipe\\lsarpc" fullword wide
+        $s2 = "\\%s" fullword wide
+        $s3 = "ncacn_np" fullword wide
+        $s4 = /EfsRpc(OpenFileRaw|EncryptFileSrv|DecryptFileSrv|QueryUsersOnFile|QueryRecoveryAgents|RemoveUsersFromFile|AddUsersToFile)/ wide
+        $r1 = "RpcBindingFromStringBindingW" fullword ascii
+        $r2 = "RpcStringBindingComposeW" fullword ascii
+        $r3 = "RpcStringFreeW" fullword ascii
+        $r4 = "RPCRT4.dll" fullword ascii
+        $r5 = "NdrClientCall2" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and (all of ($s*) or (all of ($r*) and 1 of ($s*)))
+}
+
+rule INDICATOR_TOOL_PET_SharpStrike {
+    meta:
+        author = "ditekSHen"
+        description = "Detect SharpStrike post-exploitation tool written in C# that uses either CIM or WMI to query remote systems"
+    strings:
+        $x1 = "SharpStrike v" wide
+        $x2 = "[*] Agent is busy" wide
+        $x3 = "SharpStrike_Fody" fullword ascii
+        $s1 = "ServiceLayer.CIM" fullword ascii
+        $s2 = "Models.CIM" fullword ascii
+        $s3 = "<HandleCommand>b__" ascii
+        $s4 = "MemoryStream" fullword ascii
+        $s5 = "GetCommands" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and (2 of ($x*) or all of ($s*))
+}

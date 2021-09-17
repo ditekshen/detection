@@ -1233,6 +1233,14 @@ rule INDICATOR_KB_ID_Infostealer {
         $account779 = "longmoney@ak-toprek.com" ascii wide nocase
         $account780 = "nejla@paminakids.com" ascii wide nocase
         $account781 = "willycoker01@yandex.com" ascii wide nocase
+        $account782 = "dispatchoffice@upsdelivery.cf" ascii wide nocase
+        $account783 = "e-sail@bojtai.xyz" ascii wide nocase
+        $account784 = "umaira@dutarini.com" ascii wide nocase
+        $account785 = "shan@farm-finn.com" ascii wide nocase
+        $account786 = "saleseuropower@yandex.com" ascii wide nocase
+        $account787 = "fairooz@rejoicetrade.com" ascii wide nocase
+        $account788 = "imissyou@btamail.net.cn" ascii wide nocase
+        $account789 = "echezona@bonfigliolli.com" ascii wide nocase
     condition:
         any of them
 }

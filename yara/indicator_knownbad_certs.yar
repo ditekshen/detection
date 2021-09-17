@@ -7093,3 +7093,42 @@ rule INDICATOR_KB_CERT_00cfae7e6f538b9f2e {
             )
         )
 }
+
+rule INDICATOR_KB_CERT_0bc9b800f480691bd6b60963466b0c75 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8b6c4fc3d54f41ac137795e64477491c93bdf7f1"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "HasCred ApS" and
+            pe.signatures[i].serial == "0b:c9:b8:00:f4:80:69:1b:d6:b6:09:63:46:6b:0c:75"
+        )
+}
+
+rule INDICATOR_KB_CERT_69ad1e8b5941c93d5017b7c3fdb8e7b6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9b6f3b3cd33ae938fbc5c95b8c9239bac9f9f7bf"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Afia Wave Enterprises Oy" and
+            pe.signatures[i].serial == "69:ad:1e:8b:59:41:c9:3d:50:17:b7:c3:fd:b8:e7:b6"
+        )
+}
+
+rule INDICATOR_KB_CERT_072472f2386f4608a0790da2be8a48f7 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e2a79e70b7a16a6fc2af7fbdc3d2cbfd3ef66978"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FOXIT SOFTWARE INC." and
+            pe.signatures[i].serial == "07:24:72:f2:38:6f:46:08:a0:79:0d:a2:be:8a:48:f7"
+        )
+}

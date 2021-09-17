@@ -324,6 +324,11 @@ rule INDICATOR_SUSPICIOUS_Binary_References_Browsers {
         $s77 = "Xvast\\User Data" nocase ascii wide
         $s78 = "360Chrome\\Chrome\\User Data" nocase ascii wide
         $s79 = "Brave-Browser\\User Data" nocase ascii wide
+        $s80 = "Fenrir Inc\\Sleipnir5\\setting\\modules\\ChromiumViewer" nocase ascii wide
+        $s81 = "Chromodo\\User Data" nocase ascii wide
+        $s82 = "Mail.Ru\\Atom\\User Data" nocase ascii wide
+        $s83 = "8pecxstudios\\Cyberfox" nocase ascii wide
+        $s84 = "NETGATE Technologies\\BlackHaw" nocase ascii wide
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0xfacf) and 6 of them
 }
@@ -388,6 +393,10 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
         $s37 = "Yahoo\\Pager" nocase ascii wide
         $s38 = "BatMail\\" nocase ascii wide
         $s39 = "POP Peeper\\poppeeper.ini" nocase ascii wide
+        $s40 = "Netease\\MailMaster\\data" nocase ascii wide
+        $s41 = "Software\\Microsoft\\Office\\17.0\\Outlook\\Profiles\\Outlook" ascii wide
+        $s42 = "Software\\Microsoft\\Office\\18.0\\Outlook\\Profiles\\Outlook" ascii wide
+        $s43 = "Software\\Microsoft\\Office\\19.0\\Outlook\\Profiles\\Outlook" ascii wide
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
@@ -514,6 +523,9 @@ rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
         $app59 = "litebit" ascii wide
         $app60 = "coinEx" ascii wide
         $app61 = "blockchain" ascii wide
+        $app62 = "\\Armory" ascii wide
+        $app63 = "\\Atomic" ascii wide
+        $app64 = "\\Bytecoin" ascii wide
 
         $ne1 = "C:\\src\\pgriffais_incubator-w7\\Steam\\main\\src\\external\\libjingle-0.4.0\\talk/base/scoped_ptr.h" fullword wide
         $ne2 = "\"%s\\bin\\%slauncher.exe\" -hproc %x -hthread %x -baseoverlayname %s\\%s" fullword ascii
@@ -942,8 +954,8 @@ rule INDICATOR_SUSPICIOUS_EXE_Embedded_Gzip_B64Encoded_File {
         author = "ditekSHen"
         description = "Detects executables containing bas64 encoded gzip files"
     strings:
-        $s1 = "H4sIAAAAAAAEA" ascii
-        $s2 = "AEAAAAAAAIs4H" ascii
+        $s1 = "H4sIAAAAAAA" ascii wide
+        $s2 = "AAAAAAAIs4H" ascii wide
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }
@@ -1643,26 +1655,19 @@ rule INDICATOR_SUSPICIOUS_EXE_NoneWindowsUA {
         author = "ditekSHen"
         description = "Detects Windows executables referencing non-Windows User-Agents"
     strings:
-        $ua1 = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5" wide ascii
-        $ua2 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3" wide ascii
-        $ua3 = "Mozilla/5.0 (X11; OpenBSD amd64; rv:28.0) Gecko/20100101 Firefox/28.0" wide ascii
-        $ua4 = "Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101  Firefox/28.0" wide ascii
-        $ua5 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0" wide ascii
-        $ua6 = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0" wide ascii
+        $ua1 = "Mozilla/5.0 (Macintosh; Intel Mac OS" wide ascii
+        $ua2 = "Mozilla/5.0 (iPhone; CPU iPhone OS" ascii wide
+        $ua3 = "Mozilla/5.0 (Linux; Android " ascii wide
+        $ua4 = "Mozilla/5.0 (PlayStation " ascii wide
+        $ua5 = "Mozilla/5.0 (X11; " wide ascii
+        $ua6 = "Mozilla/5.0 (Windows Phone " ascii wide
         $ua7 = "Mozilla/5.0 (compatible; MSIE 10.0; Macintosh; Intel Mac OS X 10_7_3; Trident/6.0)" wide ascii
         $ua8 = "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)" wide ascii
         $ua9 = "HTC_Touch_3G Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.11)" wide ascii
         $ua10 = "Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; Nokia;N70)" wide ascii
-        $ua11 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.1.0.346 Mobile Safari/534.11+" wide ascii
-        $ua12 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.254 Mobile Safari/534.11+" wide ascii
-        $ua13 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.115 Mobile Safari/534.11+" wide ascii
-        $ua14 = "Mozilla/5.0 (BlackBerry; U; BlackBerry 9850; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.254 Mobile Safari/534.11+" wide ascii
-        $ua15 = "Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Comodo_Dragon/4.1.1.11 Chrome/4.1.249.1042 Safari/532.5" wide ascii
-        $ua16 = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25" wide ascii
-        $ua17 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2" wide ascii
-        $ua18 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10" wide ascii
-        $ua19 = "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko ) Version/5.1 Mobile/9B176 Safari/7534.48.3" wide ascii
-        $us20 = "User-Agent: Internal Wordpress RPC connection" ascii wide
+        $ua11 = "Mozilla/5.0 (BlackBerry; U; BlackBerry " wide ascii
+        $ua12 = "Mozilla/5.0 (iPad; CPU OS" wide ascii
+        $ua13 = "User-Agent: Internal Wordpress RPC connection" ascii wide
     condition:
          uint16(0) == 0x5a4d and 1 of them
 }
@@ -1724,3 +1729,104 @@ rule INDICATOR_SUSPICIOUS_CAPABILITY_CaptureScreenShot {
          uint16(0) == 0x5a4d and ($dll and $save and (1 of ($c*)))
 }
 */
+
+rule INDICATOR_SUSPICIOUS_EXE_CC_Regex {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing credit card regular expressions"
+    strings:
+        // Amex Card
+        $s1 = "^3[47][0-9]{13}$" ascii wide nocase
+        // BCGlobal
+        $s2 = "^(6541|6556)[0-9]{12}$" ascii wide nocase
+        // Carte Blanche Card
+        $s3 = "^389[0-9]{11}$" ascii wide nocase
+        // Diners Club Card
+        $s4 = "^3(?:0[0-5]|[68][0-9])[0-9]{11}$" ascii wide nocase
+        // Discover Card
+        $s5 = "6(?:011|5[0-9]{2})[0-9]{12}$" ascii wide nocase
+        // Insta Payment Card
+        $s6 = "^63[7-9][0-9]{13}$" ascii wide nocase
+        // JCB Card
+        $s7 = "^(?:2131|1800|35\\d{3})\\d{11}$" ascii wide nocase
+        // KoreanLocalCard
+        $s8 = "^9[0-9]{15}$" ascii wide nocase
+        // Laser Card
+        $s9 = "^(6304|6706|6709|6771)[0-9]{12,15}$" ascii wide nocase
+        // Maestro Card
+        $s10 = "^(5018|5020|5038|6304|6759|6761|6763)[0-9]{8,15}$" ascii wide nocase
+        // Mastercard
+        $s11 = "5[1-5][0-9]{14}$" ascii wide nocase
+        // Solo Card
+        $s12 = "^(6334|6767)[0-9]{12}|(6334|6767)[0-9]{14}|(6334|6767)[0-9]{15}$" ascii wide nocase
+        // Switch Card
+        $s13 = "^(4903|4905|4911|4936|6333|6759)[0-9]{12}|(4903|4905|4911|4936|6333|6759)[0-9]{14}|(4903|4905|4911|4936|6333|6759)[0-9]{15}|564182[0-9]{10}|564182[0-9]{12}|564182[0-9]{13}|633110[0-9]{10}|633110[0-9]{12}|633110[0-9]{13}$" ascii wide nocase
+        // Union Pay Card
+        $s14 = "^(62[0-9]{14,17})$" ascii wide nocase
+        // Visa Card
+        $s15 = "4[0-9]{12}(?:[0-9]{3})?$" ascii wide nocase
+        // Visa Master Card
+        $s16 = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$" ascii wide nocase
+        // Express Card
+        $s17 = "3[47][0-9]{13}$" ascii wide nocase
+    condition:
+         (uint16(0) == 0x5a4d and 2 of them) or (5 of them)
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_Discord_Regex {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing Discord tokens regular expressions"
+    strings:
+        $s1 = "[a-zA-Z0-9]{24}\\.[a-zA-Z0-9]{6}\\.[a-zA-Z0-9_\\-]{27}|mfa\\.[a-zA-Z0-9_\\-]{84}" ascii wide nocase
+    condition:
+         (uint16(0) == 0x5a4d and all of them) or all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_VPN {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many VPN software clients"
+    strings:
+        $s1 = "\\VPN\\NordVPN" ascii wide nocase
+        $s2 = "\\VPN\\OpenVPN" ascii wide nocase
+        $s3 = "\\VPN\\ProtonVPN" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_B64_URL {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many VPN software clients"
+    strings:
+        $s1 = "aHR0cHM6Ly9" ascii wide
+        $s2 = "aHR0cDovL2" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_VaultSchemaGUID {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing Windows vault credential objects. Observed in infostealers"
+    strings:
+        // Windows Secure Note
+        $s1 = "2F1A6504-0641-44CF-8BB5-3612D865F2E5" ascii wide
+        // Windows Web Password Credential
+        $s2 = "3CCD5499-87A8-4B10-A215-608888DD3B55" ascii wide
+        // Windows Credential Picker Protector
+        $s3 = "154E23D0-C644-4E6F-8CE6-5069272F999F" ascii wide
+        // Web Credentials
+        $s4 = "4BF4C442-9B8A-41A0-B380-DD4A704DDB28" ascii wide
+        // Windows Credentials
+        $s5 = "77BC582B-F0A6-4E15-4E80-61736B6F3B29" ascii wide
+        // Windows Domain Certificate Credential
+        $s6 = "E69D7838-91B5-4FC9-89D5-230D4D4CC2BC" ascii wide
+        // Windows Domain Password Credential
+        $s7 = "3E0E35BE-1B77-43E7-B873-AED901B6275B" ascii wide
+        // Windows Extended Credential
+        $s8 = "3C886FF3-2669-4AA2-A8FB-3F6759A77548" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 4 of them
+}

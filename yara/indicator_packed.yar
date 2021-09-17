@@ -617,6 +617,11 @@ rule INDICATOR_EXE_Packed_AgileDotNet {
         $x3 = "<AgileDotNetRT>" fullword ascii
         $x4 = "AgileDotNetRT.dll" fullword ascii
         $x5 = "AgileDotNetRT64.dll" fullword ascii
+        $x6 = "get_AgileDotNet" ascii
+        $x7 = "useAgileDotNetStackFrames" fullword ascii
+        $x8 = "AgileDotNet." ascii
+        $x9 = "://secureteam.net/webservices" ascii
+        $x10 = "AgileDotNetProtector." ascii
         $s1 = "Callvirt" fullword ascii
         $s2 = "_Initialize64" fullword ascii
         $s3 = "_AtExit64" fullword ascii
@@ -630,7 +635,7 @@ rule INDICATOR_EXE_Packed_Fody {
         author = "ditekSHen"
         description = "Detects executables manipulated with Fody"
     strings:
-        $s1 = "ProcessedByFody" fullword ascii
+        $s1 = "ProcessedByFody" fullword ascii wide
     condition:
         uint16(0) == 0x5a4d and all of them
 }
@@ -657,4 +662,25 @@ rule INDICATOR_EXE_Packed_SimplePolyEngine {
         $b2 = "Hello world!" fullword wide
     condition:
         uint16(0) == 0x5a4d and (all of ($s*) or all of ($b*))
+}
+
+rule INDICATOR_EXE_Packed_dotNetProtector {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables packed with dotNetProtector"
+    strings:
+        $s1 = "dotNetProtector" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_EXE_Packed_DotNetReactor {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables packed with unregistered version of .NET Reactor"
+    strings:
+        $s1 = "is protected by an unregistered version of Eziriz's\".NET Reactor\"!" wide
+        $s2 = "is protected by an unregistered version of .NET Reactor!\" );</script>" wide
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
 }

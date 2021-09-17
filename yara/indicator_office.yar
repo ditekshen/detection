@@ -845,6 +845,7 @@ rule INDICATOR_DOC_PhishingPatterns {
         $s7 = "This document was edited in a different version of" ascii nocase
         $s8 = "document are locked and will not" ascii nocase
         $s9 = "until the \"Enable\" button is pressed" ascii nocase
+        $s10 = "This document created in online version of Microsoft Office" ascii nocase
     condition:
         (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025 or uint32(0) == 0x6d783f3c) and 2 of them
 }
