@@ -1384,6 +1384,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_NoViewContextMenu {
 }
 */
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_Multi {
     meta:
         author = "ditekSHen"
@@ -1406,6 +1407,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_Multi {
     condition:
         uint16(0) == 0x5a4d and (3 of ($r*) and 3 of ($k*))
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableWinDefender {
     meta:
