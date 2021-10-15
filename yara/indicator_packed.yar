@@ -10,8 +10,10 @@ rule INDICATOR_EXE_Packed_ConfuserEx {
         $s1 = "ConfuserEx " ascii
         $s2 = "ConfusedByAttribute" fullword ascii
         $c1 = "Confuser.Core " ascii wide
+        $u1 = "Confu v" fullword ascii
+        $u2 = "ConfuByAttribute" fullword ascii
     condition:
-        uint16(0) == 0x5a4d and (all of ($s*) or all of ($c*))
+        uint16(0) == 0x5a4d and (all of ($s*) or all of ($c*) or all of ($u*))
 }
 
 rule INDICATOR_EXE_Packed_ConfuserEx_Custom {
@@ -681,6 +683,16 @@ rule INDICATOR_EXE_Packed_DotNetReactor {
     strings:
         $s1 = "is protected by an unregistered version of Eziriz's\".NET Reactor\"!" wide
         $s2 = "is protected by an unregistered version of .NET Reactor!\" );</script>" wide
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_EXE_Packed_Dotfuscator {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables packed with Dotfuscator"
+    strings:
+        $s1 = "DotfuscatorAttribute" fullword ascii
     condition:
         uint16(0) == 0x5a4d and 1 of them
 }

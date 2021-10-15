@@ -351,6 +351,17 @@ rule INDICATOR_KB_ID_Ransomware_RanzyLocker {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_AlKhal {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with AlKhal ransomware"
+    strings:
+        $s1 = "alkhal@tutanota.com" ascii wide nocase
+        $s2 = "cyrilga@tutanota.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -1241,6 +1252,24 @@ rule INDICATOR_KB_ID_Infostealer {
         $account787 = "fairooz@rejoicetrade.com" ascii wide nocase
         $account788 = "imissyou@btamail.net.cn" ascii wide nocase
         $account789 = "echezona@bonfigliolli.com" ascii wide nocase
+        $account790 = "gmoore@studygruop.com" ascii wide nocase
+        $account791 = "eyup@prestigesgolds.com" ascii wide nocase
+        $account792 = "merchandise@enche.com" ascii wide nocase // A310Logger
+        $account793 = "spam-h@hgnet.net.br" ascii wide nocase // AgentTesla
+        $account794 = "wealthmyson@yandex.com" ascii wide nocase // Snake
+        $account795 = "andres.galarraga@sismode.com" ascii wide nocase // A310Logger
+        $account796 = "saleseuropower@yandex.com" ascii wide nocase // A310Logger
+        $account797 = "info@starkgulf.com" ascii wide nocase // A310Logger
+        $account798 = "etopical@bojtai.club" ascii wide nocase // A310Logger
+        $account799 = "fernando@digitaldirecto.es" ascii wide nocase // A310Logger
+        $account800 = "baerbelscheibll1809@gmail.com" ascii wide nocase // A310Logger
+        $account801 = "dashboard@grandamishabot.ru" ascii wide nocase // A310Logger
+        $account802 = "logs@grandamishabot.ru" ascii wide nocase // A310Logger
+        $account803 = "shan@farm-finn.com" ascii wide nocase // A310Logger
+        $account804 = "info@starkgulf.com" ascii wide nocase // A310Logger
+        $account805 = "netline@netjul.shop" ascii wide nocase // A310Logger
+        $account806 = "kendakenda@karanex.com" ascii wide nocase // AgentTesla
+        $account807 = "forrest@prinutrition.com" ascii wide nocase // AgentTesla
     condition:
         any of them
 }

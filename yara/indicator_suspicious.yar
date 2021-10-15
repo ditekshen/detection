@@ -136,6 +136,12 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxProductID {
         $id4 = "76487-640-1457236-23837" fullword ascii wide // Anubis Sandbox
         $id5 = "76497-640-6308873-23835" fullword ascii wide // CWSandbox
         $id6 = "76487-640-1464517-23259" fullword ascii wide // ??
+        $id7 = "76487 - 337 - 8429955 - 22614" fullword ascii wide // Anubis Sandbox
+        $id8 = "76487 - 644 - 3177037 - 23510" fullword ascii wide // CW Sandbox
+        $id9 = "55274 - 640 - 2673064 - 23950" fullword ascii wide // Joe Sandbox
+        $id10 = "76487 - 640 - 1457236 - 23837" fullword ascii wide // Anubis Sandbox
+        $id11 = "76497 - 640 - 6308873 - 23835" fullword ascii wide // CWSandbox
+        $id12 = "76487 - 640 - 1464517 - 23259" fullword ascii wide // ??
     condition:
         uint16(0) == 0x5a4d and 2 of them
 }
@@ -1339,6 +1345,68 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableSecurityCenter {
 }
 */
 
+/*
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableCMD {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling command line"
+    strings:
+        $r1 = "Software\\Policies\\Microsoft\\Windows\\System" ascii wide nocase
+        $k1 = "DisableCMD" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+*/
+
+/*
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_NoRun {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling command line"
+    strings:
+        $r1 = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $k1 = "NoRun" fullword ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+*/
+
+/*
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_NoViewContextMenu {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination indicative of disabling command line"
+    strings:
+        $r1 = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $k1 = "NoViewContextMenu" fullword ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
+*/
+
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_Multi {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry keys / values combination indicative of impairing system"
+    strings:
+        $r1 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $r2 = "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $r3 = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" ascii wide nocase
+        $r4 = "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" ascii wide nocase
+        $r5 = "Software\\Policies\\Microsoft\\Windows\\System" ascii wide nocase
+        $r6 = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $r7 = "SOFTWARE\\Microsoft\\Security Center" ascii wide nocase
+        $k1 = "DisableTaskMgr" ascii wide nocase
+        $k2 = "Hidden" ascii wide nocase
+        $k3 = "AntiVirusDisableNotify" ascii wide nocase
+        $k4 = "FirewallDisableNotify" ascii wide nocase
+        $k5 = "DisableCMD" ascii wide nocase
+        $k6 = "NoRun" fullword ascii wide nocase
+        $k7 = "NoViewContextMenu" fullword ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (2 of ($r*) and 2 of ($k*))
+}
+
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableWinDefender {
     meta:
         author = "ditekSHen"
@@ -1832,4 +1900,40 @@ rule INDICATOR_SUSPICIOUS_EXE_VaultSchemaGUID {
         $s8 = "3C886FF3-2669-4AA2-A8FB-3F6759A77548" ascii wide
     condition:
          uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_SUSPICIOUS_AntiVM_UNK01 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects memory artifcats referencing specific combination of anti-VM checks"
+    strings:
+        $s1 = "vmci.s" fullword ascii wide
+        $s2 = "vmmemc" fullword ascii wide
+        $s3 = "qemu-ga.exe" fullword ascii wide
+        $s4 = "qga.exe" fullword ascii wide
+        $s5 = "windanr.exe" fullword ascii wide
+        $s6 = "vboxservice.exe" fullword ascii wide
+        $s7 = "vboxtray.exe" fullword ascii wide
+        $s8 = "vmtoolsd.exe" fullword ascii wide
+        $s9 = "prl_tools.exe" fullword ascii wide
+        $s10 = "7869.vmt" fullword ascii wide
+        $s11 = "qemu" fullword ascii wide
+        $s12 = "virtio" fullword ascii wide
+        $s13 = "vmware" fullword ascii wide
+        $s14 = "vbox" fullword ascii wide
+        $s15 = "%systemroot%\\system32\\ntdll.dll" fullword ascii wide
+    condition:
+         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_AntiVM_WMIC {
+    meta:
+        author = "ditekSHen"
+        description = "Detects memory artifcats referencing WMIC commands for anti-VM checks"
+    strings:
+        $s1 = "wmic process where \"name like '%vmwp%'\"" ascii wide nocase
+        $s2 = "wmic process where \"name like '%virtualbox%'\"" ascii wide nocase
+        $s3 = "wmic process where \"name like '%vbox%'\"" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 2 of them
 }
