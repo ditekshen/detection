@@ -1404,7 +1404,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_Multi {
         $k6 = "NoRun" fullword ascii wide nocase
         $k7 = "NoViewContextMenu" fullword ascii wide nocase
     condition:
-        uint16(0) == 0x5a4d and (2 of ($r*) and 2 of ($k*))
+        uint16(0) == 0x5a4d and (3 of ($r*) and 3 of ($k*))
 }
 
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableWinDefender {
