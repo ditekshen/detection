@@ -6,6 +6,7 @@ false_positives:
     - rule: "INDICATOR_EXE_Packed_VMProtect"
     - rule: "INDICATOR_SUSPICIOUS_Stomped_PECompilation_Timestamp_InTheFuture"
     - rule: "INDICATOR_EXE_Packed_SmartAssembly"
+    - rule: "INDICATOR_EXE_Packed_Dotfuscator"
 
 files:
   accept:
