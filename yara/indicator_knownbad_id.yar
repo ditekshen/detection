@@ -463,8 +463,8 @@ rule INDICATOR_KB_ID_PowerShellWiFiStealer {
 rule INDICATOR_KB_ID_Infostealer {
     meta:
         author = "ditekshen"
-        description = "Detects exfiltration email addresses correlated from various infostealers. The same email can be observed in multiple families."
-        source = "https://github.com/ditekshen/is-wos"
+        description = "Detects exfiltration email addresses correlated from various infostealers. The same email may be observed in multiple families."
+        reference = "https://github.com/ditekshen/is-wos"
     strings:
         $account1 = "2020@website-practise.site" ascii wide nocase
         $account2 = "abidshah@comsats.net.pk" ascii wide nocase
@@ -1270,6 +1270,7 @@ rule INDICATOR_KB_ID_Infostealer {
         $account805 = "netline@netjul.shop" ascii wide nocase // A310Logger
         $account806 = "kendakenda@karanex.com" ascii wide nocase // AgentTesla
         $account807 = "forrest@prinutrition.com" ascii wide nocase // AgentTesla
+        $account808 = "techorigin4560@gmail.com" ascii wide nocase // AgentTesla
     condition:
         any of them
 }

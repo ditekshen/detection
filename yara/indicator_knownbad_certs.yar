@@ -7132,3 +7132,17 @@ rule INDICATOR_KB_CERT_072472f2386f4608a0790da2be8a48f7 {
             pe.signatures[i].serial == "07:24:72:f2:38:6f:46:08:a0:79:0d:a2:be:8a:48:f7"
         )
 }
+
+rule INDICATOR_KB_CERT_24692663ef6c0c0a3b23cfa310c3649b {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9ce9a71ccab3b38a74781b975f1c228222cf7d3b"
+        hash1 = "c7faae85681abe125b9a81b798daf845c62ddab8014784b6fd1b184b02d5a22b"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Akeo Consulting" and
+            pe.signatures[i].serial == "24:69:26:63:ef:6c:0c:0a:3b:23:cf:a3:10:c3:64:9b"
+        )
+}

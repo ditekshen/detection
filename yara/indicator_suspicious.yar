@@ -582,6 +582,7 @@ rule INDICATOR_SUSPICIOUS_DisableWinDefender {
         $s8 = "Set-MpPreference -ModerateThreatDefaultAction 6" ascii wide nocase
         $s9 = "Set-MpPreference -LowThreatDefaultAction 6" ascii wide nocase
         $s10 = "Set-MpPreference -SevereThreatDefaultAction 6" ascii wide nocase
+        $s11 = "Set-MpPreference -EnableControlledFolderAccess Disabled" ascii wide nocase
         $pdb = "\\Disable-Windows-Defender\\obj\\Debug\\Disable-Windows-Defender.pdb" ascii
         $e1 = "Microsoft\\Windows Defender\\Exclusions\\Paths" ascii wide nocase
         $e2 = "Add-MpPreference -ExclusionPath" ascii wide nocase
@@ -1938,4 +1939,25 @@ rule INDICATOR_SUSPICIOUS_AntiVM_WMIC {
         $s3 = "wmic process where \"name like '%vbox%'\"" ascii wide nocase
     condition:
          uint16(0) == 0x5a4d and 2 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EnableSMBv1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects binaries with PowerShell command enable SMBv1"
+    strings:
+        $s1 = "Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EnableNetworkDiscovery {
+    meta:
+        author = "ditekSHen"
+        description = "Detects binaries manipulating Windows firewall to enable permissive network discovery"
+    strings:
+        $s1 = "netsh advfirewall firewall set rule group=\"Network Discovery\" new enable=Yes" ascii wide nocase 
+        $s2 = "netsh advfirewall firewall set rule group=\"File and Printer Sharing\" new enable=Yes" ascii wide nocase 
+    condition:
+         uint16(0) == 0x5a4d and all of them
 }
