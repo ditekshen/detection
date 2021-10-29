@@ -7146,3 +7146,34 @@ rule INDICATOR_KB_CERT_24692663ef6c0c0a3b23cfa310c3649b {
             pe.signatures[i].serial == "24:69:26:63:ef:6c:0c:0a:3b:23:cf:a3:10:c3:64:9b"
         )
 }
+
+rule INDICATOR_KB_CERT_00ea734e1dfb6e69ed2bc55e513bf95b5e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5ca53cc5c6dc47838bbba922ad217a468408a9bd"
+        hash1 = "293a83bfe2839bfa6d40fa52f5088e43b62791c08343c3f4dade4f1118000392"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Postmarket LLC" and
+            (
+                pe.signatures[i].serial == "00:ea:73:4e:1d:fb:6e:69:ed:2b:c5:5e:51:3b:f9:5b:5e" or
+                pe.signatures[i].serial == "ea:73:4e:1d:fb:6e:69:ed:2b:c5:5e:51:3b:f9:5b:5e"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_0dfa4f0cff90319951b019a4681ebd2a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b85aacac6afb0bef5b6f1d744cd8c278030e6a3e"
+        hash1 = "4eca4e0d3c06e4889917a473229b368bae02f0135f0ac68e937a72fca431ac8a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "deepinstruction O" and
+            pe.signatures[i].serial == "0d:fa:4f:0c:ff:90:31:99:51:b0:19:a4:68:1e:bd:2a"
+        )
+}

@@ -362,6 +362,16 @@ rule INDICATOR_KB_ID_Ransomware_AlKhal {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_DECAF {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with DECAF ransomware"
+    strings:
+        $s1 = "22eb687475f2c5ca30b@protonmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -1271,6 +1281,10 @@ rule INDICATOR_KB_ID_Infostealer {
         $account806 = "kendakenda@karanex.com" ascii wide nocase // AgentTesla
         $account807 = "forrest@prinutrition.com" ascii wide nocase // AgentTesla
         $account808 = "techorigin4560@gmail.com" ascii wide nocase // AgentTesla
+        $account889 = "ifee@richetch.ltd" ascii wide nocase // Snake
+        $account890 = "davidchuzy@yandex.com" ascii wide nocase // Snake
+        $account891 = "endrit.neon@mail.com" ascii wide nocase // AgentTesla
+        $account892 = "muhasebe@yekamuhendislik.com" ascii wide nocase // A310Logger
     condition:
         any of them
 }

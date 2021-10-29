@@ -532,6 +532,12 @@ rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
         $app62 = "\\Armory" ascii wide
         $app63 = "\\Atomic" ascii wide
         $app64 = "\\Bytecoin" ascii wide
+        $app65 = "simpleos" ascii wide
+        $app66 = "WalletWasabi" ascii wide
+        $app67 = "atomic\\" ascii wide
+        $app68 = "Guarda\\" ascii wide
+        $app69 = "Neon\\" ascii wide
+
 
         $ne1 = "C:\\src\\pgriffais_incubator-w7\\Steam\\main\\src\\external\\libjingle-0.4.0\\talk/base/scoped_ptr.h" fullword wide
         $ne2 = "\"%s\\bin\\%slauncher.exe\" -hproc %x -hthread %x -baseoverlayname %s\\%s" fullword ascii
@@ -1960,4 +1966,15 @@ rule INDICATOR_SUSPICIOUS_EnableNetworkDiscovery {
         $s2 = "netsh advfirewall firewall set rule group=\"File and Printer Sharing\" new enable=Yes" ascii wide nocase 
     condition:
          uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_AuthApps {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many authentication apps. Observed in information stealers"
+    strings:
+        $s1 = "WinAuth\\winauth.xml" ascii wide nocase
+        $s2 = "Authy Desktop\\Local" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and all of them
 }
