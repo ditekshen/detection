@@ -372,6 +372,24 @@ rule INDICATOR_KB_ID_Ransomware_DECAF {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Babuk {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Babuk ransomware"
+    strings:
+        $s1 = "mitnickd@ctemplar.com" ascii wide nocase
+        $s2 = "zar8b@tuta.io" ascii wide nocase
+        $s3 = "recover300dollars@gmail.com" ascii wide nocase
+        $s4 = "support.3330@gmail.com" ascii wide nocase
+        $s5 = "decryptdelta@gmail.com" ascii wide nocase
+        $s6 = "pyotrmaksim@gmail.com" ascii wide nocase
+        $s7 = "retrievedata300@gmail.com" ascii wide nocase
+        $s8 = "3JG36KY6abZTnHBdQCon1hheC3Wa2bdyqs" ascii wide // Bitcoin Address
+        $s9 = "46zdZVRjm9XJhdjpipwtYDY51NKbD74bfEffxmbqPjwH6efTYrtvbU5Et4AKCre9MeiqtiR51Lvg2X8dXv1tP7nxLaEHKKQ" ascii wide // Wallet
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -1285,6 +1303,11 @@ rule INDICATOR_KB_ID_Infostealer {
         $account890 = "davidchuzy@yandex.com" ascii wide nocase // Snake
         $account891 = "endrit.neon@mail.com" ascii wide nocase // AgentTesla
         $account892 = "muhasebe@yekamuhendislik.com" ascii wide nocase // A310Logger
+        $account893 = "kplastik1@yandex.com" ascii wide nocase // AgentTesla
+        $account894 = "admin@aninditaeng.net" ascii wide nocase // Snake
+        $account895 = "pmolemans@tranedico.nl" ascii wide nocase // AgentTesla
+        $account896 = "jackjohnson64161@yandex.com" ascii wide nocase // AgentTesla
+        $account897 = "n.mackey@itelcom.net.au" ascii wide nocase // AgentTesla
     condition:
         any of them
 }

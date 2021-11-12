@@ -7177,3 +7177,100 @@ rule INDICATOR_KB_CERT_0dfa4f0cff90319951b019a4681ebd2a {
             pe.signatures[i].serial == "0d:fa:4f:0c:ff:90:31:99:51:b0:19:a4:68:1e:bd:2a"
         )
 }
+
+rule INDICATOR_KB_CERT_4d03ae6512b85eab4184ca7f4fa2e49c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0215ff94a5c0d97db82e11f87e0dfb4318acac38"
+        hash1 = "18bf017bdd74e8e8f5db5a4dd7ec3409021c7b0d2f125f05d728f3b740132015"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Lenovo IdeaCentre" and
+            pe.signatures[i].serial == "4d:03:ae:65:12:b8:5e:ab:41:84:ca:7f:4f:a2:e4:9c"
+        )
+}
+
+rule INDICATOR_KB_CERT_333705c20b56e57f60b5eb191eef0d90 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "44f0f77d8b649579fa6f88ae9fa4b4206b90b120"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TASK Holding ApS" and
+            pe.signatures[i].serial == "33:37:05:c2:0b:56:e5:7f:60:b5:eb:19:1e:ef:0d:90"
+        )
+}
+
+rule INDICATOR_KB_CERT_79906faf4fbd75baa10b322356a07f6d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects NetSupport (client) signed executables"
+        thumbprint = "f84ec9488bdac5f90db3c474b55e31a8f10a2026"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "NetSupport Ltd" and
+            pe.signatures[i].serial == "79:90:6f:af:4f:bd:75:ba:a1:0b:32:23:56:a0:7f:6d"
+        )
+}
+
+rule INDICATOR_KB_CERT_030ba877daf788a0048d04a85b1f6eca {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1f10c5676a742548fb430fbc1965b20146b7325a"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Skylum Software USA, Inc." and
+            pe.signatures[i].serial == "03:0b:a8:77:da:f7:88:a0:04:8d:04:a8:5b:1f:6e:ca"
+        )
+}
+
+rule INDICATOR_KB_CERT_00fe83f58d001327fbaafd7bac76ae6818 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c130dd74928da75a42e9d32a1d3f2fd860d81566"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "A. Jensen FLY Fishing ApS" and
+            (
+                pe.signatures[i].serial == "fe:83:f5:8d:00:13:27:fb:aa:fd:7b:ac:76:ae:68:18" or
+                pe.signatures[i].serial == "00:fe:83:f5:8d:00:13:27:fb:aa:fd:7b:ac:76:ae:68:18"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_0788260f8541539d97f49ddaa837b166 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "569511fdc5e8dea454e97b005de1af5272d4bd32"
+        hash1 = "6ad407d5c7e4574c7452a1a27da532ee9a55bb4074e43aa677703923909169e4"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TechSmith Corporation" and
+            pe.signatures[i].serial == "07:88:26:0f:85:41:53:9d:97:f4:9d:da:a8:37:b1:66"
+        )
+}
+
+rule INDICATOR_KB_CERT_0ca5acafb5fdca6f8b5d66d1339a5d85 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ab25053a3f739ddd4505cf5d9d33b5cc50f3ab35"
+        hash1 = "a3ab41d9642a5a5aa6aa4fc1e316970e06fa26c6c545dd8ff56f82f41465ec08"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Valve" and
+            pe.signatures[i].serial == "0c:a5:ac:af:b5:fd:ca:6f:8b:5d:66:d1:33:9a:5d:85"
+        )
+}
