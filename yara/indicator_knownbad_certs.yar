@@ -7301,3 +7301,31 @@ rule INDICATOR_KB_CERT_035b41766660b08aaf121536f0d83d4d {
             pe.signatures[i].serial == "03:5b:41:76:66:60:b0:8a:af:12:15:36:f0:d8:3d:4d"
         )
 }
+
+rule INDICATOR_KB_CERT_1a041db92237c18948109789f627b3cd {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2315cf802aaf96d11f18766315239016e533bf32"
+        hash1 = "a0338becbfe808bc7655d8b6c825e2e99b37945e5d8fc43a83aec479d64f422d"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Amitotic" and
+            pe.signatures[i].serial == "1a:04:1d:b9:22:37:c1:89:48:10:97:89:f6:27:b3:cd"
+        )
+}
+
+rule INDICATOR_KB_CERT_06df5c318759d6ea9d090bfb2faf1d94 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "4418e9a7aab0909fa611985804416b1aaf41e175"
+        hash1 = "47dbb2594cd5eb7015ef08b7fb803cd5adc1a1fbe4849dc847c0940f1ccace35"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SpiffyTech Inc." and
+            pe.signatures[i].serial == "06:df:5c:31:87:59:d6:ea:9d:09:0b:fb:2f:af:1d:94"
+        )
+}
