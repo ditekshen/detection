@@ -390,6 +390,27 @@ rule INDICATOR_KB_ID_Ransomware_Babuk {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Rapid {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Rapid ransomware"
+    strings:
+        $s1 = "jimmyneytron@tuta.io" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_Satana {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Satana ransomware"
+    strings:
+        $s1 = "adamadam@ausi.com" ascii wide nocase
+        $s2 = "XsrR2he2Z8un5ysGWnJ1wveZRPRS96XEoX" ascii wide // BTC
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"

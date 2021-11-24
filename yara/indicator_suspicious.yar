@@ -1953,7 +1953,7 @@ rule INDICATOR_SUSPICIOUS_AntiVM_WMIC {
 rule INDICATOR_SUSPICIOUS_EnableSMBv1 {
     meta:
         author = "ditekSHen"
-        description = "Detects binaries with PowerShell command enable SMBv1"
+        description = "Detects binaries with PowerShell command enabling SMBv1"
     strings:
         $s1 = "Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol" ascii wide nocase
     condition:
@@ -1980,4 +1980,33 @@ rule INDICATOR_SUSPICIOUS_EXE_References_AuthApps {
         $s2 = "Authy Desktop\\Local" ascii wide nocase
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_RDP {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding registry key / value combination manipulating RDP / Terminal Services"
+    strings:
+        // Beginning with Windows Server 2008 and Windows Vista, this policy no longer has any effect
+        // https://docs.microsoft.com/en-us/windows/win32/msi/enableadmintsremote
+        $r1 = "SOFTWARE\\Policies\\Microsoft\\Windows\\Installer" ascii wide nocase
+        $k1 = "EnableAdminTSRemote" fullword ascii wide nocase
+        // Whether basic Terminal Services functions are enabled
+        $r2 = "SYSTEM\\CurrentControlSet\\Control\\Terminal Server" ascii wide nocase
+        $k2 = "TSEnabled" fullword ascii wide nocase
+        // Terminal Device Driver Attributes
+        // Terminal Services hosts and configurations
+        $r3 = "SYSTEM\\CurrentControlSet\\Services\\TermDD" ascii wide nocase
+        $r4 = "SYSTEM\\CurrentControlSet\\Services\\TermService" ascii wide nocase
+        $k3 = "Start" fullword ascii wide nocase
+        // Allows or denies connecting to Terminal Services
+        $r5 = "SYSTEM\\CurrentControlSet\\Control\\Terminal Server" ascii wide nocase
+        $k4 = "fDenyTSConnections" fullword ascii wide nocase
+        // RDP Port Number
+        $r6 = "SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\RDPTcp" ascii wide nocase
+        $r7 = "SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\Wds\\rdpwd\\Tds\\tcp" ascii wide nocase
+        $r8 = "SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp" ascii wide nocase
+        $k5 = "PortNumber" fullword ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 5 of ($r*) and 3 of ($k*)
 }

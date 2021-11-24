@@ -7274,3 +7274,30 @@ rule INDICATOR_KB_CERT_0ca5acafb5fdca6f8b5d66d1339a5d85 {
             pe.signatures[i].serial == "0c:a5:ac:af:b5:fd:ca:6f:8b:5d:66:d1:33:9a:5d:85"
         )
 }
+
+rule INDICATOR_KB_CERT_387eeb89b8bf626bbf4c7c9f5b998b40 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e94ad249747fd4b88750b2cd6d8d65ad33d3566d"
+        hash1 = "004f011b37e4446fa04b76aae537cc00f6588c0705839152ae2d8a837ef2b730"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ULTRA ACADEMY LTD" and
+            pe.signatures[i].serial == "38:7e:eb:89:b8:bf:62:6b:bf:4c:7c:9f:5b:99:8b:40"
+        )
+}
+
+rule INDICATOR_KB_CERT_035b41766660b08aaf121536f0d83d4d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects signed excutable of DiskCryptor open encryption solution that offers encryption of all disk partitions"
+        thumbprint = "2022d012c23840314f5eeaa298216bec06035787"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Alexander Lomachevsky" and
+            pe.signatures[i].serial == "03:5b:41:76:66:60:b0:8a:af:12:15:36:f0:d8:3d:4d"
+        )
+}
