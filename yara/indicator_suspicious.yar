@@ -2010,3 +2010,38 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_RDP {
     condition:
         uint16(0) == 0x5a4d and 5 of ($r*) and 3 of ($k*)
 }
+
+// http://undoc.airesoft.co.uk/
+
+rule INDICATOR_SUSPICIOUS_EXE_Undocumented_WinAPI_Kerberos {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing undocumented kerberos Windows APIs and obsereved in malware"
+    strings:
+        // Undocumented Kerberos-related functions
+        // Reference: https://unit42.paloaltonetworks.com/manageengine-godzilla-nglite-kdcsponge/ (KdcSponge)
+        // Reference: https://us-cert.cisa.gov/ncas/current-activity/2021/11/19/updated-apt-exploitation-manageengine-adselfservice-plus
+        $kdc1 = "KdcVerifyEncryptedTimeStamp" ascii wide nocase
+        $kdc2 = "KerbHashPasswordEx3" ascii wide nocase
+        $kdc3 = "KerbFreeKey" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and all of ($kdc*)
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_NKN_BCP2P {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing NKN Blockchain P2P network"
+    strings:
+        $x1 = "/nknorg/nkn-sdk-go." ascii
+        $x2 = "://seed.nkn.org" ascii
+        $x3 = "/nknorg/nkn/" ascii
+        $s1 = ").NewNanoPayClaimer" ascii
+        $s2 = ").IncrementAmount" ascii
+        $s3 = ").BalanceByAddress" ascii
+        $s4 = ").TransferName" ascii
+        $s5 = ".GetWsAddr" ascii
+        $s6 = ".GetNodeStateContext" ascii
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($x*) or all of ($s*))
+}

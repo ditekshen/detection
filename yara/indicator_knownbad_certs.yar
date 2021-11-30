@@ -7329,3 +7329,53 @@ rule INDICATOR_KB_CERT_06df5c318759d6ea9d090bfb2faf1d94 {
             pe.signatures[i].serial == "06:df:5c:31:87:59:d6:ea:9d:09:0b:fb:2f:af:1d:94"
         )
 }
+
+// DECAF Ransomware
+rule INDICATOR_KB_CERT_330000026551ae1bbd005cbfbd000000000265 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e168609353f30ff2373157b4eb8cd519d07a2bff"
+        hash1 = "a471fdf6b137a6035b2a2746703cd696089940698fd533860d34e71cc6586850"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Microsoft Windows" and
+            pe.signatures[i].issuer contains "Microsoft Windows Production PCA 2011" and
+            pe.signatures[i].serial == "33:00:00:02:65:51:ae:1b:bd:00:5c:bf:bd:00:00:00:00:02:65" and
+            1614796238 <= pe.signatures[i].not_after
+        )
+}
+
+rule INDICATOR_KB_CERT_309368b122ab63103dddd4ad6321a82c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1370de077e2ba2065478dee8075b16c0e5a5e862"
+        hash1 = "b7376049b73feb5bc677a02e4040f2ec7e7302456db9eac35c71072dd95557eb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Systems Accounting Limited" and
+            pe.signatures[i].serial == "30:93:68:b1:22:ab:63:10:3d:dd:d4:ad:63:21:a8:2c"
+        )
+}
+
+rule INDICATOR_KB_CERT_19f613cf951d49814250701037442ee2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint1 = "6feab07fa782fc7fbddde8465815f4d04d79ad97"
+        thumbprint2 = "41aaafa56a30badb291e96d31ed15a9343ba7ed3"
+        hash1 = "9629cae6d009dadc60e49f5b4a492bd1169d93f17afa76bee27c37be5bca3015"
+        hash2 = "3b3281feef6d8e0eda2ab7232bd93f7c747bee143c2dfce15d23a1869bf0eddf"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Cooler Master" and
+            (
+                pe.signatures[i].serial == "19:f6:13:cf:95:1d:49:81:42:50:70:10:37:44:2e:e2" or
+                pe.signatures[i].serial == "6b:e8:ee:f0:82:a4:f5:96:4c:75:0b:c0:07:24:f6:4a"
+            )
+        )
+}
