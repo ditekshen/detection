@@ -846,6 +846,10 @@ rule INDICATOR_DOC_PhishingPatterns {
         $s8 = "document are locked and will not" ascii nocase
         $s9 = "until the \"Enable\" button is pressed" ascii nocase
         $s10 = "This document created in online version of Microsoft Office" ascii nocase
+        $s11 = "This document created in previous version of Microsoft Office" ascii nocase
+        $s12 = "This document protected by Microsoft Office" ascii nocase
+        $s13 = "This document encrypted by" ascii nocase
+        $s14 = "document created in earlier version of microsoft office" ascii nocase
     condition:
         (uint16(0) == 0xcfd0 or uint32(0) == 0x74725c7b or uint32(0) == 0x46445025 or uint32(0) == 0x6d783f3c) and 2 of them
 }
@@ -906,4 +910,16 @@ rule INDICATOR_SUSPICOIUS_RTF_EncodedURL {
         $s4 = "\\u-65434?\\u-65431?\\u-65428?\\u-65435?\\u-" ascii wide
     condition:
         uint32(0) == 0x74725c7b and any of them
+}
+
+rule INDICATOR_RTF_RemoteTemplate {
+    meta:
+        description = "Detects RTF documents potentially exploiting CVE-2017-11882"
+        author = "ditekSHen"
+    strings:
+        $s1 = "{\\*\\template http" ascii nocase
+        $s2 = "{\\*\\template file" ascii nocase
+        $s3 = "{\\*\\template \\u-" ascii nocase
+    condition:
+      uint32(0) == 0x74725c7b and all of them
 }
