@@ -435,6 +435,38 @@ rule INDICATOR_KB_ID_Ransomware_Satana {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Zeppelin {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Zeppelin ransomware"
+    strings:
+        $s1 = "kd8eby0@inboxhub.net" ascii wide nocase
+        $s2 = "kd8eby0@onionmail.org" ascii wide nocase
+        $s3 = "kd8eby0@nuke.africa" ascii wide nocase
+        $s4 = "uspex1@cock.li" ascii wide nocase
+        $s5 = "uspex2@cock.li" ascii wide nocase
+        $s6 = "China.Helper@aol.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_STOP {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with STOP ransomware"
+    strings:
+        $s1 = "gorentos@bitmessage.ch" ascii wide nocase
+        $s2 = "gorentos2@firemail.cc" ascii wide nocase
+        $s3 = "manager@mailtemp.ch" ascii wide nocase
+        $s4 = "helprestoremanager@airmail.cc" ascii wide nocase
+        $s5 = "supporthelp@airmail.cc" ascii wide nocase
+        $s6 = "managerhelper@airmail.cc" ascii wide nocase
+        $s7 = "helpteam@mail.ch" ascii wide nocase
+        $s8 = "helpmanager@airmail.cc" ascii wide nocase
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
@@ -514,6 +546,8 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s48 = "democyber@kermeur.com" ascii wide nocase
         $s49 = "loggkeyemisor@gmail.com" ascii wide nocase
         $s50 = "loggkeyreceptor@gmail.com" ascii wide nocase
+        $s51 = "toopmoove123@gmail.com" ascii wide nocase
+        $s52 = "toopmoovesu@mail.com" ascii wide nocase
     condition:
         any of them
 }

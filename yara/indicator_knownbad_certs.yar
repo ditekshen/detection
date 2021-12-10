@@ -5999,6 +5999,7 @@ rule INDICATOR_KB_CERT_e339c8069126aa6313484fea85b4b326f7b8860c {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_01342592a0010cb1109c11c0519cfd24 {
     meta:
         author = "ditekSHen"
@@ -6012,6 +6013,7 @@ rule INDICATOR_KB_CERT_01342592a0010cb1109c11c0519cfd24 {
             pe.signatures[i].serial == "01:34:25:92:a0:01:0c:b1:10:9c:11:c0:51:9c:fd:24"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_734d0baf7a6b44743ff852c8ba7a751a7ff0ec73 {
     meta:
@@ -7377,5 +7379,92 @@ rule INDICATOR_KB_CERT_19f613cf951d49814250701037442ee2 {
                 pe.signatures[i].serial == "19:f6:13:cf:95:1d:49:81:42:50:70:10:37:44:2e:e2" or
                 pe.signatures[i].serial == "6b:e8:ee:f0:82:a4:f5:96:4c:75:0b:c0:07:24:f6:4a"
             )
+        )
+}
+
+rule INDICATOR_KB_CERT_2d8cfcf04209dc7f771d8d18e462c35a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a9c61e299634ba01e269239de322fb85e2da006b"
+        hash1 = "af27173ed576215bb06dab3a1526992ee1f8bd358a92d63ad0cfbc0325c70acf"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AA PLUS INVEST d.o.o." and
+            pe.signatures[i].serial == "2d:8c:fc:f0:42:09:dc:7f:77:1d:8d:18:e4:62:c3:5a"
+        )
+}
+
+rule INDICATOR_KB_CERT_06de439ba2df4dcd8240c211d60cdf5e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2650a1205bd7720381c00bdee5aede0ee333dc13"
+        hash1 = "e3bc81a59fc45dfdfcc57b0078437061cb8c3396e1d593fcf187e3cdf0373ed1"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Microleaves LTD" and
+            pe.signatures[i].serial == "06:de:43:9b:a2:df:4d:cd:82:40:c2:11:d6:0c:df:5e"
+        )
+}
+
+rule INDICATOR_KB_CERT_00f454f2fdc800b3454059d8889bd73d67 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2b560fabc34e0db81dae1443b1c4929eef820266"
+        hash1 = "e58b80e4738dc03f5aa82d3a40a6d2ace0d7c7cfd651f1dd10df76d43d8c0eb3"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BEAUTY CORP SRL" and
+            (
+                pe.signatures[i].serial == "f4:54:f2:fd:c8:00:b3:45:40:59:d8:88:9b:d7:3d:67" or
+                pe.signatures[i].serial == "00:f4:54:f2:fd:c8:00:b3:45:40:59:d8:88:9b:d7:3d:67"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_3afe693728f8406054a613f6736f89e3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "89528e9005a635bcee8da5539e71c5fc4f839f50"
+        hash1 = "d98bdf3508763fe0df177ef696f5bf8de7ff7c7dc68bb04a14a95ec28528c3f9"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ROB ALDERMAN FITNESS LIMITED" and
+            pe.signatures[i].serial == "3a:fe:69:37:28:f8:40:60:54:a6:13:f6:73:6f:89:e3"
+        )
+}
+
+rule INDICATOR_KB_CERT_0fd7f9cac1e9ce71ac757f93266e3b13 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "af2779ceb127caa6c22232ad359888a0a71ce221"
+        hash1 = "7c28b994aeb3a85e37225cc20bae2232f97e23f115c2a409da31f353140c631e"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "\\xE9\\x9D\\x92\\xE5\\xB2\\x9B\\xE4\\xB8\\x89\\xE5\\x96\\x9C\\xE8\\xB4\\xB8\\xE6\\x98\\x93\\xE6\\x9C\\x89\\xE9\\x99\\x90\\xE5\\x85\\xAC\\xE5\\x8F\\xB8" and
+            pe.signatures[i].serial == "0f:d7:f9:ca:c1:e9:ce:71:ac:75:7f:93:26:6e:3b:13"
+        )
+}
+
+rule INDICATOR_KB_CERT_5fbf16a33d26390a15f046c310030cf0 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "61f422db86bbc5093b1466a281f13346f8d81792"
+        hash1 = "f45e5f160a6de454d1db21b599843637103506545183a30053d03b609f92bbdc"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "MACHINES SATU MARE SRL" and
+            pe.signatures[i].serial == "5f:bf:16:a3:3d:26:39:0a:15:f0:46:c3:10:03:0c:f0"
         )
 }

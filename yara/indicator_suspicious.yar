@@ -16,6 +16,8 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase
         $cmd9 = "shadowcopy where \"ID='%s'\" delete" ascii wide nocase
         $cmd10 = "wmic.exe SHADOWCOPY /nointeractive" ascii wide nocase
+        $cmd11 = "WMIC.exe shadowcopy delete" ascii wide nocase
+        $cmd12 = "Win32_Shadowcopy | ForEach-Object {$_.Delete();}" ascii wide nocase
         $delr = /del \/s \/f \/q(( [A-Za-z]:\\(\*\.|[Bb]ackup))(VHD|bac|bak|wbcat|bkf)?)+/ ascii wide
         $wp1 = "delete catalog -quiet" ascii wide nocase
         $wp2 = "wbadmin delete backup" ascii wide nocase
@@ -355,7 +357,7 @@ rule INDICATOR_SUSPICIOUS_EXE_References_Confidential_Data_Store {
         uint16(0) == 0x5a4d and 3 of them
 }
 
-rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
+rule INDICATOR_SUSPICIOUS_EXE_References_Messaging_Clients {
     meta:
         description = "Detects executables referencing many email and collaboration clients. Observed in information stealers"
         author = "ditekSHen"
@@ -403,6 +405,11 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_Messaging_Clients {
         $s41 = "Software\\Microsoft\\Office\\17.0\\Outlook\\Profiles\\Outlook" ascii wide
         $s42 = "Software\\Microsoft\\Office\\18.0\\Outlook\\Profiles\\Outlook" ascii wide
         $s43 = "Software\\Microsoft\\Office\\19.0\\Outlook\\Profiles\\Outlook" ascii wide
+        $s45 = "Paltalk NG\\common_settings\\core\\users\\creds" ascii wide
+        $s46 = "Discord\\Local Storage\\leveldb" ascii wide
+        $s47 = "Discord PTB\\Local Storage\\leveldb" ascii wide
+        $s48 = "Discord Canary\\leveldb" ascii wide
+        $s49 = "MailSpring\\" ascii wide
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
@@ -537,7 +544,9 @@ rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
         $app67 = "atomic\\" ascii wide
         $app68 = "Guarda\\" ascii wide
         $app69 = "Neon\\" ascii wide
-
+        $app70 = "Blockstream\\" ascii wide
+        $app71 = "GreenAddress Wallet\\" ascii wide
+        $app72 = "bitpay\\" ascii wide
 
         $ne1 = "C:\\src\\pgriffais_incubator-w7\\Steam\\main\\src\\external\\libjingle-0.4.0\\talk/base/scoped_ptr.h" fullword wide
         $ne2 = "\"%s\\bin\\%slauncher.exe\" -hproc %x -hthread %x -baseoverlayname %s\\%s" fullword ascii
@@ -1042,6 +1051,7 @@ rule INDICATOR_SUSPICIOUS_PWSH_PasswordCredential_RetrievePassword {
        $namespace and 1 of ($method*)
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_Stomped_PECompilation_Timestamp_InTheFuture {
     meta:
         author = "ditekSHen"
@@ -1049,6 +1059,7 @@ rule INDICATOR_SUSPICIOUS_Stomped_PECompilation_Timestamp_InTheFuture {
     condition:
         uint16(0) == 0x5a4d and pe.timestamp > time.now()
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_EXE_UACBypass_EnvVarScheduledTasks {
     meta:
@@ -1869,13 +1880,17 @@ rule INDICATOR_SUSPICIOUS_EXE_Discord_Regex {
 rule INDICATOR_SUSPICIOUS_EXE_References_VPN {
     meta:
         author = "ditekSHen"
-        description = "Detects executables referencing many VPN software clients"
+        description = "Detects executables referencing many VPN software clients. Observed in infosteslers"
     strings:
         $s1 = "\\VPN\\NordVPN" ascii wide nocase
         $s2 = "\\VPN\\OpenVPN" ascii wide nocase
         $s3 = "\\VPN\\ProtonVPN" ascii wide nocase
+        $s4 = "\\VPN\\DUC\\" ascii wide nocase
+        $s5 = "\\VPN\\PrivateVPN" ascii wide nocase
+        $s6 = "\\VPN\\PrivateVPN" ascii wide nocase
+        $s7 = "\\VPN\\EarthVPN" ascii wide nocase
     condition:
-         uint16(0) == 0x5a4d and all of them
+         uint16(0) == 0x5a4d and 3 of them
 }
 
 /*
@@ -2048,4 +2063,43 @@ rule INDICATOR_SUSPICIOUS_EXE_NKN_BCP2P {
         $s6 = ".GetNodeStateContext" ascii
     condition:
         uint16(0) == 0x5a4d and (1 of ($x*) or all of ($s*))
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_PasswordManagers {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing many Password Manager software clients. Observed in infostealers"
+    strings:
+        $s1 = "1Password\\" ascii wide nocase
+        $s2 = "Dashlane\\" ascii wide nocase
+        $s3 = "nordpass*.sqlite" ascii wide nocase
+        $s4 = "RoboForm\\" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_WirelessNetReccon {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables with interest in wireless interface using netsh"
+    strings:
+        $s1 = "netsh wlan show profile" ascii wide nocase
+        $s2 = "netsh wlan show profile name=" ascii wide nocase
+        $s3 = "netsh wlan show networks mode=bssid" ascii wide nocase
+    condition:
+         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_GitConfData {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables referencing potentially confidential GIT artifacts. Observed in infostealer"
+    strings:
+        $s1 = "GithubDesktop\\Local Storage" ascii wide nocase
+        $s2 = "GitHub Desktop\\Local Storage" ascii wide nocase
+        $s3 = ".git-credentials" ascii wide
+        $s4 = ".config\\git\\credentials" ascii wide
+        $s5 = ".gitconfig" ascii wide
+    condition:
+         uint16(0) == 0x5a4d and 4 of them
 }
