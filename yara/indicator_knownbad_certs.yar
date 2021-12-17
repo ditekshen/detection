@@ -6000,6 +6000,7 @@ rule INDICATOR_KB_CERT_e339c8069126aa6313484fea85b4b326f7b8860c {
 }
 
 /*
+FPs encountered
 rule INDICATOR_KB_CERT_01342592a0010cb1109c11c0519cfd24 {
     meta:
         author = "ditekSHen"
@@ -7466,5 +7467,61 @@ rule INDICATOR_KB_CERT_5fbf16a33d26390a15f046c310030cf0 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "MACHINES SATU MARE SRL" and
             pe.signatures[i].serial == "5f:bf:16:a3:3d:26:39:0a:15:f0:46:c3:10:03:0c:f0"
+        )
+}
+
+rule INDICATOR_KB_CERT_292eb1133507f42e6f36c5549c189d5e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "48c32548ff651e2aac12716efb448f5583577e35"
+        hash1 = "f0b3b36086e58964bf4b9d655568ab5c7f798bd89e7a8581069e65f8189c0b79"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Affairs-case s.r.o." and
+            pe.signatures[i].serial == "29:2e:b1:13:35:07:f4:2e:6f:36:c5:54:9c:18:9d:5e"
+        )
+}
+
+rule INDICATOR_KB_CERT_2aaa455a172f7e3a2dffb5c6b14f9c16 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "23c91b66bd07e56e60724b0064d4fedbdb1c8913"
+        hash1 = "7852cf2dfe60b60194dae9b037298ed0a9c84fa1d850f3898751575f4377215f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DREAM VILLAGE s.r.o." and
+            pe.signatures[i].serial == "2a:aa:45:5a:17:2f:7e:3a:2d:ff:b5:c6:b1:4f:9c:16"
+        )
+}
+
+rule INDICATOR_KB_CERT_1ef6392b2993a6f67578299659467ea8 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e87d3e289ccb9f8f9caa53f2aefba102fbf4b231"
+        hash1 = "8282e30e3013280878598418b2b274cadc5e00febaa2b93cf25bb438ee6eb032"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ALUSEN d. o. o." and
+            pe.signatures[i].serial == "1e:f6:39:2b:29:93:a6:f6:75:78:29:96:59:46:7e:a8"
+        )
+}
+
+rule INDICATOR_KB_CERT_0f007898afcba5f8af8ae65d01803617 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5687481a453414e63e76e1135ed53f4bd0410b05"
+        hash1 = "815f1f87e2df79e3078c63b3cb1ffb7d17fd24f6c7092b8bbe1f5f8ceda5df22"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TechnoElek s.r.o." and
+            pe.signatures[i].serial == "0f:00:78:98:af:cb:a5:f8:af:8a:e6:5d:01:80:36:17"
         )
 }
