@@ -9,8 +9,8 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
         $cmd1 = "cmd /c \"WMIC.exe shadowcopy delet\"" ascii wide nocase
         $cmd2 = "vssadmin.exe Delete Shadows /all" ascii wide nocase
         $cmd3 = "Delete Shadows /all" ascii wide nocase
-        $cmd4 = "/set {default} recoveryenabled no" ascii wide nocase
-        $cmd5 = "/set {default} bootstatuspolicy ignoreallfailures" ascii wide nocase
+        $cmd4 = "} recoveryenabled no" ascii wide nocase
+        $cmd5 = "} bootstatuspolicy ignoreallfailures" ascii wide nocase
         $cmd6 = "wmic SHADOWCOPY DELETE" ascii wide nocase
         $cmd7 = "\\Microsoft\\Windows\\SystemRestore\\SR\" /disable" ascii wide nocase
         $cmd8 = "resize shadowstorage /for=c: /on=c: /maxsize=" ascii wide nocase

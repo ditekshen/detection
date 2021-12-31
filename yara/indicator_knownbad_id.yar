@@ -253,6 +253,9 @@ rule INDICATOR_KB_ID_Ransomware_Cuba {
     strings:
         $s1 = "helpadmin2@protonmail.com" ascii wide nocase
         $s2 = "helpadmin2@cock.li" ascii wide nocase
+        $s3 = "mfra@cock.li" ascii wide nocase
+        $s4 = "admin@cuba-supp.com" ascii wide nocase
+        $s5 = "cuba_support@exploit.im" ascii wide nocase
     condition:
         any of them
 }
@@ -324,6 +327,14 @@ rule INDICATOR_KB_ID_Ransomware_PYSA {
         $s1 = "luebegg8024@onionmail.org" ascii wide nocase
         $s2 = "mayakinggw3732@onionmail.org" ascii wide nocase
         $s3 = "lauriabornhat7722@protonmail.com" ascii wide nocase
+        $s4 = "DeborahTrask@onionmail.org" ascii wide nocase
+        $s5 = "AlisonRobles@onionmail.org" ascii wide nocase
+        $s6 = "NatanSchultz67@protonmail.com" ascii wide nocase
+        $s7 = "jonikemppi@onionmail.org" ascii wide nocase
+        $s8 = "lanerosalie49003@onionmail.org" ascii wide nocase
+        $s9 = "bernalmargaret645@onionmail.org" ascii wide nocase
+        $s10 = "carlhubbard2021@protonmail.com" ascii wide nocase
+        $u1 = "http://pysa2bitc" ascii wide
     condition:
         any of them
 }
@@ -559,6 +570,7 @@ rule INDICATOR_KB_ID_PowerShellSMTPKeyLogger {
         $s50 = "loggkeyreceptor@gmail.com" ascii wide nocase
         $s51 = "toopmoove123@gmail.com" ascii wide nocase
         $s52 = "toopmoovesu@mail.com" ascii wide nocase
+        $s53 = "domi.pentesting@gmail.com" ascii wide nocase
     condition:
         any of them
 }
@@ -574,6 +586,17 @@ rule INDICATOR_KB_ID_PowerShellWiFiStealer {
         $s4 = "mrumairok@gmail.com" ascii wide nocase
         $s5 = "credsenderbot@gmail.com" ascii wide nocase
         $s6 = "easywareytb@gmail.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_PowerShellCookieStealer {
+    meta:
+        author = "ditekShen"
+        description = "Detects email accounts used for exfiltration observed in PowerShellCookieStealer"
+    strings:
+        $s1 = "senmn0w@gmail.com" ascii wide nocase
+        $s2 = "mohamed.trabelsi.ena2@gmail.com" ascii wide nocase
     condition:
         any of them
 }

@@ -303,6 +303,7 @@ alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"PUA-ADWARE Win.Adwa
 alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS ( msg:"PUA-ADWARE Win.Adware.ZoomInfoContactContributer swapper download attempt"; flow:to_server,established; http_uri; content:"/swapper-"; http_header:field user-agent; content:"NSISDL/"; metadata:ruleset community; classtype:trojan-activity; sid:920281; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.Vulturi infostealer outbound connection detected"; flow:to_server,established; http_uri; content:"/fetch_options?username=",fast_pattern; http_header; content:!"User-Agent"; metadata:ruleset community; classtype:trojan-activity; sid:920282; rev:1; )
 alert http $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.Vulturi infostealer outbound connection detected"; flow:to_server,established; http_uri; content:"/send_report?username=",fast_pattern; content:"&cookie"; content:"&password"; metadata:ruleset community; classtype:trojan-activity; sid:920283; rev:1; )
+alert http $HOME_NET any -> $EXTERNAL_NET any ( msg:"MALWARE-CNC Win.Trojan.NPlus cryptocurrency miner outbound connection detected"; flow:to_server,established; http_header:field user-agent; content:"NPlusMiner/",fast_pattern; metadata:ruleset community; rem:"yara:MALWARE_Win_NPlusMiner"; classtype:trojan-activity; sid:920284; rev:1; )
 ################################################
 # INDICATOR PACKED
 ################################################

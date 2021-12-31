@@ -650,6 +650,7 @@ rule INDICATOR_KB_CERT_59e378994cf1c0022764896d826e6bb8 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_033ed5eda065d1b8c91dfcf92a6c9bd8 {
     meta:
          author = "ditekSHen"
@@ -662,6 +663,7 @@ rule INDICATOR_KB_CERT_033ed5eda065d1b8c91dfcf92a6c9bd8 {
             pe.signatures[i].serial == "03:3e:d5:ed:a0:65:d1:b8:c9:1d:fc:f9:2a:6c:9b:d8"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_3d2580e89526f7852b570654efd9a8bf {
     meta:
@@ -7138,6 +7140,7 @@ rule INDICATOR_KB_CERT_072472f2386f4608a0790da2be8a48f7 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_24692663ef6c0c0a3b23cfa310c3649b {
     meta:
         author = "ditekSHen"
@@ -7151,6 +7154,7 @@ rule INDICATOR_KB_CERT_24692663ef6c0c0a3b23cfa310c3649b {
             pe.signatures[i].serial == "24:69:26:63:ef:6c:0c:0a:3b:23:cf:a3:10:c3:64:9b"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_00ea734e1dfb6e69ed2bc55e513bf95b5e {
     meta:
@@ -7525,5 +7529,63 @@ rule INDICATOR_KB_CERT_0f007898afcba5f8af8ae65d01803617 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "TechnoElek s.r.o." and
             pe.signatures[i].serial == "0f:00:78:98:af:cb:a5:f8:af:8a:e6:5d:01:80:36:17"
+        )
+}
+
+rule INDICATOR_KB_CERT_00aa1d84779792b57f91fe7a4bde041942 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6c15651791ea8d91909a557eadabe3581b4d1be9"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AXIUM NORTHWESTERN HYDRO INC." and
+            (
+                pe.signatures[i].serial == "aa:1d:84:77:97:92:b5:7f:91:fe:7a:4b:de:04:19:42" or
+                pe.signatures[i].serial == "00:aa:1d:84:77:97:92:b5:7f:91:fe:7a:4b:de:04:19:42"
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_0690ee21e99b1cb3b599bba7b9262cdc {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ff9a35ef5865024e49096672ab941b5c120657b9"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Xiamen Tongbu Networks Ltd." and
+            pe.signatures[i].serial == "06:90:ee:21:e9:9b:1c:b3:b5:99:bb:a7:b9:26:2c:dc"
+        )
+}
+
+rule INDICATOR_KB_CERT_425dc3e0ca8bcdce19d00d87e3f0ba28 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c58bc4370fa01d9a7772fa8c0e7c4c6c99b90561"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Protover LLC" and
+            pe.signatures[i].serial == "42:5d:c3:e0:ca:8b:cd:ce:19:d0:0d:87:e3:f0:ba:28"
+        )
+}
+
+rule INDICATOR_KB_CERT_00881573fc67ff7395dde5bccfbce5b088 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "31b3a3c173c2a2d1086794bfc8d853e25e62fb46"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Trade in Brasil s.r.o." and
+            (
+                pe.signatures[i].serial == "88:15:73:fc:67:ff:73:95:dd:e5:bc:cf:bc:e5:b0:88" or
+                pe.signatures[i].serial == "00:88:15:73:fc:67:ff:73:95:dd:e5:bc:cf:bc:e5:b0:88"
+            )
         )
 }
