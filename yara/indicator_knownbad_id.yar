@@ -489,6 +489,84 @@ rule INDICATOR_KB_ID_Ransomware_Diavol {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Chaos {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Chaos ransomware"
+    strings:
+        $s1 = "anenomous31@gmail.com" ascii wide nocase
+        $s2 = "daengsocietyteam@gmail.com" ascii wide nocase
+        $s3 = "RansHelp@tutanota.com" ascii wide nocase
+        $s4 = "18vhBpgPhZrjJkbuT2ZyUXAnJavaJcTwEd" ascii wide
+        $s5 = "bc1qlnzcep4l4ac0ttdrq7awxev9ehu465f2vpt9x0" ascii wide
+        $s6 = "8AFtPnreZp28xoetUyKiQvVtwrov9PtEbMyvczdNZpBN45EUbEsrE8xYVp4NNqPrtxNjQwn3PbW3FG16EPYcPpKzMU78xN6" ascii wide
+        $s7 = "bc1qu6tharwawwny28z9fj6nrxg5cqftaep9ap6z2v" ascii wide
+        $s8 = "bambolina2021@virgilio.it" ascii wide nocase
+        $s9 = "1EoyuvcXdAQQvStkoJZ38vdGm84StD7wjm" ascii wide
+        $s10 = "1G395PJs8ciqvXPZEYb1LfUGPix9h9n3oQ" ascii wide
+        //GoldenWolf42
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_Maze {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Maze ransomware"
+    strings:
+        $s1 = "getmyfilesback@airmail.cc" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_LokiLocker {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with LokiLocker ransomware"
+    strings:
+        $s1 = "Unlockpls.dr01@yahoo.com" ascii wide nocase
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_BlackCat {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with BlackCat ransomware"
+    strings:
+        // Public Keys
+        $pk1 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0B0ni9tyKHSJmU6gc1iRwNTklYocRKmLPUyOthUIHnZHwL1M2pKlMBwXx81bboVS6Cf8YaCoWW1bCmLwPX421sG22xkmtMy/SfiG8jaYtYiA7r7hOdIUnJgRo6vDvNafZlSD32tFVVjuX8Ec79qj2FM7/MmNcseUgpIQaEACuZcSzMK+jZA4BLT9b5Akkec2hPOXGTPmgaXjL9EJE+0rhNZcm/m6xe4/S5eL2kSCVsNUeG8xWuSO2kDRS8xY3rtJOCNEdqZp1rxzTkhgj3hHqr7AoFAkxNblQ538JcdF5+CGINxckA/ldmP7wQd92tmFk2vcl2WeQykFwMM6L6MsQwIDAQAB" ascii wide
+        $pk2 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA49gzJwP9UwEuYQZT1cdgSpxG6z8TVNLPfS4Qwd3vpWHEOAuvi8JGVEpHPGZnrD1QFoDLSTva3PZ4mqtIVO79GOYb5uQkP7LdJGWbLAjUGptVGmB67jKOOLLrjmuBDHpJXSOGG/vw5vajr4MhNnsvoBLPOC0AOzPM6GBDgKdC9zdUGNEreAjOR4neqwZ2jfYl5k5e3eRF86hmWhGXJQaU1uTmDJwgQIzmUZKo+YCfAHbEbSA4HhsumJfw0MJN7RfKPEQkEVvRIBibHnJuIp1bxk3IGPzTCbyQLHMVLz8wgElEexu8/aO3FT6w4uPY3qD+r2W+ri7xIdEN/pTz6TBKvwIDAQAB" ascii wide
+        $pk3 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8tKPNFCbU5Unr9jxlTk4RmUdVhcRydJFts6hMpLzcAXIR2yxiNC0QiF4UovAIpGwX6kxOW7kOaOvABJQP6QENMNSg030VlLoTP+ndfFwIt+X+RUflG4UWPE8yu+kzGpCwp7UjX+hD/SpFbSFRRh3BvL3vEq04DzE0AzifEBE4yxKpLsrMsXyZzWy9Nza8NTO2jrBxoEVM2xCLkULp0wZEPDwgeKGkoxMzqavVWBC+Vxi0atKstbo7/TloNenPagl/eUErk9C8tT67zKgbEh3TFtREgaxa/yrjBvN48BU8JGGxLxy4AeGF0vOUdD0WkJsWYzLVg21ApgJaCDr5zDPuQIDAQAB" ascii wide
+        $pk4 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApw3tWdMaWJvNf2Mejy5H0Y6kuj+lstNpwFyismGDEYhWKPps9c68xl+84o6uLKfqPzNvLnSxlVa6DitcJGeKJEQkzN+C1e1KsfzM63jHybREB2hs+dHbqBq4dbamIQcTrrr4mKzuHJ7aok4mlpRx2Un1XOJaodoV7xOHO7ui5v6uK39MJ3rvitSEBvv5oI0WDlp3IFmtd6UM6r2nygY1ncAUuasalZgF1Vaz7VXOWyX2ReQHbYWWRCR1qyKMQcBtjT5POXx9B8ek1pnU4p65kGe9M794Bhhh20GN24gY5a+zwXwstaNTO9luwd4xjjRQAVsDgjrjkzti27G11ICn6wIDAQAB" ascii wide
+        $pk5 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq8kj5LQJngPsY7AhTaJsUXc5FrSGeKS5gw5PIqk2QPM9TY6+us8TRRzWZ7rGk1zns2klpzpRMUzLIqB8lpCkJjqkOUGfgqs+HN4VIOpoJgFY897xstJCxTc+8pYQEsSqClxJllscU0okkLSQqndIR2Gznlg3qfcwyncJAFBInyqM+L4kbwCQZ6x5HNiLe2lJn8RP2aDiMI+RS1uLYron2G7rxDTUQnxThMtgLAeko8ulaB3TpB0g4lmHCenkEZeBNs81986+MjHnv7KkiscZ7ZrezKjNaIxRs8BAcD9y+Q9QQxCvZMS01ITNXcgiItbA4dsGq1fPJ42yBkkiIodsEQIDAQAB" ascii wide
+        $pk6 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqEoytNrMZRoqyIsFpcjiqVWpuV+cC9jS1umXNg/AnJF/xE7LONAmb1p8Dsx1igIUd65IXfFUxmJjFO5hf8LIBzvjUbBll4lbSgGTAUHa3Jbmr/imle6QftmY32J7dDb4WuJUOx+vLNT0I72CESiyotSzwgvLwjyubTmzTJMkqviYOcgDj45NVOx669cG6FWEaJo3PUZzRx9LS6pkOn8tW+W4NzmHMcrma+LOakan7NU6Khv5Hf5ARNsAA+KvDfP1WXJ/VsLXj6x8SdX0v2iS+y58ehUUmlxc8HNsYdOGFwrwYX9zLyJDedsbPg02c4AE4KXt8vH4+j4lVFtruSy4vwIDAQAB" ascii wide
+        $pk7 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt9uYkHzaizNXg/S11ncTTLybkMtqrKW8gg6TyzbGWnRNROl9O+l1VZBLG0xiMt1mZbuStl8Lt3l1vlkMa92kgLjN+UfKmq3KhBEheN2uMmR0WpwV83kceVRmzr5lug4RyQ/xA6/OXK4NptDIT4L6CUTBWMyk2mmY0Cq9HyyrjdnHeAXWAcQGFEac7W4jTjONZqI+lgScPewS+cPFnz1hAD0IAqzj5X2mZVSfFGR3tDoIe42jw5wb6W2yi8zb3mgKrGtTBbw0Ppj0UgKrmdN5iFmfUQHLEzKAakDggLcBtrW1o5+4WMaZOLw8maU5byvjXu3F3i3GdQe8SKTYcVK5OQIDAQAB" ascii wide
+        $pk8 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAugqZ4ATE9+9FqununW/DBvGosnUX/bNxQzMYUmE14GJIbNa6vwYSNXOlG09mvdAqZqD3lXihWDjy25+gzqSeS+Fs2qNyTdfGPA8iu2xx5RRUXKLGFThxtIzg3fohAK3+LxJVhxtuITAT38IHacc7dVLHsrddu4UDjiHGFdvXjB55Nwe5cu1BYylHsARMYycBA2FwLP57cKvc2/C3OXBAF6qbsVXBcyFhrKOOYA/+5IjFfEhgHy2FLHRf8lmPQPbSlrM6dk+W4D5KVqOPx/eFp0geUJJlmlre3flI29qWS20bkGqAEz9j07y69HGYN9Nt7+DRgBwrpNo/EkZkuaSTtQIDAQAB" ascii wide
+        $pk9 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuuAQlnowSGaSi2XgnwaHQAFZ6e7C0SwpAyyLTncJ4l5cwFbM+mwnV+iV3a+ert8WqOmW1aKOCjTPXrXNoirQgboVpLfhIIT1uOOss4O8lodRxgB6QrLCI7PYMZ+8VgIdEPPzsjmTFLxFc7DERxnSjhGdRQIjZNjm7bGScJD0MayDL9KTkVdJtC+C9n5dwEwg6XtQbwLDeaGZaByOgB/zR6tlcPQCNU9rj1qfcVrI/dFW4br/NnJbqrH714z+dvCa18IJTcu3kW74CAilvHrl5qFDd8CCQhjLrjQDPxAoCba9aXKr6dwt34/MU0tVRTYjzMAxR4yTh3oEjVT+HifvVwIDAQAB" ascii wide
+        $pk10 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwcPjnPl8bI1A0iudX70FKkTjnLjHyetHN2kAIcyOG10K8vm67n/Ma9mAnoDggD3D6UtAbwjvHwPW1m9WF+MrnBXmBizE0JpwOLtVFcHeVLJXlYn/C5RNZziTCwjauH6TlT7Mo/oHfg7nX4IXEuaeAZz8g9ioeJ1Lydi9ZZM1gmdNk8KuKR0zrrJ6MMAGrhMtblLFVwtMn7IlNjT/BgSL4pDyNa++wI5P4R2rMykJwGu/7o2kKE2IFimtFDyZ5a+CX46cdKt7uo5eKFiqf/jTes9/y5AgoS69mt4fRvWFhP7qHXRO2gG8XAc+9suhiuVUWZTAu3xXz5VsmBtk8pzcpwIDAQAB" ascii wide
+        $pk11 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwMQXFMtYf60KrbUVwNVoPhhrCTNMY3Zv+/WULZRZfJ4dMhYozDxtRVdtBDKtuYuHCGLu/Ymf9wKFFXgVH3En7qI1sU2UdjNR4086X8oSTMUn/GwEAEIZAHtSFuk6AXcXW+eO0yxPF+lt5AZcNnJocWBVZ8RWGvsQdtGgtZalttAynROC4RUGkvD1h1ssMteHWneFLpfzSPGlbu0s0cemsrTPmhexGIenup/YjNdmhbfvvYE9kZfPebGtZHw6oQXWcG7sAlvkGciJl3Eo9FznNj0K+v8WQW5L/UbosZaYVJbxlbtySvqUqZbkLKsmp91tr9bvTiDMZuXZS7iHVqchUQIDAQAB" ascii wide
+        $pk12 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxbKVxwYe4PpnPm0XtuqShDqFWCFRBw0tYo2vmLwVPlwa+0+ox8+nF0mzWC3ZZT2XkGSodszosOoocfKAwOjQnA+4/Hokl4hgG6K8O7wWuWlvgo4fkcZShy2cMY9FaC6e4bMfurlDFt7OVrKKWAyEGv49Etq6LNoyl5ddM/XmspG52gscRoIcOTwBL4bD8nVcamZXqE4j2mS62HicQ6q9YgRVs1PLbgVPbg8c2rFzpN1e8wZdPtvyGON0m3CmxsYa63yianbnBAS4WnxEnoI7eCZZNkblr+kZB4J9War5VYHu9lFw4XWeuHget/Rn8oGCJOMHkZMz23NpUVaX9htQAwIDAQAB" ascii wide
+        // Private Preview URLs
+        $url1 = "://zujgzbu5y64xbmvc42addp4lxkoosb4tslf5mehnh7pvqjpwxn5gokyd.onion" ascii wide
+        $url2 = "://alphvmmm27o3abo3r2mlmjrpdmzle3rykajqc5xsj7j7ejksbpsa36ad.onion" ascii wide
+        // Recovery URLs
+        $url3 = "://2cuqgeerjdba2rhdiviezodpu3lc4qz2sjf4qin6f7std2evleqlzjid.onion" ascii wide
+        $url4 = "://aoczppoxmfqqthtwlwi4fmzlrv6aor3isn6ffaiic55wrfumxslx3vyd.onion" ascii wide
+        $url5 = "://b4twqa2mvob3s6uvuyfra5xk3qgps2v5kkt7k2qnb7rpdu3j4fkntead.onion" ascii wide
+        $url6 = "://b6v4ojs7jfvftvcoagjxp7qz33yeljydqy6afzsh26vqbzcjwz4b3zad.onion" ascii wide
+        $url7 = "://htnpafzbvddr2llstwbjouupddflqm7y7cr7tcchbeo6rmxpqoxcbqqd.onion" ascii wide
+        $url8 = "://id7seexjn4bojn5rvo4lwcjgufjz7gkisaidckaux3uvjc7l7xrsiqad.onion" ascii wide
+        $url9 = "://mu75ltv3lxd24dbyu6gtvmnwybecigs5auki7fces437xvvflzva2nqd.onion" ascii wide
+        $url10 = "://odf3dt34tkqndw5h2l5gt2gwwd3jct5rwwjusbd3vlin2jueyv2qkgid.onion" ascii wide
+        $url11 = "://rfosusl6qdm4zhoqbqnjxaloprld2qz35u77h4aap46rhwkouejsooqd.onion" ascii wide
+        $url12 = "://sty5r4hhb5oihbq2mwevrofdiqbgesi66rvxr5sr573xgvtuvr4cs5yd.onion" ascii wide
+        $url13 = "://xqoykemmcivwtpxh3a6pu3w7sstr2y7hapxdiv4caaxidurmwwbjx2id.onion" ascii wide
+        $url14 = "://y4722ss64vel5hmph75te7lx2x5xz463322ypjirm5ytxviijtdpybid.onion" ascii wide
+    condition:
+        (1 of ($pk*) and 1 of ($url*))
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"

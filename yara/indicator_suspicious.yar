@@ -214,6 +214,7 @@ rule INDICATOR_SUSPICIOUS_EXE_UACBypass_CMSTPCOM {
 
 rule INDICATOR_SUSPICOUS_EXE_References_VEEAM {
     meta:
+        author = "ditekSHen"
         description = "Detects executables containing many references to VEEAM. Observed in ransomware"
     strings:
         $s1 = "VeeamNFSSvc" ascii wide nocase
@@ -600,9 +601,10 @@ rule INDICATOR_SUSPICIOUS_DisableWinDefender {
         $s11 = "Set-MpPreference -EnableControlledFolderAccess Disabled" ascii wide nocase
         $pdb = "\\Disable-Windows-Defender\\obj\\Debug\\Disable-Windows-Defender.pdb" ascii
         $e1 = "Microsoft\\Windows Defender\\Exclusions\\Paths" ascii wide nocase
-        $e2 = "Add-MpPreference -ExclusionPath" ascii wide nocase
+        $e2 = "Add-MpPreference -Exclusion" ascii wide nocase
+        $c1 = "QQBkAGQALQBNAHAAUAByAGUAZgBlAHIAZQBuAGMAZQAgAC0ARQB4AGMAbAB1AHMAaQBvAG4" ascii wide
     condition:
-        uint16(0) == 0x5a4d and ((1 of ($reg*) and 1 of ($s*)) or ($pdb) or all of ($e*))
+        uint16(0) == 0x5a4d and ((1 of ($reg*) and 1 of ($s*)) or ($pdb) or all of ($e*) or #c1 > 1)
 }
 
 rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
@@ -2102,4 +2104,14 @@ rule INDICATOR_SUSPICIOUS_EXE_References_GitConfData {
         $s5 = ".gitconfig" ascii wide
     condition:
          uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_Reversed {
+    meta:
+        author = "ditekSHen"
+        description = "Detects reversed executables. Observed N-stage drop"
+    strings:
+        $s1 = "edom SOD ni nur eb tonnac margorp sihT" ascii
+    condition:
+         uint16(filesize-0x2) == 0x4d5a and $s1
 }

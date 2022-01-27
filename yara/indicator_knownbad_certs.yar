@@ -4746,6 +4746,7 @@ rule INDICATOR_KB_CERT_21e3cae5b77c41528658ada08509c392 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_0c15be4a15bb0903c901b1d6c265302f {
     meta:
         author = "ditekSHen"
@@ -4759,7 +4760,9 @@ rule INDICATOR_KB_CERT_0c15be4a15bb0903c901b1d6c265302f {
             pe.signatures[i].serial == "0c:15:be:4a:15:bb:09:03:c9:01:b1:d6:c2:65:30:2f"
         )
 }
+*/
 
+/*
 rule INDICATOR_KB_CERT_06aea76bac46a9e8cfe6d29e45aaf033 {
     meta:
         author = "ditekSHen"
@@ -4776,6 +4779,7 @@ rule INDICATOR_KB_CERT_06aea76bac46a9e8cfe6d29e45aaf033 {
             pe.signatures[i].serial == "06:ae:a7:6b:ac:46:a9:e8:cf:e6:d2:9e:45:aa:f0:33"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_09b3a7e559fcb024c4b66b794e9540cb {
     meta:
@@ -7587,5 +7591,19 @@ rule INDICATOR_KB_CERT_00881573fc67ff7395dde5bccfbce5b088 {
                 pe.signatures[i].serial == "88:15:73:fc:67:ff:73:95:dd:e5:bc:cf:bc:e5:b0:88" or
                 pe.signatures[i].serial == "00:88:15:73:fc:67:ff:73:95:dd:e5:bc:cf:bc:e5:b0:88"
             )
+        )
+}
+
+rule INDICATOR_KB_CERT_15c5af15afecf1c900cbab0ca9165629 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "69735ec138c555d9a0d410c450d8bcc7c222e104"
+        hash1 = "2ae575f006fc418c72a55ec5fdc26bc821aa3929114ee979b7065bf5072c488f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Kompaniya Auttek" and
+            pe.signatures[i].serial == "15:c5:af:15:af:ec:f1:c9:00:cb:ab:0c:a9:16:56:29"
         )
 }
