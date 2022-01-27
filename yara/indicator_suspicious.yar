@@ -2106,6 +2106,7 @@ rule INDICATOR_SUSPICIOUS_EXE_References_GitConfData {
          uint16(0) == 0x5a4d and 4 of them
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_Reversed {
     meta:
         author = "ditekSHen"
@@ -2115,3 +2116,4 @@ rule INDICATOR_SUSPICIOUS_EXE_Reversed {
     condition:
          uint16(filesize-0x2) == 0x4d5a and $s1
 }
+*/
