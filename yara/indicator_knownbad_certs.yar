@@ -7607,3 +7607,45 @@ rule INDICATOR_KB_CERT_15c5af15afecf1c900cbab0ca9165629 {
             pe.signatures[i].serial == "15:c5:af:15:af:ec:f1:c9:00:cb:ab:0c:a9:16:56:29"
         )
 }
+
+rule INDICATOR_KB_CERT_12705fb66bc22c68372a1c4e5fa662e2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "288959bd1e8dd12f773e9601dc21c57678769909"
+        hash1 = "151b1495d6d1c68e32cdba36d6d3e1d40c8c0d3c12e9e5bd566f1ee742b81b4e"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "APRIL BROTHERS LTD" and
+            pe.signatures[i].serial == "12:70:5f:b6:6b:c2:2c:68:37:2a:1c:4e:5f:a6:62:e2"
+        )
+}
+
+rule INDICATOR_KB_CERT_205483936f360924e8d2a4eb6d3a9f31 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "430dbeff2f6df708b03354d5d07e78400cfed8e9"
+        hash1 = "e58b9bbb7bcdf3e901453b7b9c9e514fed1e53565e3280353dccc77cde26a98e"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SATURN CONSULTANCY LTD" and
+            pe.signatures[i].serial == "20:54:83:93:6f:36:09:24:e8:d2:a4:eb:6d:3a:9f:31"
+        )
+}
+
+rule INDICATOR_KB_CERT_06bcb74291d96096577bdb1e165dce85 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d1bde6303266977f7540221543d3f2625da24ac4"
+        hash1 = "074cef597dc028b08dc2fe927ea60f09cfd5e19f928f2e4071860b9a159b365d"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Revo Security SRL" and
+            pe.signatures[i].serial == "06:bc:b7:42:91:d9:60:96:57:7b:db:1e:16:5d:ce:85"
+        )
+}

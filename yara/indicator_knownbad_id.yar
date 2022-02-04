@@ -474,6 +474,7 @@ rule INDICATOR_KB_ID_Ransomware_STOP {
         $s6 = "managerhelper@airmail.cc" ascii wide nocase
         $s7 = "helpteam@mail.ch" ascii wide nocase
         $s8 = "helpmanager@airmail.cc" ascii wide nocase
+        $s9 = "support@sysmail.ch" ascii wide nocase
     condition:
         any of them
 }
@@ -565,6 +566,17 @@ rule INDICATOR_KB_ID_Ransomware_BlackCat {
         $url14 = "://y4722ss64vel5hmph75te7lx2x5xz463322ypjirm5ytxviijtdpybid.onion" ascii wide
     condition:
         (1 of ($pk*) and 1 of ($url*))
+}
+
+rule INDICATOR_KB_ID_Ransomware_Koxic {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with LokiLocker ransomware"
+    strings:
+        $s1 = "wilhelmkox@tutanota.com" ascii wide nocase
+        $s2 = "F3C777D22A0686055A3558917315676D607026B680DA5C8D3D4D887017A2A844F546AE59F59F" ascii wide
+    condition:
+        any of them
 }
 
 rule INDICATOR_KB_LNK_BOI_MAC {
@@ -1506,7 +1518,7 @@ rule INDICATOR_KB_ID_Infostealer {
 rule INDICATOR_KB_GoBuildID_Zebrocy {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"l6RAKXh3Wg1yzn63nita/b2_Y0DGY05NFWuZ_4gUT/H91sCRktnyyYVzECfvvA/l8f-yII0L_miSjIe-VQu\"" ascii
         $s2 = "Go build ID: \"fiGGvLVFcvIhuJsSaail/jLt9TEPQiusg7IpRkp4H/hlcoXZIfsl1D4521LqEL/yL8dN86mCNc39WqQTgGn\"" ascii
@@ -1517,7 +1529,7 @@ rule INDICATOR_KB_GoBuildID_Zebrocy {
 rule INDICATOR_KB_GoBuildID_GoStealer {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"xQV-b1Fr7d576TTTpbXi/gq4FgVQqMcg--9tmY13y/76rKNEUBENlDFDcecmm_/mbw17A_6WrROaNCYDEQF\"" ascii
         $s2 = "Go build ID: \"x4VqrSSsx8iysxVdfB-z/gIF3p7SUxiZsVgTuq7bN/93XHuILGnGYq2L83fRpj/eoY6nTqwk1sdMHTaXzlw\"" ascii
@@ -1529,7 +1541,7 @@ rule INDICATOR_KB_GoBuildID_GoStealer {
 rule INDICATOR_KB_GoBuildID_GoldenAxe {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"BrJuyMRdiZ7pC9Cah0is/rbDB__hXWimivbSGiCLi/B35SPLQwHal3ccR2gXNx/hEmVzhJWWatsrKwnENh_\"" ascii
         $s2 = "Go build ID: \"5bgieaBe9PcZCZf23WFp/bCZ0AUHYlqQmX8GJASV6/fGxRLMDDYrTm1jcLMt8j/Wof3n5634bwiwLHFKHTn\"" ascii
@@ -1540,7 +1552,7 @@ rule INDICATOR_KB_GoBuildID_GoldenAxe {
 rule INDICATOR_KB_GoBuildID_Nemty {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"R6dvaUktgv2SjVXDoMdo/kKgwagwoLRC88DpIXAmx/eipNq7_PQCTCOhZ6Q74q/RHJkCaNdTbd6qgYiA-EC\"" ascii
         $s2 = "Go build ID: \"vsdndTwlj03gbEoDu06S/anJkXGh7N08537M0RMms/VG58d99axcdeD_z1JIko/tfDVbCdWUId-VX90kuT7\"" ascii
@@ -1555,7 +1567,7 @@ rule INDICATOR_KB_GoBuildID_Nemty {
 rule INDICATOR_KB_GoBuildID_QnapCrypt {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"XcBqbQohm7UevdYNABvs/2RcJz1616naXSRu2xvTX/b6F3Jt1-5WAIexSyzeun/MpHqs5fJA5G2D9gVuUCe\"" ascii
     condition:
@@ -1565,7 +1577,7 @@ rule INDICATOR_KB_GoBuildID_QnapCrypt {
 rule INDICATOR_KB_GoBuildID_Snatch {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"8C2VvDTH-MuUPx8tL42E/PWF9iuE2j_Zt0ANsTlty/c64swZ5TtuaIpHuEFmga/6sS0KWNryc-YAduDnWWO\"" ascii
         $s2 = "Go build ID: \"UBrfJ_wztDfCHWakqvlV/LhzfkJwvKFrNhKCHtU9_/sveCupt8GVbvu6WZiyA-/GcimfL_TPl6FTPPriBDr\"" ascii
@@ -1577,7 +1589,7 @@ rule INDICATOR_KB_GoBuildID_Snatch {
 rule INDICATOR_KB_GoBuildID_GoDownloader {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"1OzJqWaH4h1VtrLP-zk8/G9w32ha7_ziW1Fa-0Byj/gLtfhbXZ6i_W0e5e_tFF/ekG0n9hOcZjmwzRQnRqC\"" ascii
         $s2 = "Go build ID: \"kKxyj14l4NhGbuhOgzef/ab_yr_pUn6q2idYdoBhn/hFAjO_Yxc_rN6mHFuHM9/SmS3qmOyJBc_4xV_qg3B\"" ascii
@@ -1589,7 +1601,7 @@ rule INDICATOR_KB_GoBuildID_GoDownloader {
 rule INDICATOR_KB_GoBuildID_RanumBot {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"hOhuOA4W60aBBRoFQTDA/dl9DuLAgEcabYGK6ZT2t/ECsse3630jV_957OqqK3/ZRA_JRPFzxutK16zlEcM\"" ascii
         $s2 = "Go build ID: \"NivDrAudWE-E6xtBXeww/3pv6fDzDqt4v0YxoTkPt/8vd79TNE-9Bt38ftxf_V/_GNqnqEUsRf-WTSmn8dM\"" ascii
@@ -1600,7 +1612,7 @@ rule INDICATOR_KB_GoBuildID_RanumBot {
 rule INDICATOR_KB_GoBuildID_Banload {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in known bad samples"       
+        description = "Detects Golang Build IDs in known bad samples"       
     strings:
         $s1 = "Go build ID: \"a3629ee6ab610a57f242f59a3dd5e5f6de73da40\"" ascii
     condition:
@@ -1610,7 +1622,7 @@ rule INDICATOR_KB_GoBuildID_Banload {
 rule INDICATOR_KB_GoBuildID_Hive {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in Hive ransomware"       
+        description = "Detects Golang Build IDs in Hive ransomware"       
     strings:
         $s1 = "Go build ID: \"XDub7DGmWVQ2COC6W4If/XHMqRPf2lnJUiVkG1CR6/u_MaUU0go2UUmLb_INuv/WrZSyz-WMW1st_NaM935\"" ascii
     condition:
@@ -1620,7 +1632,7 @@ rule INDICATOR_KB_GoBuildID_Hive {
 rule INDICATOR_KB_GoBuildID_Nodachi {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in Nodachi"       
+        description = "Detects Golang Build IDs in Nodachi"       
     strings:
         $s1 = "Go build ID: \"3AAyhKK0wFfCYLdz5oRV/zKyiBHCsAEyDIWhaW5AW/Rb8NLT3q8A2OLm6izDGP/8G9k_gjOTX_PXKna_IMj\"" ascii
         $s2 = "Go build ID: \"-eyFd8kbpwxUsutpqZn_/vqzQXX5Ra4qk1XHoqocW/wd-6gLzQKZyEyhVp7qOj/Jr14hyc7pLLgeIZNbfLD\"" ascii
@@ -1633,7 +1645,7 @@ rule INDICATOR_KB_GoBuildID_Nodachi {
 rule INDICATOR_KB_GoBuildID_GoBrut {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in GoBrut"       
+        description = "Detects Golang Build IDs in GoBrut"       
     strings:
         $s1 = "Go build ID: \"sf_2_ylcjquGBe4mQ99L/aPvdLbM2z9HfoDN3RazG/8bhYeVA67N-ifbDYCDJe/UZzCu_EFL9f10gSfO4L0\"" ascii
     condition:
@@ -1643,7 +1655,7 @@ rule INDICATOR_KB_GoBuildID_GoBrut {
 rule INDICATOR_KB_GoBuildID_BioPassDropper {
     meta:
         author = "ditekSHen"
-        description = "Detects Goland Build IDs in BioPass dropper"       
+        description = "Detects Golang Build IDs in BioPass dropper"       
     strings:
         $s1 = "Go build ID: \"OS0VlkdEIlcl3WDDr9Za/_oVwEipaaX6V4mEEYg2V/PytlyeIYgV65maz4wT2Y/IQvgbHv3bbLV42i10qq2\"" ascii
     condition:
