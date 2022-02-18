@@ -579,6 +579,29 @@ rule INDICATOR_KB_ID_Ransomware_Koxic {
         any of them
 }
 
+rule INDICATOR_KB_ID_Ransomware_Ryuk {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with Ryuk ransomware"
+    strings:
+        $s1 = "WayneEvenson@protonmail.com" ascii wide nocase
+        $s2 = "WayneEvenson@tutanota.com" ascii wide nocase
+        $s3 = "14hVKm7Ft2rxDBFTNkkRC3kGstMGp2A4hk" ascii wide
+    condition:
+        any of them
+}
+
+rule INDICATOR_KB_ID_Ransomware_LockDown {
+    meta:
+        author = "ditekShen"
+        description = "Detects files referencing identities associated with LockDown / cantopen ransomware"
+    strings:
+        $s1 = "CCWhite@onionmail.org" ascii wide nocase
+        $s2 = "bc1q6ug0vrxz66d564qznclu9yyyvn6zurskezmt64" ascii wide
+    condition:
+        any of them
+}
+
 rule INDICATOR_KB_LNK_BOI_MAC {
     meta:
         author = "ditekSHen"
