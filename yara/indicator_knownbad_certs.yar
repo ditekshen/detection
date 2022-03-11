@@ -1068,6 +1068,7 @@ rule INDICATOR_KB_CERT_c7e62986c36246c64b8c9f2348141570 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_731d40ae3f3a1fb2bc3d8395 {
     meta:
          author = "ditekSHen"
@@ -1080,6 +1081,7 @@ rule INDICATOR_KB_CERT_731d40ae3f3a1fb2bc3d8395 {
             pe.signatures[i].serial == "73:1d:40:ae:3f:3a:1f:b2:bc:3d:83:95"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_00ee663737d82df09c7038a6a6693a8323 {
     meta:
@@ -1107,6 +1109,7 @@ rule INDICATOR_KB_CERT_3d568325dec56abf48e72317675cacb7 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_0232466dc95b40ec9d21d9329abfcd5d {
     meta:
          author = "ditekSHen"
@@ -1119,6 +1122,7 @@ rule INDICATOR_KB_CERT_0232466dc95b40ec9d21d9329abfcd5d {
             pe.signatures[i].serial == "02:32:46:6d:c9:5b:40:ec:9d:21:d9:32:9a:bf:cd:5d"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_3533080b377f80c0ea826b2492bf767b {
     meta:
