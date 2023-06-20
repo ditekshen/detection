@@ -4546,6 +4546,7 @@ rule INDICATOR_KB_CERT_010000000001302693cb45 {
         )
 }
 
+/*
 rule INDICATOR_KB_CERT_0407abb64e9990180789eacb81f5f914 {
     meta:
         author = "ditekSHen"
@@ -4559,6 +4560,7 @@ rule INDICATOR_KB_CERT_0407abb64e9990180789eacb81f5f914 {
             pe.signatures[i].serial == "04:07:ab:b6:4e:99:90:18:07:89:ea:cb:81:f5:f9:14"
         )
 }
+*/
 
 rule INDICATOR_KB_CERT_3f8d23c136ae9cbeeac7605b24ec0391 {
     meta:
@@ -7651,5 +7653,58 @@ rule INDICATOR_KB_CERT_06bcb74291d96096577bdb1e165dce85 {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].subject contains "Revo Security SRL" and
             pe.signatures[i].serial == "06:bc:b7:42:91:d9:60:96:57:7b:db:1e:16:5d:ce:85"
+        )
+}
+
+rule INDICATOR_KB_CERT_0d261c8470adbb65800ceaf3eac70819 {
+    meta:
+         author = "ditekSHen"
+         description = "Detects executables signed with stolen, revoked or invalid certificate"
+         thumbprint = "307ef8a02a0fc9032591c624624fa3531c235aa1"
+         hash1 = "050dbd816c222d3c012ba9f2b1308db8e160e7d891f231272f1eacf19d0a0a06"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Bandicam Company Corp." and
+            pe.signatures[i].serial == "0d:26:1c:84:70:ad:bb:65:80:0c:ea:f3:ea:c7:08:19"
+        )
+}
+
+rule INDICATOR_KB_CERT_40e27b7404aa9b485f8a2fc0c8e53af3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ca468ff8403a8416042705e79dbc499a5ea9be85"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Southern Wall Systems, LLC" and
+            pe.signatures[i].serial == "40:e2:7b:74:04:aa:9b:48:5f:8a:2f:c0:c8:e5:3a:f3"
+        )
+}
+
+rule INDICATOR_KB_CERT_627dfdf73a1455de5143a270799e6b7b {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7b69ff55d3c39bd7d67a10f341c1443425f0c83f"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Zhuhai liancheng Technology Co., Ltd." and
+            pe.signatures[i].serial == "62:7d:fd:f7:3a:14:55:de:51:43:a2:70:79:9e:6b:7b"
+        )
+}
+
+rule INDICATOR_KB_CERT_1966bc76bda1a708334792da9a336f69 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "29fec27c36efc6809c7269f76cf86ee18cc6ed87"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SYNTHETIC LABS LIMITED" and
+            pe.signatures[i].serial == "19:66:bc:76:bd:a1:a7:08:33:47:92:da:9a:33:6f:69"
         )
 }

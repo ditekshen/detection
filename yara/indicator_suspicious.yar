@@ -2115,3 +2115,95 @@ rule INDICATOR_SUSPICIOUS_EXE_Reversed {
     condition:
          uint16(filesize-0x2) == 0x4d5a and $s1
 }
+
+rule INDICATOR_SUSPICIOUS_EXE_References_Crypto_Wallet_Browser_Extension_IDs {
+    meta:
+        author = "ditekSHen"
+        description = "Detect executables referencing considerable number of cryptocurrency wallet browser extension IDs. Observed in infostealers."
+    strings:
+        $s1 = "Ibnejdfjmmkpcnlpebklmnkoeoihofec" ascii wide nocase // TronLink
+        $s2 = "fhbohimaelbohpjbbldcngcnapndodjp" ascii wide nocase // BinanceChain
+        $s3 = "ffnbelfdoeiohenkjibnmadjiehjhajb" ascii wide nocase // Yoroi
+        $s4 = "jbdaocneiiinmjbjlgalhcelgbejmnid" ascii wide nocase // Nifty Wallet
+        $s5 = "afbcbjpbpfadlkmhmclhkeeodmamcflc" ascii wide nocase // Math Wallet
+        $s6 = "hnfanknocfeofbddgcijnmhnfnkdnaad" ascii wide nocase // Coinbase Wallet
+        $s7 = "hpglfhgfnhbgpjdenjgmdgoeiappafln" ascii wide nocase // Guarda
+        $s8 = "blnieiiffboillknjnepogjhkgnoapac" ascii wide nocase // EQUAL Wallet
+        $s9 = "cjelfplplebdjjenllpjcblmjkfcffne" ascii wide nocase // Jaxx Liberty
+        $s10 = "fihkakfobkmkjojpchpfgcmhfjnmnfpi" ascii wide nocase // BitApp Wallet
+        $s11 = "kncchdigobghenbbaddojjnnaogfppfj" ascii wide nocase // iWallet
+        $s12 = "amkmjjmmflddogmhpjloimipbofnfjih" ascii wide nocase // Wombat
+        $s13 = "nlbmnnijcnlegkjjpcfjclmcfggfefdm" ascii wide nocase // MEW CX
+        $s14 = "nanjmdknhkinifnkgdcggcfnhdaammmj" ascii wide nocase // GuildWallet
+        $s15 = "nkddgncdjgjfcddamfgcmfnlhccnimig" ascii wide nocase // Saturn Wallet
+        $s16 = "fnjhmkhhmkbjkkabndcnnogagogbneec" ascii wide nocase // Ronin Wallet
+        $s17 = "cphhlgmgameodnhkjdmkpanlelnlohao" ascii wide nocase // NeoLine
+        $s18 = "nhnkbkgjikgcigadomkphalanndcapjk" ascii wide nocase // Clover Wallet
+        $s19 = "kpfopkelmapcoipemfendmdcghnegimn" ascii wide nocase // Liquality Wallet
+        $s20 = "aiifbnbfobpmeekipheeijimdpnlpgpp" ascii wide nocase // Terra Station
+        $s21 = "dmkamcknogkgcdfhhbddcghachkejeap" ascii wide nocase // Keplr
+        $s22 = "fhmfendgdocmcbmfikdcogofphimnkno" ascii wide nocase // Sollet
+        $s23 = "cnmamaachppnkjgnildpdmkaakejnhae" ascii wide nocase // Auro Wallet
+        $s24 = "jojhfeoedkpkglbfimdfabpdfjaoolaf" ascii wide nocase // Polymesh Wallet
+        $s25 = "flpiciilemghbmfalicajoolhkkenfel" ascii wide nocase // ICONex
+        $s26 = "nknhiehlklippafakaeklbeglecifhad" ascii wide nocase // Nabox Wallet
+        $s27 = "hcflpincpppdclinealmandijcmnkbgn" ascii wide nocase // KHC
+        $s28 = "ookjlbkiijinhpmnjffcofjonbfbgaoc" ascii wide nocase // Temple
+        $s29 = "mnfifefkajgofkcjkemidiaecocnkjeh" ascii wide nocase // TezBox
+        $s30 = "lodccjjbdhfakaekdiahmedfbieldgik" ascii wide nocase // DAppPlay
+        $s31 = "Ijmpgkjfkbfhoebgogflfebnmejmfbml" ascii wide nocase // BitClip
+        $s32 = "lkcjlnjfpbikmcmbachjpdbijejflpcm" ascii wide nocase // Steem Keychain
+        $s33 = "nkbihfbeogaeaoehlefnkodbefgpgknn" ascii wide nocase // MetaMask
+        $s34 = "bcopgchhojmggmffilplmbdicgaihlkp" ascii wide nocase // Hycon Lite Client
+        $s35 = "klnaejjgbibmhlephnhpmaofohgkpgkd" ascii wide nocase // ZilPay
+        $s36 = "aeachknmefphepccionboohckonoeemg" ascii wide nocase // Coin98 Wallet
+        $s37 = "dkdedlpgdmmkkfjabffeganieamfklkm" ascii wide nocase // Cyano Wallet
+        $s38 = "nlgbhdfgdhgbiamfdfmbikcdghidoadd" ascii wide nocase // Byone
+        $s39 = "onofpnbbkehpmmoabgpcpmigafmmnjhl" ascii wide nocase // Nash Extension
+        $s40 = "cihmoadaighcejopammfbmddcmdekcje" ascii wide nocase // Leaf Wallet
+        $s41 = "cgeeodpfagjceefieflmdfphplkenlfk" ascii wide nocase // EVER Wallet
+        $s42 = "pdadjkfkgcafgbceimcpbkalnfnepbnk" ascii wide nocase // KardiaChain Wallet
+        $s43 = "acmacodkjbdgmoleebolmdjonilkdbch" ascii wide nocase // Rabby Wallet
+        $s44 = "bfnaelmomeimhlpmgjnjophhpkkoljpa" ascii wide nocase // Phantom
+        $s45 = "fhilaheimglignddkjgofkcbgekhenbh" ascii wide nocase // Oxygen - Atomic Crypto Wallet
+        $s46 = "mgffkfbidihjpoaomajlbgchddlicgpn" ascii wide nocase // Pali Wallet
+        $s47 = "hmeobnfnfcmdkdcmlblgagmfpfboieaf" ascii wide nocase // XDEFI Wallet
+        $s48 = "lpfcbjknijpeeillifnkikgncikgfhdo" ascii wide nocase // Nami
+        $s49 = "dngmlblcodfobpdpecaadgfbcggfjfnm" ascii wide nocase // MultiversX DeFi Wallet
+        $s50 = "bhhhlbepdkbapadjdnnojkbgioiodbic" ascii wide nocase // Solflare Wallet
+        $s51 = "jnkelfanjkeadonecabehalmbgpfodjm" ascii wide nocase // Goby
+        $s52 = "jhgnbkkipaallpehbohjmkbjofjdmeid" ascii wide nocase // SteemKeychain
+        $s53 = "jnlgamecbpmbajjfhmmmlhejkemejdma" ascii wide nocase // Braavos Smart Wallet
+        $s54 = "kkpllkodjeloidieedojogacfhpaihoh" ascii wide nocase // Enkrypt: Ethereum, Polkadot & RSK Wallet
+        $s55 = "mcohilncbfahbmgdjkbpemcciiolgcge" ascii wide nocase // OKX Wallet
+        $s56 = "gjagmgiddbbciopjhllkdnddhcglnemk" ascii wide nocase // Hashpack
+        $s57 = "kmhcihpebfmpgmihbkipmjlmmioameka" ascii wide nocase // Eternl
+        $s58 = "phkbamefinggmakgklpkljjmgibohnba" ascii wide nocase // Pontem Aptos Wallet
+        $s59 = "lpilbniiabackdjcionkobglmddfbcjo" ascii wide nocase // Keeper Wallet
+        $s60 = "cjmkndjhnagcfbpiemnkdpomccnjblmj" ascii wide nocase // Finnie
+        $s61 = "aijcbedoijmgnlmjeegjaglmepbmpkpi" ascii wide nocase // Leap Terra Wallet
+        $s62 = "efbglgofoippbgcjepnhiblaibcnclgk" ascii wide nocase // Martian Wallet for Sui & Aptos
+    condition:
+        uint16(0) == 0x5a4d and 8 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_MFA_Browser_Extension_IDs {
+    meta:
+        author = "ditekSHen"
+        description = "Detect executables referencing considerable number of MFA browser extension IDs. Observed in infostealers."
+    strings:
+        $s1 = "bhghoamapcdpbohphigoooaddinpkbai" ascii wide nocase // Authenticator
+        $s2 = "gaedmjdfmmahhbjefcbgaolhhanlaolb" ascii wide nocase // Authy 2FA
+        $s3 = "oeljdldpnmdbchonielidgobddffflal" ascii wide nocase // EOS Authenticator
+        $s4 = "ilgcnhelpchnceeipipijaljkblbcobl" ascii wide nocase // GAuth Authenticator
+        $s5 = "imloifkgjagghnncjkhggdhalmcnfklk" ascii wide nocase // Trezor Password Manager
+        $s6 = "infeboajgfhgbjpjbeppbkgnabfdkdaf" ascii wide nocase // OneKey
+        $s7 = "fdjamakpfbbddfjaooikfcpapjohcfmg" ascii wide nocase // Dashlane — Password Manager
+        $s8 = "fooolghllnmhmmndgjiamiiodkpenpbb" ascii wide nocase // NordPass® Password Manager & Digital Vault
+        $s9 = "pnlccmojcmeohlpggmfnbbiapkmbliob" ascii wide nocase // RoboForm Password Manager
+        $s10 = "hdokiejnpimakedhajhdlcegeplioahd" ascii wide nocase // LastPass: Free Password Manager
+        $s11 = "naepdomgkenhinolocfifgehidddafch" ascii wide nocase // Browserpass
+        $s12 = "bmikpgodpkclnkgmnpphehdgcimmided" ascii wide nocase // MYKI Password Manager & Authenticator
+    condition:
+        uint16(0) == 0x5a4d and 5 of them
+}
