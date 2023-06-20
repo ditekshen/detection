@@ -471,6 +471,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Referenfces_File_Transfer_Clients {
         uint16(0) == 0x5a4d and 6 of them
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
     meta:
         author = "ditekSHen"
@@ -554,6 +555,7 @@ rule INDICATOR_SUSPICIOUS_EXE_References_CryptoWallets {
     condition:
         uint16(0) == 0x5a4d and (not any of ($ne*) and 6 of them)
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_ClearWinLogs {
     meta:
