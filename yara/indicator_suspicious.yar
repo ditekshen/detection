@@ -1289,6 +1289,7 @@ rule INDICATOR_SUSPICIOUS_EXE_TelegramChatBot {
         $p1 = "/sendMessage" ascii wide
         $p2 = "/sendDocument" ascii wide
         $p3 = "&chat_id=" ascii wide
+        $p4 = "/sendLocation" ascii wide
     condition:
         uint16(0) == 0x5a4d and (2 of ($s*) or (2 of ($p*) and 1 of ($s*)))
 }
@@ -2118,10 +2119,10 @@ rule INDICATOR_SUSPICIOUS_EXE_Reversed {
          uint16(filesize-0x2) == 0x4d5a and $s1
 }
 
-rule INDICATOR_SUSPICIOUS_EXE_References_Crypto_Wallet_Browser_Extension_IDs {
+rule INDICATOR_Binary_Embedded_Cryptocurrency_Wallet_Browser_Extension_IDs {
     meta:
         author = "ditekSHen"
-        description = "Detect executables referencing considerable number of cryptocurrency wallet browser extension IDs. Observed in infostealers."
+        description = "Detect binaries embedding considerable number of cryptocurrency wallet browser extension IDs."
     strings:
         $s1 = "Ibnejdfjmmkpcnlpebklmnkoeoihofec" ascii wide nocase // TronLink
         $s2 = "fhbohimaelbohpjbbldcngcnapndodjp" ascii wide nocase // BinanceChain
@@ -2185,27 +2186,50 @@ rule INDICATOR_SUSPICIOUS_EXE_References_Crypto_Wallet_Browser_Extension_IDs {
         $s60 = "cjmkndjhnagcfbpiemnkdpomccnjblmj" ascii wide nocase // Finnie
         $s61 = "aijcbedoijmgnlmjeegjaglmepbmpkpi" ascii wide nocase // Leap Terra Wallet
         $s62 = "efbglgofoippbgcjepnhiblaibcnclgk" ascii wide nocase // Martian Wallet for Sui & Aptos
+        $s63 = "odbfpeeihdkbihmopkbjmoonfanlbfcl" ascii wide nocase // Brave Wallet
+        $s64 = "fnnegphlobjdpkhecapkijjdkgcjhkib" ascii wide nocase // Harmony
+        $s65 = "aodkkagnadcbobfpggfnjeongemjbjca" ascii wide nocase // BOLT X
+        $s66 = "akoiaibnepcedcplijmiamnaigbepmcb" ascii wide nocase // Edge - Yoroi
+        $s67 = "ejbalbakoplchlghecdalmeeeajnimhm" ascii wide nocase // Edge - MetaMask
+        $s68 = "dfeccadlilpndjjohbjdblepmjeahlmm" ascii wide nocase // Edge - Math Wallet
+        $s69 = "kjmoohlgokccodicjjfebfomlbljgfhk" ascii wide nocase // Edge - Ronin Wallet
+        $s70 = "ajkhoeiiokighlmdnlakpjfoobnjinie" ascii wide nocase // Edge - Station Wallet
+        $s71 = "fplfipmamcjaknpgnipjeaeeidnjooao" ascii wide nocase // Edge - BDLT Wallet
+        $s72 = "niihfokdlimbddhfmngnplgfcgpmlido" ascii wide nocase // Edge - Glow
+        $s73 = "obffkkagpmohennipjokmpllocnlndac" ascii wide nocase // Edge - OneKey
+        $s74 = "kfocnlddfahihoalinnfbnfmopjokmhl" ascii wide nocase // Edge - MetaWallet
+        $s75 = "infeboajgfhgbjpjbeppbkgnabfdkdaf" ascii wide nocase // OneKey
+        $s76 = "{530f7c6c-6077-4703-8f71-cb368c663e35}.xpi" ascii wide nocase // Firefox - Yoroi
+        $s77 = "ronin-wallet@axieinfinity.com.xpi" ascii wide nocase // Firefox - Ronin Wallet
+        $s78 = "webextension@metamask.io.xpi" ascii wide nocase // Firefox - MetaMask
+        $s79 = "{5799d9b6-8343-4c26-9ab6-5d2ad39884ce}.xpi" ascii wide nocase // Firefox - TronLink
+        $s80 = "{aa812bee-9e92-48ba-9570-5faf0cfe2578}.xpi" ascii wide nocase // Firefox - TronLink
+        $s81 = "{59ea5f29-6ea9-40b5-83cd-937249b001e1}.xpi" ascii wide nocase // Firefox - TronLink
+        $s82 = "{d8ddfc2a-97d9-4c60-8b53-5edd299b6674}.xpi" ascii wide nocase // Firefox - TronLink
+        $s83 = "{7c42eea1-b3e4-4be4-a56f-82a5852b12dc}.xpi" ascii wide nocase // Firefox - Phantom
+        $s84 = "{b3e96b5f-b5bf-8b48-846b-52f430365e80}.xpi" ascii wide nocase // Firefox - Phantom
+        $s85 = "{eb1fb57b-ca3d-4624-a841-728fdb28455f}.xpi" ascii wide nocase // Firefox - Phantom
+        $s86 = "{76596e30-ecdb-477a-91fd-c08f2018df1a}.xpi" ascii wide nocase // Firefox - Phantom
     condition:
-        uint16(0) == 0x5a4d and 8 of them
+        (uint16(0) == 0x5a4d and 8 of them) or (12 of them)
 }
 
-rule INDICATOR_SUSPICIOUS_EXE_References_MFA_Browser_Extension_IDs {
+rule INDICATOR_Binary_Embedded_MFA_Browser_Extension_IDs {
     meta:
         author = "ditekSHen"
-        description = "Detect executables referencing considerable number of MFA browser extension IDs. Observed in infostealers."
+        description = "Detect binaries embedding considerable number of MFA browser extension IDs."
     strings:
         $s1 = "bhghoamapcdpbohphigoooaddinpkbai" ascii wide nocase // Authenticator
         $s2 = "gaedmjdfmmahhbjefcbgaolhhanlaolb" ascii wide nocase // Authy 2FA
         $s3 = "oeljdldpnmdbchonielidgobddffflal" ascii wide nocase // EOS Authenticator
         $s4 = "ilgcnhelpchnceeipipijaljkblbcobl" ascii wide nocase // GAuth Authenticator
         $s5 = "imloifkgjagghnncjkhggdhalmcnfklk" ascii wide nocase // Trezor Password Manager
-        $s6 = "infeboajgfhgbjpjbeppbkgnabfdkdaf" ascii wide nocase // OneKey
-        $s7 = "fdjamakpfbbddfjaooikfcpapjohcfmg" ascii wide nocase // Dashlane — Password Manager
-        $s8 = "fooolghllnmhmmndgjiamiiodkpenpbb" ascii wide nocase // NordPass® Password Manager & Digital Vault
-        $s9 = "pnlccmojcmeohlpggmfnbbiapkmbliob" ascii wide nocase // RoboForm Password Manager
-        $s10 = "hdokiejnpimakedhajhdlcegeplioahd" ascii wide nocase // LastPass: Free Password Manager
-        $s11 = "naepdomgkenhinolocfifgehidddafch" ascii wide nocase // Browserpass
-        $s12 = "bmikpgodpkclnkgmnpphehdgcimmided" ascii wide nocase // MYKI Password Manager & Authenticator
+        $s6 = "fdjamakpfbbddfjaooikfcpapjohcfmg" ascii wide nocase // Dashlane — Password Manager
+        $s7 = "fooolghllnmhmmndgjiamiiodkpenpbb" ascii wide nocase // NordPass® Password Manager & Digital Vault
+        $s8 = "pnlccmojcmeohlpggmfnbbiapkmbliob" ascii wide nocase // RoboForm Password Manager
+        $s9 = "hdokiejnpimakedhajhdlcegeplioahd" ascii wide nocase // LastPass: Free Password Manager
+        $s10 = "naepdomgkenhinolocfifgehidddafch" ascii wide nocase // Browserpass
+        $s11 = "bmikpgodpkclnkgmnpphehdgcimmided" ascii wide nocase // MYKI Password Manager & Authenticator
     condition:
-        uint16(0) == 0x5a4d and 5 of them
+        (uint16(0) == 0x5a4d and 5 of them) or (8 of them)
 }
