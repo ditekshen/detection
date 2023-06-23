@@ -2119,7 +2119,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Reversed {
          uint16(filesize-0x2) == 0x4d5a and $s1
 }
 
-rule INDICATOR_Binary_Embedded_Cryptocurrency_Wallet_Browser_Extension_IDs {
+rule INDICATOR_SUSPICIOUS_Binary_Embedded_Crypto_Wallet_Browser_Extension_IDs {
     meta:
         author = "ditekSHen"
         description = "Detect binaries embedding considerable number of cryptocurrency wallet browser extension IDs."
@@ -2214,7 +2214,7 @@ rule INDICATOR_Binary_Embedded_Cryptocurrency_Wallet_Browser_Extension_IDs {
         (uint16(0) == 0x5a4d and 8 of them) or (12 of them)
 }
 
-rule INDICATOR_Binary_Embedded_MFA_Browser_Extension_IDs {
+rule INDICATOR_SUSPICIOUS_Binary_Embedded_MFA_Browser_Extension_IDs {
     meta:
         author = "ditekSHen"
         description = "Detect binaries embedding considerable number of MFA browser extension IDs."
