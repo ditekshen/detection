@@ -7708,3 +7708,48 @@ rule INDICATOR_KB_CERT_1966bc76bda1a708334792da9a336f69 {
             pe.signatures[i].serial == "19:66:bc:76:bd:a1:a7:08:33:47:92:da:9a:33:6f:69"
         )
 }
+
+rule INDICATOR_KB_CERT_82d224323efa65060b641f51fadfef02 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8dccf6ad21a58226521e36d7e5dbad133331c181"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SAVAS INVESTMENTS PTY LTD" and
+            (
+                pe.signatures[i].serial == "82:d2:24:32:3e:fa:65:06:0b:64:1f:51:fa:df:ef:02" or
+                pe.signatures[i].serial == "00:82:d2:24:32:3e:fa:65:06:0b:64:1f:51:fa:df:ef:02"    
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_be2f22c152bb218b898c4029056816a9 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "85fe11e799609306516d82e026d4baef4c1e9ad3"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Marts GmbH" and
+            (
+                pe.signatures[i].serial == "be:2f:22:c1:52:bb:21:8b:89:8c:40:29:05:68:16:a9" or
+                pe.signatures[i].serial == "00:be:2f:22:c1:52:bb:21:8b:89:8c:40:29:05:68:16:a9"    
+            )
+        )
+}
+
+rule INDICATOR_KB_CERT_29e8e993d2406454b6b18cb377471bc6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0fb38235366b0ba534a6f81c02d9a67555235e07"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "MONDIAL MONTERO SP Z O O" and
+            pe.signatures[i].serial == "29:e8:e9:93:d2:40:64:54:b6:b1:8c:b3:77:47:1b:c6"
+        )
+}

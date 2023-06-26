@@ -1264,3 +1264,73 @@ rule INDICATOR_TOOL_PRI_JuicyPotato {
     condition:
         uint16(0) == 0x5a4d and (all of ($x*) or (1 of ($x*) and 3 of ($s*)) or (5 of ($s*)))
 }
+
+rule INDICATOR_TOOL_PWS_LSASS_NanoDump {
+    meta:
+        author = "ditekSHen"
+        description = "Detects NanoDump tool that creates a minidump of the LSASS process"
+    strings:
+        $s1 = "\\Registry\\Machine\\Software\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\" fullword wide
+        $s2 = "\\Registry\\Machine\\Software\\Microsoft\\Windows NT\\CurrentVersion\\SilentProcessExit\\" fullword wide
+        $s3 = "DumpType" fullword wide
+        $s4 = "LocalDumpFolder" fullword wide
+        $s5 = "\\??\\C:\\Windows\\System32\\seclogon.dll" fullword wide
+        $s6 = "minidump %s" ascii
+        $s7 = "--seclogon-" ascii
+        $s8 = "shtinkering" ascii
+        $s9 = "LSASS PID: %ld" ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_ENUM_SharpShares {
+    meta:
+        author = "ditekSHen"
+        description = "Detects SharpShares multithreaded C# .NET Assembly to enumerate accessible network shares in a domain"
+    strings:
+        $s1 = "SharpShares." ascii wide
+        $s2 = "GetComputerShares" fullword ascii
+        $s3 = "userAccountControl:1.2.840.113556.1.4.803:=2))(operatingSystem=*server*)(!(userAccountControl:1.2" wide
+        $s4 = "GetAllShares" fullword ascii
+        $s5 = "stealth:" wide
+        $s6 = "(&(objectCategory=computer)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(operatingSystem=*server*))" fullword wide
+        $s7 = /\/targets|ldap|threads/ wide
+        $s8 = "entriesread" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_PROX_revsocks {
+    meta:
+        author = "ditekSHen"
+        description = "Detects revsocks Reverse socks5 tunneler with SSL/TLS and proxy support"
+    strings:
+        $s1 = "main.agentpassword" fullword ascii 
+        $s2 = "main.CommitID" fullword ascii 
+        $s3 = "main.connectForSocks" fullword ascii 
+        $s4 = "main.connectviaproxy" fullword ascii 
+        $s5 = "main.DnsConnectSocks" fullword ascii 
+        $s6 = "main.listenForAgents" fullword ascii 
+        $s7 = "main.listenForClients" fullword ascii
+        $s8 = "main.getPEMs" fullword ascii
+        $s9 = "mygithub/revsocks/main.go" ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and 5 of them
+}
+
+rule INDICATOR_TOOL_PWS_azbelt {
+    meta:
+        author = "ditekSHen"
+        description = "Detects azbelt for enumerating Azure related credentials primarily on AAD joined machines"
+    strings:
+        $s1 = "@http://169.254.169.254/metadata/identity/oauth2/token?api-version=" ascii
+        $s2 = "@Partner Customer Delegated Admin Offline Processor" fullword ascii
+        $s3 = "@TargetName: " fullword ascii
+        $s4 = "httpclient.nim" fullword ascii
+        $s5 = "@DSREG_DEVICE_JOIN" fullword ascii
+        $s6 = "@.azure/msal_token_cache.bin" fullword ascii
+        $s7 = "CredEnumerateW" fullword ascii
+        $s8 = "@http://169.254.169.254/metadata/instance?api-version=" ascii
+    condition:
+        uint16(0) == 0x5a4d and 6 of them
+}
