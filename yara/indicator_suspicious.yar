@@ -1764,6 +1764,8 @@ rule INDICATOR_SUSPICIOUS_EXE_NoneWindowsUA {
         $ua14 = "Mozilla/5.0 (IE 11.0;" ascii wide
         $ua15 = "Mozilla/5.0 (Android;" ascii wide
         $ua16 = "User-Agent: Internal Wordpress RPC connection" ascii wide
+        $ua17 = "Mozilla / 5.0 (SymbianOS" ascii wide
+        #$ua18 = "Mozilla/5.0 (SymbianOS" ascii wide
     condition:
          uint16(0) == 0x5a4d and 1 of them
 }

@@ -930,6 +930,8 @@ rule INDICATOR_TOOL_Backstab {
         $s5 = "ProcExpKillHandle.DeviceIoControl" ascii
         $s6 = "[%#llu] [%ws]: %ws" fullword ascii
         $s7 = "D:P(A;;GA;;;SY)(A;;GRGWGX;;;BA)(A;;GR" wide
+        $s8 = "-k -d c:\\\\driver.sys" ascii
+        $s9 = "backstab.exe -" ascii
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
@@ -1333,4 +1335,84 @@ rule INDICATOR_TOOL_PWS_azbelt {
         $s8 = "@http://169.254.169.254/metadata/instance?api-version=" ascii
     condition:
         uint16(0) == 0x5a4d and 6 of them
+}
+
+rule INDICATOR_TOOL_DontSleep {
+     meta:
+        author = "ditekShen"
+        description = "Detects Keep Host Unlocked (Don't Sleep)"
+    strings:
+        $s1 = ":Repeat###DEL \"%s\"###if exist \"%s\" goto Repeat###DEL \"%s\"###" wide
+        $s2 = "powrprof.dll,SetSuspendState" wide
+        $s3 = "_selfdestruct.bat" wide
+        $s4 = "please_sleep_block_" ascii
+        $s5 = "Browser-Type: MiniBowserOK" wide
+        $s6 = "m_use_all_rule_no_sleep" ascii
+        $s7 = "BlockbyExecutionState: %d on:%d by_enable:%d" fullword wide
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_NSudo {
+     meta:
+        author = "ditekShen"
+        description = "Detects NSudo allowing to run processes as TrustedInstaller or System"
+    strings:
+        $x1 = "cmd /c start \"NSudo." wide
+        $x2 = "*\\shell\\NSudo" fullword wide
+        $x3 = "Projects\\NSudo\\Output\\Release\\x64\\NSudo.pdb" ascii
+        $s1 = "-ShowWindowMode=Hide" wide
+        $s2 = "?what@exception@@UEBAPEBDXZ" fullword ascii
+        $s3 = "NSudo.RunAs." ascii
+    condition:
+        uint16(0) == 0x5a4d and (2 of ($x*) or (1 of ($x*) and 2 of ($s*)) or all of ($s*) or 4 of them)
+}
+
+rule INDICATOR_TOOL_Ligolo {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Ligolo tool for establishing SOCKS5 or TCP tunnels from a reverse connection"
+    strings:
+        $p1 = "/ligolo/main.go" ascii
+        $p2 = "/armon/go-socks5" ascii
+        $s1 = "main.StartLigolo" fullword ascii
+        $s2 = "main.handleRelay" fullword ascii
+        $s3 = "main.startSocksProxy" fullword ascii
+        $s4 = "_main.tlsFingerprint" fullword ascii
+        $s5 = "main.verifyTlsCertificate" fullword ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f or uint16(0) == 0xfacf) and ((all of ($p*) and 1 of ($s*)) or all of ($s*) or (1 of ($p*) and 4 of ($s*)))
+}
+
+rule INDICATOR_TOOL_ExtPassword {
+    meta:
+        author = "ditekSHen"
+        description = "Detects ExtPassword External Drive Password Recovery"
+    strings:
+        $x1 = "ExtPassword!" fullword wide
+        $s2 = "GReading Chrome password file: %s" fullword wide
+        $s3 = "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy%d" fullword wide
+        $s4 = "2015-07-27 13:49:41 b8e92227a469de677a66da62e4361f099c0b79d0" ascii
+        $s5 = "metadata WHERE id = 'password'" ascii
+        $s6 = /Scanning\s(Credentials\sfolder|Credentials\sfolder|Firefox\sand\sother\sMozilla\sWeb\sbrowsers|Chromium-based\Web\browsers|Outlook\saccounts|Windows\sVault|dialup\/VPN\sitems|wireless\skeys|Windows\ssecurity\squestions|vault\spasswords)/ wide
+        $s7 = "lhelp32Snapsho" fullword ascii
+        $s8 = "SELECT origin_" fullword ascii
+        $s9 = "password#Ck" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($x*) and 3 of ($s*)) or 6 of ($s*)
+}
+
+rule INDICATOR_TOOL_Ngrok {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Ngrok"
+    strings:
+        $s1 = "dashboard.ngrok.com" ascii
+        $s2 = "go.ngrok.com/cmd/ngrok/main.go" ascii
+        $s3 = "ngrok agent" ascii
+        $s4 = "*ngrok.clientInfo" ascii
+        $s5 = "'%s'  socket: '%s'  port: %d/edges/https/{{ .EdgeID }}/routes/{{ .ID }}/webhook_" ascii
+        $s6 = "/{{ .ID }}/tunnel_sessions/{{ .ID }}/restart" ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f or uint16(0) == 0xfacf) and (3 of them)
 }
