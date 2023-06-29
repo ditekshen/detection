@@ -2258,6 +2258,10 @@ rule INDICATOR_SUSPICOUS_EXE_UNC_Regex {
         $s15 = "(^G[A-Za-z0-9]{32,35}?[\\d\\- ])|(^G[A-Za-z0-9]{32,35})$" ascii wide
         $s16 = "(^D[A-Za-z0-9]{32,35}?[\\d\\- ])|(^D[A-Za-z0-9]{32,35})$" ascii wide
         $s17 = "(^(T[A-Z])[A-Za-z0-9]{32,35}?[\\d\\- ])|(^(T[A-Z])[A-Za-z0-9]{32,35})$" ascii wide
+        $s18 = "^1[a-km-zA-HJ-NP-Z1-9]{25,34}$" wide // Crypto Wallet Address
+        $s19 = "^3[a-km-zA-HJ-NP-Z1-9]{25,34}$" wide // Crypto Wallet Address
+        $s20 = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$" wide
+        $s21 = "^(?!:\\/\\/)([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.[a-zA-Z]{2,11}?$" wide
     condition:
-        uint16(0) == 0x5a4d and 10 of them
+        uint16(0) == 0x5a4d and 6 of them
 }
