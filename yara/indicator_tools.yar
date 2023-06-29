@@ -1416,3 +1416,38 @@ rule INDICATOR_TOOL_Ngrok {
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0x457f or uint16(0) == 0xfacf) and (3 of them)
 }
+
+rule INDICATOR_TOOL_SQLRecon {
+    meta:
+        author = "ditekSHen"
+        description = "Detects SQLRecon C# MS-SQL toolkit designed for offensive reconnaissance and post-exploitation"
+    strings:
+        $s1 = "ConvertDLLToSQLBytes" ascii
+        $s2 = "\\SQLRecon.pdb" ascii
+        $s3 = "GetAllSQLServerInfo" ascii
+        $s4 = "<GetMSSQLSPNs>b__" ascii
+        $s5 = "select 1; exec master..xp_cmdshell" wide
+        $s6 = "-> Command Execution" wide
+        $s7 = ";EXEC dbo.sp_add_jobstep @job_name =" wide
+        $s8 = "EXEC sp_drop_trusted_assembly 0x" wide
+        $s9 = "(&(sAMAccountType=805306368)(servicePrincipalName=MSSQL*))" wide
+    condition:
+        uint16(0) == 0x5a4d and 5 of them
+}
+
+rule INDICATOR_TOOL_AtlasReaper {
+    meta:
+        author = "ditekSHen"
+        description = "Detects AtlasReaper command-line tool for Confluence and Jira reconnaissance, credential farming and social engineering"
+    strings:
+        $s1 = "/((?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16})/" fullword wide
+        $s2 = "/rest/api/3/search?jql=" fullword wide
+        $s3 = "attachments+IS+NOT+EMPTY&fields=attachment,summary,status" fullword wide
+        $s4 = "<ParseJira>b__" ascii
+        $s5 = "<Atlas_Doc_Format>k__" ascii
+        $s6 = "<ParseConfluence>b__" ascii
+        $s7 = "AtlasReaper_ProcessedByFody" fullword ascii
+        $s8 = /AtlasReaper\.(Jira|Confluence)/ fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
