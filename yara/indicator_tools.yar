@@ -1451,3 +1451,38 @@ rule INDICATOR_TOOL_AtlasReaper {
     condition:
         uint16(0) == 0x5a4d and 4 of them
 }
+
+rule INDICATOR_TOOL_NgrokSharp {
+    meta:
+        author = "ditekSHen"
+        description = "Detects NgrokSharp .NET library for Ngrok"
+    strings:
+        $x1 = "NgrokSharp" fullword wide
+        $x2 = "/entvex/NgrokSharp" ascii
+        $s1 = "start --none -region" wide
+        $s2 = "startTunnelDto" fullword wide
+        $s3 = "/tunnels/" fullword wide
+        $s4 = "<StartNgrok" ascii
+        $s5 = "INgrokManager" ascii
+        $s6 = "_tunnel_name"ascii
+        $s7 = "_ngrokDownloadUrl" ascii
+    condition:
+        uint16(0) == 0x5a4d and (all of ($x*) or (1 of ($x*) and 3 of ($s*)) or 4 of ($*))
+}
+
+rule INDICATOR_TOOL_NgrokGo {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Go implementation variant for Ngrok"
+    strings:
+        $s1 = "/codegangsta/inject" fullword wide
+        $s2 = "go.ngrok.com/" ascii
+        $s3 = "GetIsNgrokDomain" ascii
+        $s4 = "GetNgrokMetering" ascii
+        $s5 = "*cli.ngrokService" ascii
+        $s6 = "GetAllowNgrokLink" ascii
+        $s7 = "ngrok {{.Name}}{{if .Flags}}" ascii
+        $s8 = "github.com/nikolay-ngrok/" ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
