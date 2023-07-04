@@ -2265,3 +2265,60 @@ rule INDICATOR_SUSPICOUS_EXE_UNC_Regex {
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
+
+rule INDICATOR_SUSPICIOUS_DeleteRecentItems {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding anti-forensic artifcats of deletiing Windows Recent Items"
+    strings:
+        $s1 = "del C:\\Windows\\AppCompat\\Programs\\RecentFileCache.bcf" ascii wide nocase
+        $s2 = "del /F /Q %APPDATA%\\Microsoft\\Windows\\Recent\\*" ascii wide nocase
+        $s3 = "del /F /Q %APPDATA%\\Microsoft\\Windows\\Recent\\CustomDestinations\\*" ascii wide nocase
+        $s4 = "del /F /Q %APPDATA%\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 2 of them
+}
+
+rule INDICATOR_SUSPICIOUS_DeleteWinDefednerQuarantineFiles {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding anti-forensic artifcats of deletiing Windows defender quarantine files"
+    strings:
+        $s1 = "rmdir C:\\ProgramData\\Microsoft\\Windows Defender\\Quarantine\\Entries /S" ascii wide nocase
+		$s2 = "rmdir C:\\ProgramData\\Microsoft\\Windows Defender\\Quarantine\\Resources /S" ascii wide nocase
+		$s3 = "rmdir C:\\ProgramData\\Microsoft\\Windows Defender\\Quarantine\\ResourceData /S" ascii wide nocase
+        $r1 = "rmdir" ascii wide nocase
+        $p1 = "Microsoft\\Windows Defender\\Quarantine\\Entries /S" ascii wide nocase
+        $p2 = "Microsoft\\Windows Defender\\Quarantine\\Resources /S" ascii wide nocase
+        $p3 = "Microsoft\\Windows Defender\\Quarantine\\ResourceData /S" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (2 of ($s*) or (1 of ($r*) and 2 of ($p*)))
+}
+
+rule INDICATOR_SUSPICIOUS_DeleteShimCache {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding anti-forensic artifcats of deletiing shim cache"
+    strings:
+        $s1 = "Rundll32.exe apphelp.dll,ShimFlushCache" ascii wide nocase
+        $s2 = "Rundll32 apphelp.dll,ShimFlushCache" ascii wide nocase
+        $m1 = ".dll,ShimFlushCache" ascii wide nocase
+        $m2 = "rundll32" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($s*) or all of ($m*))
+}
+
+rule INDICATOR_SUSPICIOUS_ShredFileSteps {
+     meta:
+        author = "ditekSHen"
+        description = "Detects executables embedding/copying file shredding steps"
+    strings:
+        $s1 = { 55 00 00 00 aa 00 00 00 92 49 24 00 49 24 92 00
+                24 92 49 00 00 00 00 00 11 00 00 00 22 00 00 00
+                33 00 00 00 44 00 00 00 66 00 00 00 88 00 00 00
+                99 00 00 00 bb 00 00 00 cc 00 00 00 dd 00 00 00
+                ee 00 00 00 ff 00 00 00 6d b6 db 00 b6 db 6d 00
+                db 6d b6 }
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
