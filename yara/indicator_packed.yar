@@ -785,7 +785,7 @@ rule INDICATOR_EXE_Packed_CryptoProtector {
         uint16(0) == 0x5a4d and all of ($s*) or (($s1) and #e1 > 10) or all of them
 }
 
-rule INDICATOR_EXE_PACKED_Yano {
+rule INDICATOR_EXE_Packed_Yano {
   meta:
       author = "ditekSHen"
       description = "Detects executables packed with Yano Obfuscator"
