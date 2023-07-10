@@ -1521,3 +1521,67 @@ rule INDICATOR_Tool_Forensia {
     condition:
         uint16(0) == 0x5a4d and ((4 of ($c*) and 2 of ($r*)) or (4 of ($r*) and 2 of ($c*)) or 6 of ($s*) or (3 of ($s*) and 2 of ($r*) and 1 of ($c*)))
 }
+
+rule INDICATOR_TOOL_DWAgentLIB {
+    meta:
+        author = "ditekSHen"
+        description = "Detect DWAgent Remote Administration Tool library"
+    strings:
+        $s1 = "DWAgentLib" fullword wide
+        $s2 = "PYTHONHOME" fullword wide
+        $s3 = "isTaskRunning" fullword ascii
+        $s4 = "isUserInAdminGroup" fullword ascii
+        $s5 = "setFilePermissionEveryone" fullword ascii
+        $s6 = "startProcessInActiveConsole" fullword ascii
+        $s7 = "taskKill" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_TOOL_DWAgentSVC {
+    meta:
+        author = "ditekSHen"
+        description = "Detect DWAgent Remote Administration Tool service"
+    strings:
+        $s1 = "\\native\\dwagupd.dll" wide
+        $s2 = "\\native\\dwagsvc.exe\" run" wide
+        $s3 = "CreateServiceW" fullword ascii
+        $s4 = /dwagent\.(pid|start|stop)/ wide
+        $s5 = "Check updating..." wide
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_DWAgent_ScreenCapture {
+    meta:
+        author = "ditekSHen"
+        description = "Detect DWAgent Remote Administration Tool Screen Capture Module"
+    strings:
+        $s1 = "DWAgentLib" fullword wide
+        $s2 = "PYTHONHOME" wide
+        $s3 = "VirtualBox" wide
+        $s4 = "VMware" wide
+        $s5 = "ScreenCapture::prepareCursor#" ascii
+        $s6 = "ScreenCapture::getMonitorCount#" ascii
+        $s7 = "ScreenCapture::token" ascii
+        $s8 = "dwascreencapture" ascii
+        $s9 = "inputKeyboard CTRLALTCANC" ascii
+        $s10 = "_Z34ScreenCaptureNativeMonitorEnumProc" ascii
+        $s11 = "_Z41ScreenCaptureNativeCreateWindowThreadProc" ascii
+        $s12 = "_ZN13ScreenCapture" ascii
+        $s13 = "isUserInAdminGroup" ascii
+    condition:
+        uint16(0) == 0x5a4d and 7 of them
+}
+
+rule INDICATOR_TOOL_DWAgent_SoundCapture {
+    meta:
+        author = "ditekSHen"
+        description = "Detect DWAgent Remote Administration Tool Sound Capture Module"
+    strings:
+        $s1 = "DWASoundCapture" ascii
+        $s2 = /_Z\d{2}DWASoundCapture/ ascii
+        $s3 = "_Z6recordPvS_" ascii
+    condition:
+        uint16(0) == 0x5a4d and all of them
+}
