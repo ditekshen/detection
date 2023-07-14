@@ -2212,8 +2212,15 @@ rule INDICATOR_SUSPICIOUS_Binary_Embedded_Crypto_Wallet_Browser_Extension_IDs {
         $s84 = "{b3e96b5f-b5bf-8b48-846b-52f430365e80}.xpi" ascii wide nocase // Firefox - Phantom
         $s85 = "{eb1fb57b-ca3d-4624-a841-728fdb28455f}.xpi" ascii wide nocase // Firefox - Phantom
         $s86 = "{76596e30-ecdb-477a-91fd-c08f2018df1a}.xpi" ascii wide nocase // Firefox - Phantom
+        $s87 = "ejjladinnckdgjemekebdpeokbikhfci" ascii wide nocase // Petra Wallet
+        $s88 = "bgpipimickeadkjlklgciifhnalhdjhe" ascii wide nocase // GeroWallet
+        $s89 = "epapihdplajcdnnkdeiahlgigofloibg" ascii wide nocase // Sender
+        $s90 = "aholpfdialjgjfhomihkjbmgjidlcdno" ascii wide nocase // Exodus Web3 Wallet
+        $s91 = "egjidjbpglichdcondbcbdnbeeppgdph" ascii wide nocase // Trust Wallet
+        $s92 = "pnndplcbkakcplkjnolgbkdgjikjednm" ascii wide nocase // Tronium
+        $s93 = "gojhcdgcpbpfigcaejpfhfegekdgiblk" ascii wide nocase // Opera Wallet
     condition:
-        (uint16(0) == 0x5a4d and 8 of them) or (12 of them)
+        (uint16(0) == 0x5a4d and 6 of them) or (12 of them)
 }
 
 rule INDICATOR_SUSPICIOUS_Binary_Embedded_MFA_Browser_Extension_IDs {
@@ -2232,6 +2239,10 @@ rule INDICATOR_SUSPICIOUS_Binary_Embedded_MFA_Browser_Extension_IDs {
         $s9 = "hdokiejnpimakedhajhdlcegeplioahd" ascii wide nocase // LastPass: Free Password Manager
         $s10 = "naepdomgkenhinolocfifgehidddafch" ascii wide nocase // Browserpass
         $s11 = "bmikpgodpkclnkgmnpphehdgcimmided" ascii wide nocase // MYKI Password Manager & Authenticator
+        $s12 = "oboonakemofpalcgghocfoadofidjkkk" ascii wide nocase // KeePassXC-Browser
+        $s13 = "fmhmiaejopepamlcjkncpgpdjichnecm" ascii wide nocase // KeePass Tusk
+        $s14 = "nngceckbapebfimnlniiiahkandclblb" ascii wide nocase // Bitwarden
+        $s15 = "fiedbfgcleddlbcmgdigjgdfcggjcion" ascii wide nocase // Microsoft AutoFill
     condition:
         (uint16(0) == 0x5a4d and 5 of them) or (8 of them)
 }
