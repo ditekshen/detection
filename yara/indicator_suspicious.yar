@@ -2269,10 +2269,11 @@ rule INDICATOR_SUSPICOUS_EXE_UNC_Regex {
         $s15 = "(^G[A-Za-z0-9]{32,35}?[\\d\\- ])|(^G[A-Za-z0-9]{32,35})$" ascii wide
         $s16 = "(^D[A-Za-z0-9]{32,35}?[\\d\\- ])|(^D[A-Za-z0-9]{32,35})$" ascii wide
         $s17 = "(^(T[A-Z])[A-Za-z0-9]{32,35}?[\\d\\- ])|(^(T[A-Z])[A-Za-z0-9]{32,35})$" ascii wide
-        $s18 = "^1[a-km-zA-HJ-NP-Z1-9]{25,34}$" wide // Crypto Wallet Address
-        $s19 = "^3[a-km-zA-HJ-NP-Z1-9]{25,34}$" wide // Crypto Wallet Address
-        $s20 = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$" wide
-        $s21 = "^(?!:\\/\\/)([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.[a-zA-Z]{2,11}?$" wide
+        $s18 = "^1[a-km-zA-HJ-NP-Z1-9]{25,34}$" ascii wide // Crypto Wallet Address
+        $s19 = "^3[a-km-zA-HJ-NP-Z1-9]{25,34}$" ascii wide // Crypto Wallet Address
+        $s20 = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$" ascii wide
+        $s21 = "^(?!:\\/\\/)([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.[a-zA-Z]{2,11}?$" ascii wide
+        $s22 = "[\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27}|mfa\\.[\\w-]{84}" ascii wide
     condition:
         uint16(0) == 0x5a4d and 6 of them
 }
@@ -2332,4 +2333,33 @@ rule INDICATOR_SUSPICIOUS_ShredFileSteps {
                 db 6d b6 }
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_SUSPICIOUS_PWS_CaptureScreenshot {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PowerShell script with screenshot capture capability"
+    strings:
+        $encoder = ".ImageCodecInfo]::GetImageEncoders(" ascii nocase
+        $capture1 = ".Sendkeys]::SendWait(\"{PrtSc}\")" ascii nocase
+        $capture2 = ".Sendkeys]::SendWait('{PrtSc}')" ascii nocase
+        $access = ".Clipboard]::GetImage(" ascii nocase
+        $save = ".Save(" ascii nocase
+    condition:
+        $encoder and (1 of ($capture*) and ($access or $save))
+}
+
+rule INDICATOR_SUSPICIOUS_PWS_CaptureBrowserPlugins {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PowerShell script with browser plugins capture capability"
+    strings:
+        $s1 = "$env:APPDATA +" ascii nocase
+        $s2 = "[\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27}|mfa\\.[\\w-]{84}" ascii nocase
+        $s3 = "\\leveldb" ascii nocase
+        $o1 = ".Match(" ascii nocase
+        $o2 = ".Contains(" ascii nocase
+        $o3 = ".Add(" ascii nocase
+    condition:
+        2 of ($s*) and 2 of ($o*)
 }
