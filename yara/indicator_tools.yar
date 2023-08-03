@@ -1585,3 +1585,82 @@ rule INDICATOR_TOOL_DWAgent_SoundCapture {
     condition:
         uint16(0) == 0x5a4d and all of them
 }
+
+rule INDICATOR_TOOL_DogzProxy {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Dogz proxy tool"
+    strings:
+        $s1 = "LOGONSERVER=" fullword wide
+        $s2 = "DOGZ_E_" ascii
+        $s3 = "got handshake_id=%d" ascii
+        $s4 = "responser send connect ack" ascii
+        $s5 = "dogz " ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_FastReverseProxy {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Fast Reverse Proxy (FRP) tool"
+    strings:
+        $x1 = "<title>frp client admin UI</title>" ascii
+        $x2 = "https://github.com/fatedier/frp" ascii
+        $s1 = ").SetLogin" ascii
+        $s2 = ").SetPing" ascii
+        $s3 = ").SetNewWorkConn" ascii
+        $s4 = ").ServeHTTP" ascii
+        $s5 = ").Middleware" ascii
+        $s6 = "frpc proxy config error:" ascii
+        $s7 = "frpc sudp visitor proxy is close" ascii
+    condition:
+        uint16(0) == 0x5a4d and (all of ($x*) or (1 of ($x*) and 4 of ($s*)) or (all of ($s*)))
+}
+
+rule INDICATOR_TOOL_GoGoScan {
+    meta:
+        author = "ditekSHen"
+        description = "Detects GoGo scan tool"
+    strings:
+        $s1 = "(conn) (scan  (scan) MB in  Value>" ascii
+        $s2 = "sweep sysmontargettelnet" ascii
+        $s3 = "%d bytes(?i) (.*SESS.*?ID)([a-z0-9])([A-Z]+)" ascii
+        $s4 = "prepareForSweep" ascii
+        $s5 = "Scanned %s with %d ports, found %d" ascii
+        $s6 = "/chainreactors/gogo/" ascii
+        $s7 = "Starting task %s ,total ports: %d , mod: %s" ascii
+    condition:
+        uint16(0) == 0x5a4d and 6 of them
+}
+
+rule INDICATOR_TOOL_GoGoProcDump {
+    meta:
+        author = "ditekSHen"
+        description = "Detects GoGo (lsass) process dump tool"
+    strings:
+        $s1 = "C:\\temp" ascii
+        $s2 = "gogo" fullword ascii
+        $s3 = "/DumpLsass-master/SilentProcessExit/" ascii
+        $s4 = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zone" ascii
+        $s5 = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SilentProcessExit\\lsass.exe" ascii
+        $s6 = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\lsass.exe" ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_FScan {
+    meta:
+        author = "ditekSHen"
+        description = "Detects GoGo scan tool"
+    strings:
+        $s1 = "fscan version:" ascii
+        $s2 = "Citrix-ConfProxyCitrix-MetaframeCitrix-NetScalerCitrix-XenServerCitrix_Netscaler" ascii
+        $s3 = "(AkamaiGHost)(DESCRIPTION=(Typecho</a>)(^.+)([0-9]+)(confluence.)(dotDefender)" ascii
+        $s4 = "/fscan/" ascii
+        $s5 = "WebScan.CheckDatas" ascii
+        $s6 = "'Exploit.Test" ascii
+        $s7 = "rules:" ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}
