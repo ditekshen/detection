@@ -2363,3 +2363,51 @@ rule INDICATOR_SUSPICIOUS_PWS_CaptureBrowserPlugins {
     condition:
         2 of ($s*) and 2 of ($o*)
 }
+
+rule INDICATOR_SUSPICIOUS_IMG_Embedded_B64_EXE {
+    meta:
+        author = "ditekSHen"
+        description = "Detects images with specific base64 markers and/or embedding (reversed) base64-encoded executables"
+    strings:
+        $m1 = "<<BASE64_START>>" ascii
+        $m2 = "<<BASE64_END>>" ascii
+        $m3 = "BASE64_START" ascii
+        $m4 = "BASE64_END" ascii
+        $m5 = "BASE64-START" ascii
+        $m6 = "BASE64-END" ascii
+        $m7 = "BASE64START" ascii
+        $m8 = "BASE64END" ascii
+        $h1 = "TVqQA" ascii
+        $h2 = "AQqVT" ascii
+    condition:
+        (uint32(0) == 0xe0ffd8ff or uint32(0) == 0x474e5089 or uint16(0) == 0x4d42) and ((2 of ($m*)) or (1 of ($h*)))
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_TransferSh_URL {
+    meta:
+        author = "ditekSHen"
+        description = "Detects images embedding based64-encoded executable, and a base64 marker"
+    strings:
+        $s1 = "//transfer.sh/get/" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and 1 of them
+}
+
+rule INDICATOR_SUSPICIOUS_EXE_References_AdsBlocker_Browser_Extension_IDs {
+    meta:
+        author = "ditekSHen"
+        description = "Detect executables referencing considerable number of Ads blocking browser extension IDs"
+    strings:
+        $s1 = "gighmmpiobklfepjocnamgkkbiglidom" ascii wide nocase // AdBlock
+        $s2 = "cfhdojbkjhnklbpkdaibdccddilifddb" ascii wide nocase // Adblock Plus
+        $s3 = "cjpalhdlnbpafiamejdnhcphjbkeiagm" ascii wide nocase // uBlock Origin
+        $s4 = "epcnnfbjfcgphgdmggkamkmgojdagdnn" ascii wide nocase // uBlock
+        $s5 = "kacljcbejojnapnmiifgckbafkojcncf" ascii wide nocase // Ad-Blocker
+        $s6 = "gginmiamniniinhbipmknjiefidjlnob" ascii wide nocase // Easy AdBlocker
+        $s7 = "alplpnakfeabeiebipdmaenpmbgknjce" ascii wide nocase // Adblocker for Chrome - NoAds
+        $s8 = "ohahllgiabjaoigichmmfljhkcfikeof" ascii wide nocase // AdBlocker Ultimate
+        $s9 = "lmiknjkanfacinilblfjegkpajpcpjce" ascii wide nocase // uBlocker
+        $s10 = "lalfpjdbhpmnhfofkckdpkljeilmogfl" ascii wide nocase // Hola ad remover
+    condition:
+        (uint16(0) == 0x5a4d and 5 of them) or (7 of them)
+}
