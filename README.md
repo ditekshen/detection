@@ -4,7 +4,7 @@ A set of interrelated network and host detection rules with the aim of improving
 
 ## Supported Rules
 
-Currently, Snort, Yara and ClamAV rules are supported. Additional singatures and formats are work in progress.
+Currently, Snort 3, Yara and ClamAV rules are supported. Additional singatures and formats are work in progress.
 
 ## Scripts
 
