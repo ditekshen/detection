@@ -1664,3 +1664,33 @@ rule INDICATOR_TOOL_FScan {
     condition:
         uint16(0) == 0x5a4d and 4 of them
 }
+
+rule INDICATOR_TOOL_BURTNCIGAR {
+    meta:
+        author = "ditekSHen"
+        description = "Detects BURNTCIGAR a utility which terminates processes associated with endpoint security software"
+        clamav1 = "INDICATOR.Win.TOOL.BURNTCIGAR"
+    strings:
+        $s1 = "Kill PID =" ascii
+        $s2 = "CreateFile Error =" ascii
+        $s3 = "\\KillAV" ascii
+        $s4 = "DeviceIoControl" ascii
+    condition:
+        uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_TOOL_WEDGECUT {
+    meta:
+        author = "ditekSHen"
+        description = "Detects WEDGECUT a reconnaissance tool to checks hosts are online using ICMP packets"
+        clamav1 = "INDICATOR.Win.TOOL.WEDGECUT"
+    strings:
+        $s1 = "-name" fullword ascii
+        $s2 = "-full" fullword ascii
+        $s3 = "\\CheckOnline" ascii
+        $s4 = "IcmpSendEcho" fullword ascii
+        $s5 = "IcmpCloseHandle" fullword ascii
+        $s6 = "IcmpCreateFile" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and 4 of them
+}

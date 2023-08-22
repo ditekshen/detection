@@ -1,0 +1,78 @@
+App,CompanyName (Vendor),ProductName,FileDescription,InternalName,Yara,ClamAV,Domains,Snort AppID
+"FleetDeck Commander
+FleetDeck Commander Service",FleetDeck Inc,FleetDeck Commander,FleetDeck Commander,"fleetdeck_installer
+fleetdeck_commander_svc.exe","INDICATOR_RMM_FleetDeck_Commander
+INDICATOR_RMM_FleetDeck_Commander_SVC
+INDICATOR_RMM_FleetDeck_Commander_Launcher
+INDICATOR_RMM_FleetDeck_CERT",INDICATOR.Win.RMM.FleetDeckCommander,"relay.dev1.fleetdeck.io
+mqtt.dev1.fleetdeck.io
+agentregister.dev1.fleetdeck.io
+relay.test.fleetdeck.io
+agentregister.test.fleetdeck.io
+relay.fleetdeck.io
+mqtt.fleetdeck.io
+agentregister.fleetdeck.io
+commanderupdate.fleetdeck.io
+*.fleetdeck.io
+commanderapi.fleetdeck.io
+commanderinstall.fleetdeck.io
+commanderupdate.fleetdeck.io
+fleetdm.com",
+FleetDeck Agent,FleetDeck Inc.,FleetDeck Agent,FleetDeck Agent,NA,"INDICATOR_RMM_FleetDeck_Agent
+INDICATOR_RMM_FleetDeck_CERT",INDICATOR.Win.RMM.FleetDeckAgent,"relay.dev1.fleetdeck.io
+mqtt.dev1.fleetdeck.io
+agentregister.dev1.fleetdeck.io
+relay.test.fleetdeck.io
+agentregister.test.fleetdeck.io
+relay.fleetdeck.io
+mqtt.fleetdeck.io
+agentregister.fleetdeck.io
+commanderupdate.fleetdeck.io
+*.fleetdeck.io
+commanderapi.fleetdeck.io
+commanderinstall.fleetdeck.io
+commanderupdate.fleetdeck.io
+fleetdm.com",
+Mesh Agent,NA,MeshCentral Agent,MeshCentral Background Service Agent,NA,"INDICATOR_RMM_MeshAgent
+INDICATOR_RMM_MeshAgent_CERT",INDICATOR.Win.RMM.MeshAgent,,
+MeshCentral Server Installer,Open Source,MeshCentral Server Installer,MeshCentral Server Installer,,INDICATOR_RMM_MeshCentral_CERT,,,
+ConnectWise Control (formerly ScreenConnect),ScreenConnect Software,"ScreenConnect
+ScreenConnect Client*",NA,NA,"INDICATOR_RMM_ConnectWise_ScreenConnect
+INDICATOR_RMM_ConnectWise_ScreenConnect_CERT",INDICATOR.Win.RMM.ConnectWise-ScreenConnect,"*relay.screenconnect.com
+*demo.screenconnect.com
+*-web.screenconnect.com
+cloud.screenconnect.com",
+PDQConnect,PDQ.com,PDQConnectAgent,PDQ Connect Agent,NA,"INDICATOR_RMM_PDQConnect_Agent
+INDICATOR_RMM_PDQConnect_Agent_CERT",,"app.pdq.com
+auth.pdq.com
+connect.pdq.com
+*.ingest.sentry.io
+pdqconnect.zendesk.com",
+Pulseway,,,,,,,,
+Anydesk,,,,,,,,
+RemotePC,,,,,,,,
+Remote Utilities,,,,,,,,
+Kaseya,,,,,,,,
+NetSupport,,,,,,,,
+GoToMyPC,,,,,,,,
+Splashtop,,,,,,,,
+N-Able,,,,,,,,
+Atera,,,,,,,,
+Bomgar,,,,,,,,
+"TeamViewer
+TeamViewer Installer
+TeamViewer QS
+TeamViewer.app
+TeamViewerMeeting
+TeamViewerQS.app","TeamViewer
+TeamViewer GmbH
+TeamViewer Germany GmbH",,,,,,,
+Zoho Assist,,,,,,,,
+LogMeIn,,,,,,,,
+BeyondTrust (Bomgar),,,,,,,,
+Claroty,,,,,,,,
+PCAnywhere,,,,,,,,
+Xage,,,,,,,,
+XONA Systems,,,,,,,,
+Zscaler,,,,,,,,
+,,,,,,,,
