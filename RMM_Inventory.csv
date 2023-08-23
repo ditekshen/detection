@@ -1,10 +1,14 @@
 App,CompanyName (Vendor),ProductName,FileDescription,InternalName,Yara,ClamAV,Domains,Snort AppID
 "FleetDeck Commander
-FleetDeck Commander Service",FleetDeck Inc,FleetDeck Commander,FleetDeck Commander,"fleetdeck_installer
+FleetDeck Commander Service","FleetDeck Inc
+FleetDeck, inc
+FleetDeck Inc.",FleetDeck Commander,FleetDeck Commander,"fleetdeck_installer
 fleetdeck_commander_svc.exe","INDICATOR_RMM_FleetDeck_Commander
 INDICATOR_RMM_FleetDeck_Commander_SVC
 INDICATOR_RMM_FleetDeck_Commander_Launcher
-INDICATOR_RMM_FleetDeck_CERT",INDICATOR.Win.RMM.FleetDeckCommander,"relay.dev1.fleetdeck.io
+INDICATOR_RMM_FleetDeck_CERT","INDICATOR.Win.RMM.FleetDeckCommander
+INDICATOR.Win.RMM.FleetDeckCommander-SVC
+INDICATOR.Win.RMM.FleetDeckCommander-Launcher","relay.dev1.fleetdeck.io
 mqtt.dev1.fleetdeck.io
 agentregister.dev1.fleetdeck.io
 relay.test.fleetdeck.io
@@ -43,13 +47,24 @@ INDICATOR_RMM_ConnectWise_ScreenConnect_CERT",INDICATOR.Win.RMM.ConnectWise-Scre
 *-web.screenconnect.com
 cloud.screenconnect.com",
 PDQConnect,PDQ.com,PDQConnectAgent,PDQ Connect Agent,NA,"INDICATOR_RMM_PDQConnect_Agent
-INDICATOR_RMM_PDQConnect_Agent_CERT",,"app.pdq.com
+INDICATOR_RMM_PDQConnect_Agent_CERT",INDICATOR.Win.RMM.PDQConnectAgent,"app.pdq.com
 auth.pdq.com
 connect.pdq.com
 *.ingest.sentry.io
-pdqconnect.zendesk.com",
-Pulseway,,,,,,,,
-Anydesk,,,,,,,,
+pdqconnect.zendesk.com
+adminarsenal.zendesk.com
+help.pdq.com",
+Pulseway pcmontask,"MMSOFT Design
+MMSOFT Design Ltd.",Pulseway User Agent,Pulseway User Agent,pcmontask.exe,"INDICATOR_RMM_PulseWay_PCMonTaskSrv
+INDICATOR_RMM_PulseWay_CERT",INDICATOR.Win.RMM.PulseWay,computermonitor.mmsoft.ro,
+Pulseway pcmonitorsrv,"MMSOFT Design
+MMSOFT Design Ltd.",Pulseway,Pulseway Service,PCMonitorSrv.exe,"INDICATOR_RMM_PulseWay_PCMonTaskSrv
+INDICATOR_RMM_PulseWay_CERT",INDICATOR.Win.RMM.PulseWay,computermonitor.mmsoft.ro,
+Pulseway Remote Control,"MMSOFT Design
+MMSOFT Design Ltd.",Pulseway Remote Control,Pulseway Remote Control,RemoteDesktop.exe,"INDICATOR_RMM_PulseWay_RemoteDesktop
+INDICATOR_RMM_PulseWay_CERT",INDICATOR.Win.RMM.PulseWay,,
+Anydesk,"philandro Software GmbH
+AnyDesk Software GmbH",,,,,,,
 RemotePC,,,,,,,,
 Remote Utilities,,,,,,,,
 Kaseya,,,,,,,,
@@ -75,4 +90,3 @@ PCAnywhere,,,,,,,,
 Xage,,,,,,,,
 XONA Systems,,,,,,,,
 Zscaler,,,,,,,,
-,,,,,,,,

@@ -1,64 +1,4 @@
-rule MALWARE_Win_RDPCredsStealer {
-    meta:
-        author = "ditekSHen"
-        description = "Detects RDP Credentials Stealer"
-        clamav1 = "MALWARE.Win.Trojan.RDPCredsStealer"
-    strings:
-        $x1 = "MyCredUnPackAuthenticationBufferW Hooked Function" ascii
-        $x2 = "\\RDPCredsStealerDLL\\" ascii
-        $x3 = "\\RDPCreds.txt" ascii
-        $s1 = "CredUnPackAuthenticationBufferW" ascii
-        $s2 = "Installing Hooked Function" ascii
-        $s3 = "SymLoadModule64" fullword ascii
-        $s4 = "memmove" fullword ascii
-    condition:
-        uint16(0) == 0x5a4d and (2 of ($x*) or (1 of ($x*) and 2 of ($s*)) or 3 of ($s*))
-}
-
-rule MALWARE_Win_RDPCredsStealerInjector {
-    meta:
-        author = "ditekSHen"
-        description = "Detects RDP Credentials Stealer injector"
-        clamav1 = "MALWARE.Win.Trojan.RDPCredsStealer-Injector"
-    strings:
-        $s1 = "\\APIHookInjectorBin\\" ascii
-        $s2 = "\\RDPCredsStealerDLL.dll" ascii
-        $s3 = "DLL Injected" ascii
-        $s4 = "Code Injected" ascii
-        $s5 = /(OpenProcess|VirtualAllocEx|CreateRemoteThread)\(\) failed:/ fullword ascii
-    condition:
-        uint16(0) == 0x5a4d and 3 of them
-}
-
-rule INDICATOR_TOOL_BURTNCIGAR {
-    meta:
-        author = "ditekSHen"
-        description = "Detects BURNTCIGAR a utility which terminates processes associated with endpoint security software"
-        clamav1 = "INDICATOR.Win.TOOL.BURNTCIGAR"
-    strings:
-        $s1 = "Kill PID =" ascii
-        $s2 = "CreateFile Error =" ascii
-        $s3 = "\\KillAV" ascii
-        $s4 = "DeviceIoControl" ascii
-    condition:
-        uint16(0) == 0x5a4d and 3 of them
-}
-
-rule INDICATOR_TOOL_WEDGECUT {
-    meta:
-        author = "ditekSHen"
-        description = "Detects WEDGECUT a reconnaissance tool to checks hosts are online using ICMP packets"
-        clamav1 = "INDICATOR.Win.TOOL.WEDGECUT"
-    strings:
-        $s1 = "-name" fullword ascii
-        $s2 = "-full" fullword ascii
-        $s3 = "\\CheckOnline" ascii
-        $s4 = "IcmpSendEcho" fullword ascii
-        $s5 = "IcmpCloseHandle" fullword ascii
-        $s6 = "IcmpCreateFile" fullword ascii
-    condition:
-        uint16(0) == 0x5a4d and 4 of them
-}
+import "pe"
 
 rule INDICATOR_RMM_MeshAgent {
    meta:
@@ -297,5 +237,64 @@ rule INDICATOR_RMM_PDQConnect_Agent_CERT {
         for any i in (0..pe.number_of_signatures): (
             pe.signatures[i].issuer contains "DigiCert, Inc." and
             pe.signatures[i].subject contains "PDQ.com Corporation"
+        )
+}
+
+rule INDICATOR_RMM_PulseWay_PCMonTaskSrv {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Pulseway pcmontask and service user agent responsible for Remote Control, Screens View, Computer Lock, etc"
+        clamav1 = "INDICATOR.Win.RMM.PulseWay"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
+    strings:
+        $s1 = "MM.Monitor." ascii
+        $s2 = "RDAgentSessionSettingsV" ascii
+        $s3 = "CheckForMacOSRemoteDesktopUpdateCompletedEvent" ascii
+        $s4 = "ConfirmAgentStarted" ascii
+        $s5 = "GetScreenshot" ascii
+        $s6 = "UnloadRemoteDesktopDlls" ascii
+        $s7 = "CtrlAltDeleteProc" ascii
+        $s8 = "$7cfc3b88-6dc4-49fc-9f0a-bf9e9113a14d" ascii
+        $s9 = "computermonitor.mmsoft.ro" ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0xcfd0) and 7 of them
+}
+
+rule INDICATOR_RMM_PulseWay_RemoteDesktop {
+    meta:
+        author = "ditekSHen"
+        description = "Detects Pulseway Rempte Desktop client"
+        clamav1 = "INDICATOR.Win.RMM.PulseWay"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
+    strings:
+        $s1 = "RemoteControl" ascii
+        $s2 = "MM.Monitor.RemoteDesktopClient." ascii
+        $s3 = "MM.Monitor.RemoteControl" ascii
+        $s4 = "RemoteDesktopClientUpdateInfo" ascii
+        $s5 = "ShowRemoteDesktopEnabledSystemsOnly" ascii
+        $s6 = "$31f50968-d45c-49d6-ace9-ebc790855a51" ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0xcfd0) and 5 of them
+}
+
+rule INDICATOR_RMM_PulseWay_CERT {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PulseWay by (default) certificate. Review RMM Inventory"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].issuer contains "DigiCert, Inc." and
+            pe.signatures[i].subject contains "MMSOFT Design Ltd."
         )
 }
