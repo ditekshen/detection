@@ -41,6 +41,7 @@ rule INDICATOR_RMM_MeshAgent_CERT {
         )
 }
 
+/*
 rule INDICATOR_RMM_MeshCentral_CERT {
     meta:
         author = "ditekSHen"
@@ -56,6 +57,7 @@ rule INDICATOR_RMM_MeshCentral_CERT {
             pe.signatures[i].subject contains "Open Source Developer"
         )
 }
+*/
 
 rule INDICATOR_RMM_ConnectWise_ScreenConnect {
     meta:
