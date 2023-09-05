@@ -623,9 +623,9 @@ rule INDICATOR_TOOL_PET_DefenderControl {
     strings:
         $s1 = "Windows Defender Control" wide
         $s2 = "www.sordum.org" wide ascii
-        $s3 = "AutoIt" wide
+        $s3 = "dControl" wide
     condition:
-        uint16(0) == 0x5a4d and all of them
+        uint16(0) == 0x5a4d and 2 of them
 }
 
 rule INDICATOR_TOOL_PET_Mulit_VenomAgent {
@@ -1693,4 +1693,47 @@ rule INDICATOR_TOOL_WEDGECUT {
         $s6 = "IcmpCreateFile" fullword ascii
     condition:
         uint16(0) == 0x5a4d and 4 of them
+}
+
+rule INDICATOR_TOOL_PPLBLade {
+    meta:
+        author = "ditekSHen"
+        description = "Detects PPLBlade Protected Process Dumper Tool that support obfuscating memory dump and transferring it on remote workstations without dropping it onto the disk"
+    strings:
+        $x1 = "PPLBlade" ascii
+        $x2 = "/PPLBlade/" ascii
+        $x3 = "PPLBlade.exe --mode" ascii
+        $x4 = "PPLBLADE.SYSPPLBlade.dmp" ascii
+        $s1 = "Dump bytes sent at %s:%d. Protocol: %s" ascii
+        $s2 = "Deobfuscated dump saved in file %s" ascii
+        $m1 = "main.WriteDriverOnDisk" ascii
+        $m2 = "main.ProcExpOpenProc" ascii
+        $m3 = "main.miniDumpCallback" ascii
+        $m4 = "main.copyDumpBytes" ascii
+        $m5 = "main.MiniDumpGetBytes" ascii
+        $m6 = "main.SendBytesRaw" ascii
+        $m7 = "main.SendBytesSMB" ascii
+        $m8 = "main.DeobfuscateDump" ascii
+        $m9 = "main.dumpMutex" ascii
+        $m10 = "main.dbghelpDLL" ascii
+        $m11 = "main.miniDumpWriteDump" ascii
+    condition:
+        uint16(0) == 0x5a4d and (3 of ($x*) or (1 of ($x*) and (1 of ($s*) or 3 of ($m*))) or (all of ($s*) and 3 of ($m*)) or (7 of ($m*)))
+}
+
+rule INDICATOR_TOOL_SharpLDAP {
+    meta:
+        author = "ditekSHen"
+        description = "Detects SharpLDAP tool written in C# that aims to do enumeration via LDAP queries"
+    strings:
+        $x1 = "SharpLDAP" ascii wide
+        $x2 = "SharpLDAP.pdb" ascii
+        $s1 = "(&(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))" wide
+        $s2 = "(&(servicePrincipalName=*))" wide
+        $s3 = "/Enumerating (Domain|Enterprise|Organizational|Service|Members|Users|Computers)/" wide
+        $s4 = "ListMembers" fullword ascii
+        $s5 = "GroupMembers" fullword ascii
+        $s6 = "get_SamAccountName" fullword ascii
+    condition:
+        uint16(0) == 0x5a4d and ((1 of ($x*) and 4 of ($s*)) or (5 of ($s*)))
 }
