@@ -2380,7 +2380,7 @@ rule INDICATOR_SUSPICIOUS_IMG_Embedded_B64_EXE {
         $h1 = "TVqQA" ascii
         $h2 = "AQqVT" ascii
     condition:
-        (uint32(0) == 0xe0ffd8ff or uint32(0) == 0x474e5089 or uint16(0) == 0x4d42) and ((2 of ($m*)) or (1 of ($h*)))
+        (uint32(0) == 0xd8ff or uint32(0) == 0x474e5089 or uint16(0) == 0x4d42) and ((2 of ($m*)) or (1 of ($h*)))
 }
 
 rule INDICATOR_SUSPICIOUS_EXE_TransferSh_URL {
