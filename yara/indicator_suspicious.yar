@@ -3,7 +3,7 @@ import "time"
 
 rule INDICATOR_SUSPICIOUS_GENRansomware {
     meta:
-        description = "detects command variations typically used by ransomware"
+        description = "Detects command variations typically used by ransomware"
         author = "ditekSHen"
     strings:
         $cmd1 = "cmd /c \"WMIC.exe shadowcopy delet\"" ascii wide nocase
@@ -28,7 +28,7 @@ rule INDICATOR_SUSPICIOUS_GENRansomware {
 
 rule INDICATOR_SUSPICIOUS_ReflectiveLoader {
     meta:
-        description = "detects Reflective DLL injection artifacts"
+        description = "Detects Reflective DLL injection artifacts"
         author = "ditekSHen"
     strings:
         $s1 = "_ReflectiveLoader@" ascii wide
@@ -129,7 +129,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Disable_OfficeProtectedView {
 
 rule INDICATOR_SUSPICIOUS_EXE_SandboxProductID {
     meta:
-        description = "Detects binaries and memory artifcats referencing sandbox product IDs"
+        description = "Detects binaries and memory artifacts referencing sandbox product IDs"
         author = "ditekSHen"
     strings:
         $id1 = "76487-337-8429955-22614" fullword ascii wide // Anubis Sandbox
@@ -150,7 +150,7 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxProductID {
 
 rule INDICATOR_SUSPICIOUS_EXE_SandboxHookingDLL {
     meta:
-        description = "Detects binaries and memory artifcats referencing sandbox DLLs typically observed in sandbox evasion"
+        description = "Detects binaries and memory artifacts referencing sandbox DLLs typically observed in sandbox evasion"
         author = "ditekSHen"
     strings:
         $dll1 = "sbiedll.dll" nocase fullword ascii wide 
@@ -586,7 +586,7 @@ rule INDICATOR_SUSPICIOUS_ClearWinLogs {
 rule INDICATOR_SUSPICIOUS_DisableWinDefender {
     meta:
         author = "ditekSHen"
-        description = "Detects executables containing artifcats associated with disabling Widnows Defender"
+        description = "Detects executables containing artifacts associated with disabling Widnows Defender"
     strings:
         $reg1 = "SOFTWARE\\Microsoft\\Windows Defender\\Features" ascii wide nocase
         $reg2 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
@@ -612,7 +612,7 @@ rule INDICATOR_SUSPICIOUS_DisableWinDefender {
 rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
     meta:
         author = "ditekSHen"
-        description = "Detects executables containing anti-forensic artifcats of deletiing USN change journal. Observed in ransomware"
+        description = "Detects executables containing anti-forensic artifacts of deleting USN change journal. Observed in ransomware"
     strings:
         $cmd1 = "fsutil.exe" ascii wide nocase
         $s1 = "usn deletejournal /D C:" ascii wide nocase
@@ -630,7 +630,7 @@ rule INDICATOR_SUSPICIOUS_USNDeleteJournal {
 rule INDICATOR_SUSPICIOUS_GENInfoStealer {
     meta:
         author = "ditekSHen"
-        description = "Detects executables containing common artifcats observed in infostealers"
+        description = "Detects executables containing common artifacts observed in infostealers"
     strings:
         $f1 = "FileZilla\\recentservers.xml" ascii wide
         $f2 = "FileZilla\\sitemanager.xml" ascii wide
@@ -1435,7 +1435,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_Multi {
 rule INDICATOR_SUSPICIOUS_EXE_RegKeyComb_DisableWinDefender {
     meta:
         author = "ditekSHen"
-        description = "Detects executables embedding registry key / value combination indicative of disabling Windows Defedner features"
+        description = "Detects executables embedding registry key / value combination indicative of disabling Windows Defender features"
     strings:
         $r1 = "SOFTWARE\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
         $k1 = "DisableAntiSpyware" ascii wide
@@ -1942,7 +1942,7 @@ rule INDICATOR_SUSPICIOUS_EXE_VaultSchemaGUID {
 rule INDICATOR_SUSPICIOUS_AntiVM_UNK01 {
     meta:
         author = "ditekSHen"
-        description = "Detects memory artifcats referencing specific combination of anti-VM checks"
+        description = "Detects memory artifacts referencing specific combination of anti-VM checks"
     strings:
         $s1 = "vmci.s" fullword ascii wide
         $s2 = "vmmemc" fullword ascii wide
@@ -1966,7 +1966,7 @@ rule INDICATOR_SUSPICIOUS_AntiVM_UNK01 {
 rule INDICATOR_SUSPICIOUS_AntiVM_WMIC {
     meta:
         author = "ditekSHen"
-        description = "Detects memory artifcats referencing WMIC commands for anti-VM checks"
+        description = "Detects memory artifacts referencing WMIC commands for anti-VM checks"
     strings:
         $s1 = "wmic process where \"name like '%vmwp%'\"" ascii wide nocase
         $s2 = "wmic process where \"name like '%virtualbox%'\"" ascii wide nocase
@@ -2281,7 +2281,7 @@ rule INDICATOR_SUSPICOUS_EXE_UNC_Regex {
 rule INDICATOR_SUSPICIOUS_DeleteRecentItems {
      meta:
         author = "ditekSHen"
-        description = "Detects executables embedding anti-forensic artifcats of deletiing Windows Recent Items"
+        description = "Detects executables embedding anti-forensic artifacts of deleting Windows Recent Items"
     strings:
         $s1 = "del C:\\Windows\\AppCompat\\Programs\\RecentFileCache.bcf" ascii wide nocase
         $s2 = "del /F /Q %APPDATA%\\Microsoft\\Windows\\Recent\\*" ascii wide nocase
@@ -2291,10 +2291,10 @@ rule INDICATOR_SUSPICIOUS_DeleteRecentItems {
         uint16(0) == 0x5a4d and 2 of them
 }
 
-rule INDICATOR_SUSPICIOUS_DeleteWinDefednerQuarantineFiles {
+rule INDICATOR_SUSPICIOUS_DeleteWinDefenderQuarantineFiles {
      meta:
         author = "ditekSHen"
-        description = "Detects executables embedding anti-forensic artifcats of deletiing Windows defender quarantine files"
+        description = "Detects executables embedding anti-forensic artifacts of deleting Windows defender quarantine files"
     strings:
         $s1 = "rmdir C:\\ProgramData\\Microsoft\\Windows Defender\\Quarantine\\Entries /S" ascii wide nocase
 		$s2 = "rmdir C:\\ProgramData\\Microsoft\\Windows Defender\\Quarantine\\Resources /S" ascii wide nocase
@@ -2310,7 +2310,7 @@ rule INDICATOR_SUSPICIOUS_DeleteWinDefednerQuarantineFiles {
 rule INDICATOR_SUSPICIOUS_DeleteShimCache {
      meta:
         author = "ditekSHen"
-        description = "Detects executables embedding anti-forensic artifcats of deletiing shim cache"
+        description = "Detects executables embedding anti-forensic artifacts of deleting shim cache"
     strings:
         $s1 = "Rundll32.exe apphelp.dll,ShimFlushCache" ascii wide nocase
         $s2 = "Rundll32 apphelp.dll,ShimFlushCache" ascii wide nocase
@@ -2386,7 +2386,7 @@ rule INDICATOR_SUSPICIOUS_IMG_Embedded_B64_EXE {
 rule INDICATOR_SUSPICIOUS_EXE_TransferSh_URL {
     meta:
         author = "ditekSHen"
-        description = "Detects images embedding based64-encoded executable, and a base64 marker"
+        description = "Detects files referencing the transfer.sh file sharing website"
     strings:
         $s1 = "//transfer.sh/get/" ascii wide nocase
     condition:
@@ -2408,6 +2408,12 @@ rule INDICATOR_SUSPICIOUS_EXE_References_AdsBlocker_Browser_Extension_IDs {
         $s8 = "ohahllgiabjaoigichmmfljhkcfikeof" ascii wide nocase // AdBlocker Ultimate
         $s9 = "lmiknjkanfacinilblfjegkpajpcpjce" ascii wide nocase // uBlocker
         $s10 = "lalfpjdbhpmnhfofkckdpkljeilmogfl" ascii wide nocase // Hola ad remover
+	$s11 = "ddkjiahejlhfcafbddmgiahcphecmpfh" ascii wide nocase // uBlock Origin Lite (MV3)
+	$s12 = "bgnkhhnnamicmpeenaelnjfhikgbkllg" ascii wide nocase  // AdGuard
+	$s13 = "odfafepnkmbhccpbejgmiehpchacaeak" ascii wide nocase // uBlock Origin - Microsoft Edge addons store
+	$s14 = "uBlock0@raymondhill.net.xpi" ascii wide nocase // uBlock Origin - Firefox
+	$s15 = "uBOLite@raymondhill.net.xpi" ascii wide nocase // uBlock Origin lite - Firefox
+	$s16 = "adguardadblocker@adguard.com.xpi" ascii wide nocase // AdGuard - Firefox
     condition:
         (uint16(0) == 0x5a4d and 5 of them) or (7 of them)
 }
