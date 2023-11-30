@@ -1,3 +1,5 @@
+import "pe"
+
 rule INDICATOR_TOOL_PWS_LaZagne {
     meta:
         author = "ditekSHen"
