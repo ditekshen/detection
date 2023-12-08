@@ -7150,22 +7150,6 @@ rule INDICATOR_KB_CERT_072472f2386f4608a0790da2be8a48f7 {
         )
 }
 
-/*
-rule INDICATOR_KB_CERT_24692663ef6c0c0a3b23cfa310c3649b {
-    meta:
-        author = "ditekSHen"
-        description = "Detects executables signed with stolen, revoked or invalid certificates"
-        thumbprint = "9ce9a71ccab3b38a74781b975f1c228222cf7d3b"
-        hash1 = "c7faae85681abe125b9a81b798daf845c62ddab8014784b6fd1b184b02d5a22b"
-    condition:
-        uint16(0) == 0x5a4d and
-        for any i in (0..pe.number_of_signatures): (
-            pe.signatures[i].subject contains "Akeo Consulting" and
-            pe.signatures[i].serial == "24:69:26:63:ef:6c:0c:0a:3b:23:cf:a3:10:c3:64:9b"
-        )
-}
-*/
-
 rule INDICATOR_KB_CERT_00ea734e1dfb6e69ed2bc55e513bf95b5e {
     meta:
         author = "ditekSHen"
@@ -7754,18 +7738,1202 @@ rule INDICATOR_KB_CERT_29e8e993d2406454b6b18cb377471bc6 {
         )
 }
 
-rule INDICATOR_KB_CERT_00bfb15001bbf592d4962a7797ea736fa3 {
+rule INDICATOR_KB_CERT_6daa67498c3a5d8133f28fefe9ccc20e {
     meta:
         author = "ditekSHen"
-        description = "Detects executables signed with stolen, revoked, fake or invalid certificate"
-        thumbprint = "3dbc3a2a0e9ce8803b422cfdbc60acd33164965d"
-        hash1 = "c9848988c90013fb86d016a7bd4e761a1319d3f8dc669fe6d85fec34c1e73256"
-        malware = "BlankStealer / BlankGrabber / Blank-c Stealer"
-        reference = "https://capesandbox.com/analysis/444899/"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f54146fadad277f67b14cfebd13cbada9789281cee7165db0277ad51621adb97"
+        reason = "ParallaxRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
     condition:
         uint16(0) == 0x5a4d and
         for any i in (0..pe.number_of_signatures): (
-            pe.signatures[i].subject contains "Akeo Consulting" and
-            pe.signatures[i].serial == "00:bf:b1:50:01:bb:f5:92:d4:96:2a:77:97:ea:73:6f:a3"
+            pe.signatures[i].subject contains "Rimsara Development OU" and
+            pe.signatures[i].serial == "6d:aa:67:49:8c:3a:5d:81:33:f2:8f:ef:e9:cc:c2:0e"
+        )
+}
+
+rule INDICATOR_KB_CERT_59f296d0af649e0962d724248d9fdcdb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ce2aa31a714cc05f86d726a959f6655efc40777aa474fb6b9689154fdc918a44"
+        reason = "DarkGate"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "MK ZN s.r.o." and
+            pe.signatures[i].serial == "59:f2:96:d0:af:64:9e:09:62:d7:24:24:8d:9f:dc:db"
+        )
+}
+
+rule INDICATOR_KB_CERT_a32f3ba229704ad400473f7479e4c3e4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ab4b30913895d8df383fdadebc29d2e04a5c854bc4172c0d41bcbef176e8f37e"
+        reason = "RecordBreaker"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SOTUL SOLUTIONS LIMITED" and
+            pe.signatures[i].serial == "a3:2f:3b:a2:29:70:4a:d4:00:47:3f:74:79:e4:c3:e4"
+        )
+}
+
+rule INDICATOR_KB_CERT_3ab74a2ebf93447adb83554b5564fe03 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8ed289fcc40bbc150a52b733123f6094ccfb2c499d6e932b0d9a6001490fb7e6"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "IMPERIOUS TECHNOLOGIES LIMITED" and
+            pe.signatures[i].serial == "3a:b7:4a:2e:bf:93:44:7a:db:83:55:4b:55:64:fe:03"
+        )
+}
+
+rule INDICATOR_KB_CERT_90212473c706f523fe84bdb9a78a01f4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6b18e9451c2e93564ed255e754b7e1cf0f817abda93015b21ae5e247c75f9d03"
+        reason = "Cerber"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DEMUS, OOO" and
+            pe.signatures[i].serial == "90:21:24:73:c7:06:f5:23:fe:84:bd:b9:a7:8a:01:f4"
+        )
+}
+
+rule INDICATOR_KB_CERT_5c9f5f96726a6e6fc3b8bb153ac82af2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "285925b7c7c692f8d71d980dcf2ddb4c208a0f7b826ead34db402755d1a0f6de"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "1105 SOFTWARE LLC" and
+            pe.signatures[i].serial == "5c:9f:5f:96:72:6a:6e:6f:c3:b8:bb:15:3a:c8:2a:f2"
+        )
+}
+
+rule INDICATOR_KB_CERT_2a2f270535c2d5e7630720fb229b5d1c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "73a0cc4495a49492806b970fd844a0ab078126930305d22c7bf68b43c337fc1a"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "KOZUZ SP. Z O.O." and
+            pe.signatures[i].serial == "2a:2f:27:05:35:c2:d5:e7:63:07:20:fb:22:9b:5d:1c"
+        )
+}
+
+rule INDICATOR_KB_CERT_4659fa5fc1e0397df79fd6a4083d93b0 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "fa5f2dbe813b0270b1f9e53da1be024fb495e8b1848bb3c9c7392a40c8f7e8e6"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Incuber Services LLP" and
+            pe.signatures[i].serial == "46:59:fa:5f:c1:e0:39:7d:f7:9f:d6:a4:08:3d:93:b0"
+        )
+}
+
+rule INDICATOR_KB_CERT_651f3e5b491b197d20c49b9c7b25b775 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0ee11d5917c486b7a57b7c3c566acec251170e98a577164f36b7d7d34f035499"
+        reason = "NetSupport"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Rhynedahll Software LLC" and
+            pe.signatures[i].serial == "65:1f:3e:5b:49:1b:19:7d:20:c4:9b:9c:7b:25:b7:75"
+        )
+}
+
+rule INDICATOR_KB_CERT_67936a84bed66ef021dbe771de331772 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8fff75906628b764e99a7a028112a8ec7794097e564f0f897c24c2baaa82ded8"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "APEX SOFTWARE DESIGN, LLC" and
+            pe.signatures[i].serial == "67:93:6a:84:be:d6:6e:f0:21:db:e7:71:de:33:17:72"
+        )
+}
+
+rule INDICATOR_KB_CERT_8538a6c5018f50fc {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d42519dac24abc5c1ebfc6e0da0fd2e7cfb9db50c0598948c6630fdc132c7f94"
+        reason = "Malware"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Trading Technologies International, Inc." and
+            pe.signatures[i].serial == "85:38:a6:c5:01:8f:50:fc"
+        )
+}
+
+rule INDICATOR_KB_CERT_fecc3b3c675f7ffd7de22507f3fdacd7 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6b8cc2be066ff0bf1d884892fc600482fc34eaddb3a5e6681b509d64795b01d4"
+        reason = "RemcosRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Gromit Electronics Limited" and
+            pe.signatures[i].serial == "fe:cc:3b:3c:67:5f:7f:fd:7d:e2:25:07:f3:fd:ac:d7"
+        )
+}
+
+rule INDICATOR_KB_CERT_5294f0f841f29855e33a18402421949a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "df744f6b9430237821e3f2bc6edafb4a92354dda1734a60d5e0d816256aefb47"
+        reason = "RemcosRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Integrated Plotting Solutions Limited" and
+            pe.signatures[i].serial == "52:94:f0:f8:41:f2:98:55:e3:3a:18:40:24:21:94:9a"
+        )
+}
+
+rule INDICATOR_KB_CERT_1614ef66b2c4b886e71a93dd34869f48 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1689697e08dda6d1233c0056078ddf25b12c3608ead7d96ed4cbbb074e54ce29"
+        reason = "RemcosRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SHIRT AND CUFF LIMITED" and
+            pe.signatures[i].serial == "16:14:ef:66:b2:c4:b8:86:e7:1a:93:dd:34:86:9f:48"
+        )
+}
+
+rule INDICATOR_KB_CERT_65cfd8419d70ce4011d97bc79d18315e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7cff10e37a43843e971f02ca6ad6510f08a5209d21745181fc4d003a8287cd1b"
+        reason = "BumbleBee"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FACE AESTHETICS LTD" and
+            pe.signatures[i].serial == "65:cf:d8:41:9d:70:ce:40:11:d9:7b:c7:9d:18:31:5e"
+        )
+}
+
+rule INDICATOR_KB_CERT_01cf0b0f01b20b70bfaa69722979ef5c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ef10480ab6448e60bdc689fc54cb6cfc4a8e1d39ddc788ce3d060ab4b7d30b59"
+        reason = "Ryuk"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "PET PLUS PTY LTD" and
+            pe.signatures[i].serial == "01:cf:0b:0f:01:b2:0b:70:bf:aa:69:72:29:79:ef:5c"
+        )
+}
+
+rule INDICATOR_KB_CERT_698ff388adb50b88afb832e76b0a0ad1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "479e01dde7e7529ed4ad111a2d7b3b16fdc6fbe2ed0d6ff015c1c823ca0939db"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BELLAP LIMITED" and
+            pe.signatures[i].serial == "69:8f:f3:88:ad:b5:0b:88:af:b8:32:e7:6b:0a:0a:d1"
+        )
+}
+
+rule INDICATOR_KB_CERT_5143cf38d5fd26858830826632be9fda {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "57a8aa854f3198f069bb34bc763b7773a8cfdafb562ee0ccf24a5067d45d5e3c"
+        reason = "BumbleBee"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DIGI CORP MEDIA LLC" and
+            pe.signatures[i].serial == "51:43:cf:38:d5:fd:26:85:88:30:82:66:32:be:9f:da"
+        )
+}
+
+rule INDICATOR_KB_CERT_3628b93bcd902b6b3e1ffdf2e13dfcf5 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "27b75dc1d31a581f6e02bba3c03a62174ee4456021c7de50922caa10b98f8f7a"
+        reason = "Malware"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AMCERT,LLC" and
+            pe.signatures[i].serial == "36:28:b9:3b:cd:90:2b:6b:3e:1f:fd:f2:e1:3d:fc:f5"
+        )
+}
+
+rule INDICATOR_KB_CERT_a32b8b4f1be43c23eb2848ab4ef06bb2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f7a578c93fd98ade3d259ac47f152d8c9115bc5df7e2f57d107a66db3f833f0f"
+        reason = "NetSupport RAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Pak El AB" and
+            pe.signatures[i].serial == "a3:2b:8b:4f:1b:e4:3c:23:eb:28:48:ab:4e:f0:6b:b2"
+        )
+}
+
+rule INDICATOR_KB_CERT_17ccecc181ed65a357edf3b01df62cc9 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b64bd77a58c90f76afd6c4ce0b38c54c3c6088b818d0b83e5435d89e3dc01cda"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AMCERT,LLC" and
+            pe.signatures[i].serial == "17:cc:ec:c1:81:ed:65:a3:57:ed:f3:b0:1d:f6:2c:c9"
+        )
+}
+
+rule INDICATOR_KB_CERT_332bd5801e8415585e72c87e0e2ec71d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "47338c1a0ea425c47dede188d10ca95288514f369fe8a5105752bd8d906b8cbc"
+        reason = "NetSupport"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Elite Marketing Strategies, Inc." and
+            pe.signatures[i].serial == "33:2b:d5:80:1e:84:15:58:5e:72:c8:7e:0e:2e:c7:1d"
+        )
+}
+
+rule INDICATOR_KB_CERT_0139dde119bb320dfb9f5defe3f71245 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "23d13a8e48a6eff191a5d6a0635b99467c2e7242ae520479cae130fbd41cc645"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Hangil IT Co., Ltd" and
+            pe.signatures[i].serial == "01:39:dd:e1:19:bb:32:0d:fb:9f:5d:ef:e3:f7:12:45"
+        )
+}
+
+rule INDICATOR_KB_CERT_2f96a89bfec6e44dd224e8fd7e72d9bb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f13e4801e13898e839183e3305e1dda7f4c0ebf6eaf7553e18c1ddd4edc94470"
+        reason = "Gozi"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "NAILS UNLIMITED LIMITED" and
+            pe.signatures[i].serial == "2f:96:a8:9b:fe:c6:e4:4d:d2:24:e8:fd:7e:72:d9:bb"
+        )
+}
+
+rule INDICATOR_KB_CERT_626735ed30e50e3e0553986d806bfc54 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a1488004ec967faf6c66f55440bbde0de47065490f7c758f3ca1315bb0ef3b97"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FISH ACCOUNTING & TRANSLATING LIMITED" and
+            pe.signatures[i].serial == "62:67:35:ed:30:e5:0e:3e:05:53:98:6d:80:6b:fc:54"
+        )
+}
+
+rule INDICATOR_KB_CERT_4a2e337fff23e5b2a1321ffde56d1759 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "67099e0c41c102535d388fab1de576433f2ded2b08fb7da1bf66e3bdaba4eeb4"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Karolina Klimowska" and
+            pe.signatures[i].serial == "4a:2e:33:7f:ff:23:e5:b2:a1:32:1f:fd:e5:6d:17:59"
+        )
+}
+
+rule INDICATOR_KB_CERT_967cb0898680d1c174b2baae5fa332db {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c231f1e6cc3aec983d892e1bc3bb1815335fb24e3e2f611d79bade9a07cbd819"
+        reason = "Babadeda"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "James Caulfield" and
+            pe.signatures[i].serial == "96:7c:b0:89:86:80:d1:c1:74:b2:ba:ae:5f:a3:32:db"
+        )
+}
+
+rule INDICATOR_KB_CERT_890570b6b0e2868a53be3f8f904a88ee {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f291d21d72dcefc369526a97b7d39214544b22057757ac00907ab4ff3baa2edd"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "JESEN LESS d.o.o." and
+            pe.signatures[i].serial == "89:05:70:b6:b0:e2:86:8a:53:be:3f:8f:90:4a:88:ee"
+        )
+}
+
+rule INDICATOR_KB_CERT_7d27332c3cb3a382a4fd232c5c66a2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "935af7361c09f45dcf3fa6e4f4fd176913c47673104272259b40de55566cabed"
+        reason = "Silence"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "MALVINA RECRUITMENT LIMITED" and
+            pe.signatures[i].serial == "7d:27:33:2c:3c:b3:a3:82:a4:fd:23:2c:5c:66:a2"
+        )
+}
+
+rule INDICATOR_KB_CERT_40f5660a90301e7a8a8c3b42 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2ac041e3c46c82fbcee34617ee31336e845e18efe6b9ae5c8811351db5b56da2"
+        reason = "Cobalt Strike"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Booz Allen Hamilton Inc." and
+            pe.signatures[i].serial == "40:f5:66:0a:90:30:1e:7a:8a:8c:3b:42"
+        )
+}
+
+rule INDICATOR_KB_CERT_dfc1f1b0f205cc17ed7d216bb991f859 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b577362c1abcfb7d163b8702f23a6a3643c72ea0a3c8cf262092903a3110fa04"
+        reason = "PrivateLoader"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Astori LLC" and
+            pe.signatures[i].serial == "df:c1:f1:b0:f2:05:cc:17:ed:7d:21:6b:b9:91:f8:59"
+        )
+}
+
+rule INDICATOR_KB_CERT_e573d9c8b403c41bd59ffa0a8efd4168 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a9ab2be0ea677c6c6ed67b23cfee0fa44bfb346a4bb720f10a3f02a78b8f5c82"
+        reason = "Dridex"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "VERONIKA 2\" OOO\"" and
+            pe.signatures[i].serial == "e5:73:d9:c8:b4:03:c4:1b:d5:9f:fa:0a:8e:fd:41:68"
+        )
+}
+
+rule INDICATOR_KB_CERT_2f38de4ced0b070973b9e9b9b1dcfa7f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "71382f6c6e48df51f15606380cd6948bf37f044d18566ebc2d262fc87e70b9b1"
+        reason = "Gh0stRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Fahad Malik" and
+            pe.signatures[i].serial == "2f:38:de:4c:ed:0b:07:09:73:b9:e9:b9:b1:dc:fa:7f"
+        )
+}
+
+rule INDICATOR_KB_CERT_53e1f226cb77574f8fbeb5682da091bb {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d247ec7e224a24683da3f138112ffc9607f83c917d6c45494dd744d732249260"
+        reason = "SystemBC"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "OdyLab Inc" and
+            pe.signatures[i].serial == "53:e1:f2:26:cb:77:57:4f:8f:be:b5:68:2d:a0:91:bb"
+        )
+}
+
+rule INDICATOR_KB_CERT_df2547b2cab5689a81d61de80eaaa3a2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "4c6e21a6e96ea6fae6c142c2d1c919f590d9bf4e5c6b0f3ec7f9b0a38f3ce45d"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FORWARD MUSIC AGENCY SRL" and
+            pe.signatures[i].serial == "df:25:47:b2:ca:b5:68:9a:81:d6:1d:e8:0e:aa:a3:a2"
+        )
+}
+
+rule INDICATOR_KB_CERT_58af00ce542760fc116b41fa92e18589 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "620dafea381ab657e0335321ca5a95077f33021927a32d5d62bff7e33704f4b7"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DICKIE MUSDALE WINDFARM LIMITED" and
+            pe.signatures[i].serial == "58:af:00:ce:54:27:60:fc:11:6b:41:fa:92:e1:85:89"
+        )
+}
+
+rule INDICATOR_KB_CERT_5b1f9ec88d185631ab032dbfd5166c0d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a46234c01e9f9904e500aefad4b5718d86aaec4e084b3d8ffbfe5724f8ddda45"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TOPFLIGHT GROUP LIMITED" and
+            pe.signatures[i].serial == "5b:1f:9e:c8:8d:18:56:31:ab:03:2d:bf:d5:16:6c:0d"
+        )
+}
+
+rule INDICATOR_KB_CERT_ff52eb011bb748fee75153cbe1e50dd6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c75025c80ab583a6ab87070e5b65c93cb59b48e0cbb5f99113e354a96f8fcd39"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "TASK ANNA LIMITED" and
+            pe.signatures[i].serial == "ff:52:eb:01:1b:b7:48:fe:e7:51:53:cb:e1:e5:0d:d6"
+        )
+}
+
+rule INDICATOR_KB_CERT_eda0f47b3b38e781cdf6ef6be5d3f6ee {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1ef38b7c430c09062f4408c47da14d814be5e2e99749e65a2cf097f5610024fc"
+        reason = "Matanbuchus"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ADVANCED ACCESS SERVICES LTD" and
+            pe.signatures[i].serial == "ed:a0:f4:7b:3b:38:e7:81:cd:f6:ef:6b:e5:d3:f6:ee"
+        )
+}
+
+rule INDICATOR_KB_CERT_4728189fa0f57793484cdf764f5e283d {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "89ff94ac1c577eced3afc9a81689d30ca238a8472ad0f025f6bed57a98dbb273"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Power Save Systems s.r.o." and
+            pe.signatures[i].serial == "47:28:18:9f:a0:f5:77:93:48:4c:df:76:4f:5e:28:3d"
+        )
+}
+
+rule INDICATOR_KB_CERT_24e4a2b3db6be1007b9ddc91995bc0c8 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "005af6c8e9f06a2258c2df70785a5622c8d10d982fdc7f4dbe2f53af6e860359"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FLY BETTER s.r.o." and
+            pe.signatures[i].serial == "24:e4:a2:b3:db:6b:e1:00:7b:9d:dc:91:99:5b:c0:c8"
+        )
+}
+
+rule INDICATOR_KB_CERT_0772b4d1d63233d2b8771997bc8da5c4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c6a78692f2fda8908933fb3f1df68592eb5da129caafd33329d1b804006973f7"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Maya logistika d.o.o." and
+            pe.signatures[i].serial == "07:72:b4:d1:d6:32:33:d2:b8:77:19:97:bc:8d:a5:c4"
+        )
+}
+
+rule INDICATOR_KB_CERT_1deea179f5757fe529043577762419df {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9c4e87ccd6004a70115f8e654b8cc1a80d488876ff2e4e7db598303fa41b3fef"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SPIRIT CONSULTING s. r. o." and
+            pe.signatures[i].serial == "1d:ee:a1:79:f5:75:7f:e5:29:04:35:77:76:24:19:df"
+        )
+}
+
+rule INDICATOR_KB_CERT_061a27a3a3771bb440fc16cadf2675c4 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "9ed703ba7033af5f88a5f5ef0155adc41715d3175eec836822a09a93d56e4b7f"
+        reason = "Matanbuchus"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Westeast Tech Consulting, Corp." and
+            pe.signatures[i].serial == "06:1a:27:a3:a3:77:1b:b4:40:fc:16:ca:df:26:75:c4"
+        )
+}
+
+rule INDICATOR_KB_CERT_06675181e7b5e1030b3d40926e2a47d3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "b617253b3695fd498d645bd8278d1bdae2bc36bd4da713c6938e3fe6b0cdb9a4"
+        reason = "NetWire"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ORANGE VIEW LIMITED" and
+            pe.signatures[i].serial == "06:67:51:81:e7:b5:e1:03:0b:3d:40:92:6e:2a:47:d3"
+        )
+}
+
+rule INDICATOR_KB_CERT_dbc03ca7e6ae6db6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e059776cb5e640569a06c2548e87af5bd655f5d4815b8f6e9482835455930987"
+        reason = "CobaltStrike"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SPIDER DEVELOPMENTS PTY LTD" and
+            pe.signatures[i].serial == "db:c0:3c:a7:e6:ae:6d:b6"
+        )
+}
+
+rule INDICATOR_KB_CERT_26f855a25890b749578f13e4b9459768 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7c81ba35732d1998def02461217cfd723150151bc93375a3e27c2cec33915660"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Boo’s Q & Sweets Corporation" and
+            pe.signatures[i].serial == "26:f8:55:a2:58:90:b7:49:57:8f:13:e4:b9:45:97:68"
+        )
+}
+
+rule INDICATOR_KB_CERT_25ba18a267d6d8e08ebc6e2457d58d1e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e59824f73703461c2c170681872a28a9bc4731d4b49079aa3afba1d29f83d736"
+        reason = "BadNews"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "5Y TECHNOLOGY LIMITED" and
+            pe.signatures[i].serial == "25:ba:18:a2:67:d6:d8:e0:8e:bc:6e:24:57:d5:8d:1e"
+        )
+}
+
+rule INDICATOR_KB_CERT_0a2787fbb4627c91611573e323584113 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8badf05b1814d40fb7055283a69a0bc328943100fe12b629f1c14b9448163aac"
+        reason = "Malware"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "exxon.com" and
+            pe.signatures[i].serial == "0a:27:87:fb:b4:62:7c:91:61:15:73:e3:23:58:41:13"
+        )
+}
+
+rule INDICATOR_KB_CERT_c81319d20c6f1f1aec3398522189d90c {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "18d8be8afa6613e2ef037598a6e08e0ef197d420f21aa4050f473fcabd16644a"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AMCERT,LLC" and
+            pe.signatures[i].serial == "c8:13:19:d2:0c:6f:1f:1a:ec:33:98:52:21:89:d9:0c"
+        )
+}
+
+rule INDICATOR_KB_CERT_77550ed697992b397e3f1ad8e2a662d1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0c439c7b60714158f62c45921caf30d17dae37ec6cbc2dfdd9d306e18ae6df63"
+        reason = "ParallaxRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "GRASS RAIN, s.r.o." and
+            pe.signatures[i].serial == "77:55:0e:d6:97:99:2b:39:7e:3f:1a:d8:e2:a6:62:d1"
+        )
+}
+
+rule INDICATOR_KB_CERT_b1bbef3aba79ab2eae5b8015f26b34f8 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "247a10fc20386f4f54b7451aecc2d97ec77567c5031028cc7f1b98f9191bee80"
+        reason = "NW0rm"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DIDZHITAL ART, OOO" and
+            pe.signatures[i].serial == "b1:bb:ef:3a:ba:79:ab:2e:ae:5b:80:15:f2:6b:34:f8"
+        )
+}
+
+rule INDICATOR_KB_CERT_05d50a0e09bb9a836ffb90a3 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2d072e0e80885a82d5e35806b052ca416994e0fe06da1cfdcebd509d967a1aae"
+        reason = "ParallaxRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Toliz Info Tech Solutions INC." and
+            pe.signatures[i].serial == "05:d5:0a:0e:09:bb:9a:83:6f:fb:90:a3"
+        )
+}
+
+rule INDICATOR_KB_CERT_623eae6a66d3a6ee80df9ccebe51181e {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "21c4e9af43068d041e6aec84341ae89cabb9917792c4bc372eced059555bb845"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "GAIN AI LTD" and
+            pe.signatures[i].serial == "62:3e:ae:6a:66:d3:a6:ee:80:df:9c:ce:be:51:18:1e"
+        )
+}
+
+rule INDICATOR_KB_CERT_0a392f03ded5d73cdeeda75052a57176 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "cf1d95b39cc695e90dc2ca8b1b50f33b71f9f21091df2b72ed97f0759b5ddde4"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "FLOWER COMPUTERS LTD" and
+            pe.signatures[i].serial == "0a:39:2f:03:de:d5:d7:3c:de:ed:a7:50:52:a5:71:76"
+        )
+}
+
+rule INDICATOR_KB_CERT_e9268ed63a7d7e9dfd40a664ddfbaf18 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0767b9ab857b8e24282b80a7368323689a842e6c8b5a00a4f965c03e375e8b0d"
+        reason = "Hive"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Casta, s.r.o." and
+            pe.signatures[i].serial == "e9:26:8e:d6:3a:7d:7e:9d:fd:40:a6:64:dd:fb:af:18"
+        )
+}
+
+rule INDICATOR_KB_CERT_da156922f4760e0c5f5bcf79812a27e1 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6e19e012f55e0bb44e9036d4445ab945942965dcb81b9ed24ad6fc17933c4fce"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DRINK AND BUBBLE LTD" and
+            pe.signatures[i].serial == "da:15:69:22:f4:76:0e:0c:5f:5b:cf:79:81:2a:27:e1"
+        )
+}
+
+rule INDICATOR_KB_CERT_5226a724cfa0b4bc0164ecda3f02a3dc {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "92f005b9c46c7993205d9451823cf0410d1afbd7056a7dcdfa2b8b3da74ee1bf"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "VALENTE SP Z O O" and
+            pe.signatures[i].serial == "52:26:a7:24:cf:a0:b4:bc:01:64:ec:da:3f:02:a3:dc"
+        )
+}
+
+rule INDICATOR_KB_CERT_121070be1e782f206985543bc7bc58b6 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "a4534aff03258589a2622398d1904d3bfd264c37e8649a68136f8d552f8b738f"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Prod Can Holdings Inc." and
+            pe.signatures[i].serial == "12:10:70:be:1e:78:2f:20:69:85:54:3b:c7:bc:58:b6"
+        )
+}
+
+rule INDICATOR_KB_CERT_15c21dab7f4e644e4b35c4858004d8a9 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "34a9cd401a5a86c5194954df3a497094c01b6603264aab5cf7d9b3c4a0074801"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "P.REGO, s.r.o." and
+            pe.signatures[i].serial == "15:c2:1d:ab:7f:4e:64:4e:4b:35:c4:85:80:04:d8:a9"
+        )
+}
+
+rule INDICATOR_KB_CERT_101d6a5a29d9a77807553ceac669d853 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "cd6aa9a7a4898e42b8361dc3542d0afb72e6deefc0b85ebfb55d282a2982b994"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "BIC GROUP LIMITED" and
+            pe.signatures[i].serial == "10:1d:6a:5a:29:d9:a7:78:07:55:3c:ea:c6:69:d8:53"
+        )
+}
+
+rule INDICATOR_KB_CERT_4679c5398a279318365fd77a84445699 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8fcef52c16987307f4e1f7d4b62304c65aedb952c90bb2ead8321f1e1d7c9a6e"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "HURT GROUP HOLDINGS LIMITED" and
+            pe.signatures[i].serial == "46:79:c5:39:8a:27:93:18:36:5f:d7:7a:84:44:56:99"
+        )
+}
+
+rule INDICATOR_KB_CERT_282a8a04073eced658b9770bda8c0d28 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "5cd4832101eb4f173c43986d5711087c8de25e6fcaef2f333e98a013e29b8373"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "OOO Betamaynd" and
+            pe.signatures[i].serial == "28:2a:8a:04:07:3e:ce:d6:58:b9:77:0b:da:8c:0d:28"
+        )
+}
+
+rule INDICATOR_KB_CERT_0c48732873ac8ccebaf8f0e1e8329cec {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "14ffc96c8cc2ea2d732ed75c3093d20187a4c72d02654ff4520448ba7f8c7df6"
+        reason = "HermeticWiper"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Hermetica Digital Ltd" and
+            pe.signatures[i].serial == "0c:48:73:28:73:ac:8c:ce:ba:f8:f0:e1:e8:32:9c:ec"
+        )
+}
+
+rule INDICATOR_KB_CERT_43bb437d609866286dd839e1d00309f5 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "21c13d0a5037ebb97eb9ae094d8d5839b4bc9bba751c848064c82ec3a42a3134"
+        reason = "QuasarRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "NVIDIA Corporation" and
+            pe.signatures[i].serial == "43:bb:43:7d:60:98:66:28:6d:d8:39:e1:d0:03:09:f5"
+        )
+}
+
+rule INDICATOR_KB_CERT_da20761afbb0463c55b1ea88bbc7ec57 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "f12dd6e77ffab75870b24dd5bfda5a360843f9e5591e764be9f0a2ac59a710d3"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "CLEVER CLOSE s.r.o." and
+            pe.signatures[i].serial == "da:20:76:1a:fb:b0:46:3c:55:b1:ea:88:bb:c7:ec:57"
+        )
+}
+
+rule INDICATOR_KB_CERT_c51f4cf4d82bc920421e1ad93e39d490 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "d17dc7ef018e13b9a482b60871e25447fb1ae724dfe69b5287dce6b9b78d84a9"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "CUT AHEAD LTD" and
+            pe.signatures[i].serial == "c5:1f:4c:f4:d8:2b:c9:20:42:1e:1a:d9:3e:39:d4:90"
+        )
+}
+
+rule INDICATOR_KB_CERT_69a72f5591ad78a0825fbb9402ab9543 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "42a6612f4c652b521435989b5f044403649fef6db4fb476f3c4d981dc2f9bdf8"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "PUSH BANK LIMITED" and
+            pe.signatures[i].serial == "69:a7:2f:55:91:ad:78:a0:82:5f:bb:94:02:ab:95:43"
+        )
+}
+
+rule INDICATOR_KB_CERT_8cece6df54cf6ad63596546d77ba3581 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "1a9ff8aba1b24e3bd06442ac6d593ff224b685cba4edef79e740f569ab453161"
+        reason = "Malware"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Mikael LLC" and
+            pe.signatures[i].serial == "8c:ec:e6:df:54:cf:6a:d6:35:96:54:6d:77:ba:35:81"
+        )
+}
+
+rule INDICATOR_KB_CERT_db95b22362d46a73c39e0ac924883c5b {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "751a7e6c4dbe6e7ca633b91515c9f620bff6314ce09969a3af26d18945dc43b5"
+        reason = "Smoke Loader"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SPSLTD PLYMOUTH LTD" and
+            pe.signatures[i].serial == "db:95:b2:23:62:d4:6a:73:c3:9e:0a:c9:24:88:3c:5b"
+        )
+}
+
+rule INDICATOR_KB_CERT_d3aee8abb9948844a3ac1c04cc7e6bdf {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "e386450257e170981513b7001a82fb029f0931e5c2f11c6d9b86660da0b89a66"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "HOUSE 9A s.r.o" and
+            pe.signatures[i].serial == "d3:ae:e8:ab:b9:94:88:44:a3:ac:1c:04:cc:7e:6b:df"
+        )
+}
+
+rule INDICATOR_KB_CERT_6000f8c02b0a15b1e53b8399845faddf {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "6f18caa7cd75582d3a311dcc2dadec2ed32e15261c1dc5c9471e213d28367362"
+        reason = "Amadey"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SAY LIMITED" and
+            pe.signatures[i].serial == "60:00:f8:c0:2b:0a:15:b1:e5:3b:83:99:84:5f:ad:df"
+        )
+}
+
+rule INDICATOR_KB_CERT_f6ad45188e5566aa317be23b4b8b2c2f {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ae7db8b64e8abd9d36876f049b9770d90c0868d7fe1a2d37cf327df69fa2dbfe"
+        reason = "Numando"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Gary Kramlich" and
+            pe.signatures[i].serial == "f6:ad:45:18:8e:55:66:aa:31:7b:e2:3b:4b:8b:2c:2f"
+        )
+}
+
+rule INDICATOR_KB_CERT_74fc9257bc86f8c618501695ad4b1606 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "8ebbb2ab8f2e1366d0137e5026e07fde229f45f39d043c7ad36091b8eb2a923e"
+        reason = "ParallaxRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "169Teaco Limited" and
+            pe.signatures[i].serial == "74:fc:92:57:bc:86:f8:c6:18:50:16:95:ad:4b:16:06"
+        )
+}
+
+rule INDICATOR_KB_CERT_3b0914e2982be8980aa23f49848555e5 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "254e59ea93fa5f2a6af44f9631660f7b6cca4b4c9f97046405bcfed5589a32fa"
+        reason = "ParallaxRAT"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Office Rat s.r.o." and
+            pe.signatures[i].serial == "3b:09:14:e2:98:2b:e8:98:0a:a2:3f:49:84:85:55:e5"
+        )
+}
+
+rule INDICATOR_KB_CERT_029bf7e1cb09fe277564bd27c267de5a {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "2b18684a4b1348bf78f6d58d3397ee5ca80610d1c39b243c844e08f1c1e0b4bf"
+        reason = "Lazarus"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "SAMOYAJ LIMITED" and
+            pe.signatures[i].serial == "02:9b:f7:e1:cb:09:fe:27:75:64:bd:27:c2:67:de:5a"
+        )
+}
+
+rule INDICATOR_KB_CERT_984e84cfe362e278f558e2c70aaafac2 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "0b2d1dad72c69644f80ad871743878b5eb1e45e451d0d2c9579bdf81384f8727"
+        reason = "Quakbot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Arctic Nights Äkäslompolo Oy" and
+            pe.signatures[i].serial == "98:4e:84:cf:e3:62:e2:78:f5:58:e2:c7:0a:aa:fa:c2"
+        )
+}
+
+rule INDICATOR_KB_CERT_45245eef53fcf38169c715cf68f44452 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "ad7edb1b0a6a1ee3297a8825aff090030142dce8b59b9261bc57ca86666b0cbe"
+        reason = "QuakBot"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "PAPER AND CORE SUPPLIES LTD" and
+            pe.signatures[i].serial == "45:24:5e:ef:53:fc:f3:81:69:c7:15:cf:68:f4:44:52"
+        )
+}
+
+rule INDICATOR_KB_CERT_0406c4a1521a38c8d0c4aa214388e4dc {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "7d6dc731d94c9aaf241f3df940ce8ca8393380b12f92e872273ae747c5d4791f"
+        reason = "IcedID"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Venezia Design SRL" and
+            pe.signatures[i].serial == "04:06:c4:a1:52:1a:38:c8:d0:c4:aa:21:43:88:e4:dc"
+        )
+}
+
+rule INDICATOR_KB_CERT_5ef27fc51ee80b30430947c9967db440 {
+    meta:
+        author = "ditekSHen"
+        description = "Detects executables signed with stolen, revoked or invalid certificates"
+        thumbprint = "c2dcc4a1ea16e45f86828e81eda20f83e70cbf77e152ddd80b1b4a730ef77551"
+        reason = "RedLineStealer"
+        reference = "https://bazaar.abuse.ch/faq/#cscb"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "AMCERT,LLC" and
+            pe.signatures[i].serial == "5e:f2:7f:c5:1e:e8:0b:30:43:09:47:c9:96:7d:b4:40"
         )
 }
