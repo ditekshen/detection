@@ -8,6 +8,7 @@ false_positives:
     - rule: "INDICATOR_EXE_Packed_SmartAssembly"
     - rule: "INDICATOR_EXE_Packed_Dotfuscator"
     - rule: "INDICATOR_SUSPICIOUS_EXE_Reversed"
+    - rule: "INDICATOR_KB_CERT_43bb437d609866286dd839e1d00309f5"
 
 files:
   accept:
