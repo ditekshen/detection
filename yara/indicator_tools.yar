@@ -1310,16 +1310,14 @@ rule INDICATOR_TOOL_PROX_revsocks {
         description = "Detects revsocks Reverse socks5 tunneler with SSL/TLS and proxy support"
     strings:
         $s1 = "main.agentpassword" fullword ascii 
-        $s2 = "main.CommitID" fullword ascii 
-        $s3 = "main.connectForSocks" fullword ascii 
-        $s4 = "main.connectviaproxy" fullword ascii 
-        $s5 = "main.DnsConnectSocks" fullword ascii 
-        $s6 = "main.listenForAgents" fullword ascii 
-        $s7 = "main.listenForClients" fullword ascii
-        $s8 = "main.getPEMs" fullword ascii
-        $s9 = "mygithub/revsocks/main.go" ascii
+        $s2 = "main.connectForSocks" fullword ascii 
+        $s3 = "main.connectviaproxy" fullword ascii 
+        $s4 = "main.DnsConnectSocks" fullword ascii 
+        $s5 = "main.listenForAgents" fullword ascii 
+        $s6 = "main.listenForClients" fullword ascii
+        $s7 = "main.getPEMs" fullword ascii
     condition:
-        (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and 5 of them
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and 4 of them
 }
 
 rule INDICATOR_TOOL_PWS_azbelt {
@@ -1773,4 +1771,75 @@ rule INDICATOR_TOOL_Havoc {
                 2 of them
             ) 
         )
+}
+
+rule INDICATOR_TOOLS_LocalPotato {
+    meta:
+        author = "ditekShen"
+        description = "Detects LocalPotato"
+    strings:
+       $x1 = "LocalPotato.stg" fullword wide
+       $x2 = "we always love potatoes" fullword ascii
+       $s1 = "{00000306-0000-0000-c000-000000000046}" wide
+       $s2 = "{854A20FB-2D44-457D-992F-EF13785D2B51}" wide
+       $s3 = "cifs/127.0.0.1" wide
+       $s4 = "\\\\127.0.0.1\\c$" wide
+       $s5 = "complete failed: 0x%08x" ascii
+       $s6 = "Authorization: NTLM %s" ascii
+       $s7 = "Objref Moniker Display Name = %S" ascii
+       $s8 = "SMB Connect Tree: %S" ascii
+       $s9 = "b64type=%s" fullword ascii
+       $s10 = "decodes=%s" fullword ascii
+       $s11 = { 53 4d 42 72 00 00 00 00 18 01 48 00 00 00 00 00
+               00 00 00 00 00 00 00 ff ff ac 7b 00 00 00 00 00
+               22 00 02 4e 54 20 4c 4d 20 30 2e 31 32 00 02 53
+               4d 42 20 32 2e 30 30 32 00 02 53 4d 42 20 32 2e
+               3f 3f 3f 00 00 00 00 00 00 00 00 00 00 00 68 fe
+               53 4d 42 40 }
+      $o1 = { 44 8b 4c 24 34 48 8d 44 24 38 48 89 44 24 28 4c }
+      $o2 = { e8 c4 ff ff ff 33 d2 48 8d 4d f0 41 b8 d0 04 00 }
+      $o3 = { 83 7b 0c 00 75 42 8b 03 25 ff ff ff 1f 3d 21 05 }
+      $o4 = { 3c 68 74 6c 3c 6a 74 5c 3c 6c 74 34 3c 74 74 24 }
+      $o5 = { e9 39 ff ff ff cc 48 89 5c 24 08 4c 89 4c 24 20 }
+      $o6 = { 48 b9 ff ff ff ff ff ff 0f 00 48 8b c2 41 b8 0c }
+    condition:
+        uint16(0) == 0x5a4d and (all of ($x*) or (1 of ($x*) and 5 of ($s*)) or 8 of($s*) or (4 of ($o*) and (1 of ($x*) or 5 of ($s*))))
+}
+
+rule INDICATOR_TOOLS_EDRSandBlast {
+    meta:
+        author = "ditekShen"
+        description = "Detects EDRSandBlast"
+    strings:
+        $s1 = "credguard" fullword wide
+        $s2 = "\\cmd.exe" fullword wide
+        $s3 = "ci_%s.dll" fullword wide
+        $s4 = "cmd /c sc" wide
+        $s5 = "fltmgr_%s.sys" fullword wide
+        $s6 = "ntoskrnl_%s.exe" fullword wide
+        $s7 = "ProductDir" fullword wide
+        $s8 = "lsass.exe" fullword wide
+        $s9 = "0x%p;%ws;%ws;;;" ascii
+        $s10 = "MiniDumpWriteDump" ascii
+        $s11 = "EDRSB_Init: %u" ascii
+        $s12 = "ntoskrnloffsets.csv" fullword wide nocase
+        $s13 = "wdigestoffsets.csv" fullword wide nocase
+        $o1 = { eb 0e 8b 85 34 15 00 00 ff c0 89 85 34 15 00 00 }
+        $o2 = { 74 48 8b 85 34 15 00 00 41 b9 04 01 00 00 4c 8d }
+    condition:
+        uint16(0) == 0x5a4d and 7 of them
+}
+
+rule INDICATOR_TOOLS_rsockstun {
+    meta:
+        author = "ditekShen"
+        description = "Detects rsockstun"
+    strings:
+        $s1 = "main.connectviaproxy" ascii
+        $s2 = "main.connectForSocks" ascii
+        $s3 = "main.listenForClients" ascii
+        $s4 = "main.listenForSocks" ascii
+        $s5 = "Proxy-Authorization: NTLM TlRMTVNTUAABAAAABoIIAAAAAAAAAAAAAAAAAAAAAAA=" ascii
+    condition:
+        (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and all of them
 }
