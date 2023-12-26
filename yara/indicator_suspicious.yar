@@ -2219,6 +2219,8 @@ rule INDICATOR_SUSPICIOUS_Binary_Embedded_Crypto_Wallet_Browser_Extension_IDs {
         $s91 = "egjidjbpglichdcondbcbdnbeeppgdph" ascii wide nocase // Trust Wallet
         $s92 = "pnndplcbkakcplkjnolgbkdgjikjednm" ascii wide nocase // Tronium
         $s93 = "gojhcdgcpbpfigcaejpfhfegekdgiblk" ascii wide nocase // Opera Wallet
+        $s94 = "djclckkglechooblngghdinmeemkbgci" ascii wide nocase // MetaMask
+        $s95 = "jnmbobjmhlngoefaiojfljckilhhlhcj" ascii wide nocase // OneKey
     condition:
         (uint16(0) == 0x5a4d and 6 of them) or (12 of them)
 }
@@ -2243,6 +2245,10 @@ rule INDICATOR_SUSPICIOUS_Binary_Embedded_MFA_Browser_Extension_IDs {
         $s13 = "fmhmiaejopepamlcjkncpgpdjichnecm" ascii wide nocase // KeePass Tusk
         $s14 = "nngceckbapebfimnlniiiahkandclblb" ascii wide nocase // Bitwarden
         $s15 = "fiedbfgcleddlbcmgdigjgdfcggjcion" ascii wide nocase // Microsoft AutoFill
+        $s16 = "bfogiafebfohielmmehodmfbbebbbpei" ascii wide nocase // Keeper
+        $s17 = "jhfjfclepacoldmjmkmdlmganfaalklb" ascii wide nocase // Splikity
+        $s18 = "chgfefjpcobfbnpmiokfjjaglahmnded" ascii wide nocase // CommonKey
+        $s19 = "igkpcodhieompeloncfnbekccinhapdb" ascii wide nocase // Zoho Vault
     condition:
         (uint16(0) == 0x5a4d and 5 of them) or (8 of them)
 }
