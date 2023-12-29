@@ -397,7 +397,7 @@ rule INDICATOR_OLE_ObjectPool_Embedded_Files {
         $fh_txt = { 2e (54|74) (58|78) (54|74) 00 }
         $fh_psw = { 2e (50|70) (53|73) 31 00 }
     condition:
-        uint16(0) == 0xcfd0 and (all of ($s*) or all of ($h*)) and $olepkg and 1 of ($fa*)
+        uint16(0) == 0xcfd0 and (all of ($s*) or all of ($h*)) and $olepkg and (1 of ($fa*) or 1 of ($fh*))
 }
 
 rule INDICATOR_RTF_Equation_BITSAdmin_Downloader {
