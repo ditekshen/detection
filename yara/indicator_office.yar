@@ -388,7 +388,6 @@ rule INDICATOR_OLE_ObjectPool_Embedded_Files {
         $fa_txt = ".txt" ascii nocase
         $fa_psw = ".ps1" ascii nocase
         // File extensions - Hex > slowing down scanning
-        /*
         $fh_exe = { 2e (45|65) (58|78) (45|65) 00 }
         $fh_scr = { 2e (53|73) (43|63) (52|72) 00 }
         $fh_dll = { 2e (44|64) (4c|6c) (4c|6c) 00 }
@@ -397,7 +396,6 @@ rule INDICATOR_OLE_ObjectPool_Embedded_Files {
         $fh_sct = { 2e (53|73) (43|63) (54|74) 00 }
         $fh_txt = { 2e (54|74) (58|78) (54|74) 00 }
         $fh_psw = { 2e (50|70) (53|73) 31 00 }
-        */
     condition:
         uint16(0) == 0xcfd0 and (all of ($s*) or all of ($h*)) and $olepkg and 1 of ($fa*)
 }

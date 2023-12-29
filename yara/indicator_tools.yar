@@ -1843,3 +1843,26 @@ rule INDICATOR_TOOLS_rsockstun {
     condition:
         (uint16(0) == 0x5a4d or uint16(0) == 0x457f) and all of them
 }
+
+rule INDICATOR_TOOL_SCMalDevInj_Go {
+   meta:
+        author = "ditekShen"
+        description = "Detects Go shell/malware dev injector"
+    strings:
+        $s1 = "hooka/shellcode.go" ascii
+        $s2 = "/maldev\x09v" ascii
+        $s3 = "Binject/debug/pe." ascii
+    condition:
+       uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_TOOL_ReverseSSH_Go {
+   meta:
+        author = "ditekShen"
+        description = "Detects golang reverse ssh tool"
+    strings:
+        $s1 = "/reverse_ssh/" ascii
+        $s2 = "main.rsshService" ascii
+    condition:
+       uint16(0) == 0x5a4d and all of them
+}

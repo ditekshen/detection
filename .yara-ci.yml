@@ -9,6 +9,9 @@ false_positives:
     - rule: "INDICATOR_EXE_Packed_Dotfuscator"
     - rule: "INDICATOR_SUSPICIOUS_EXE_Reversed"
     - rule: "INDICATOR_KB_CERT_43bb437d609866286dd839e1d00309f5"
+    - rule: "INDICATOR_RTF_EXPLOIT_CVE_2017_11882_1"
+    - rule: "INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3"
+    - rule: "INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4"
 
 files:
   accept:
