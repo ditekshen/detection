@@ -179,6 +179,7 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
         uint32(0) == 0x74725c7b and (1 of ($s*) and 1 of ($obj*))
 }    
 
+/* far too many false positives
 rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
     meta:
         description = "detects OLE documents potentially exploiting CVE-2017-11882"
@@ -191,6 +192,7 @@ rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
     condition:
         uint16(0) == 0xcfd0 and all of them
 }
+*/
 
 rule INDICATOR_RTF_EXPLOIT_CVE_2017_8759_1 {
     meta:
