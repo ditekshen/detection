@@ -2592,3 +2592,76 @@ rule INDICATOR_SUSPICIOUS_EXE_SandboxSystemUUIDs {
     condition:
        uint16(0) == 0x5a4d and 10 of them
 }
+
+rule INDICATOR_SUSPICIOUS_REGKEYS_DisableFeatures {
+    meta:
+        author = "ditekshen"
+        description = "Detects suspicious registry key modifications related to disabling system features"
+    strings:
+        $r1 = "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System" ascii wide nocase
+        $k1 = "DisableAutomaticRebootOnCrash" ascii wide
+        $r2 = "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k2 = "DisableAutomaticRestartSignOn" ascii wide
+        $k3 = "DisableAutomaticRestartScheduledMaintenance" ascii wide
+        $k4 = "DisableAutomaticRestartWithLoggedOnUsers" ascii wide
+        $k5 = "DisableAutoRebootOnCrash" ascii wide
+        $r3 = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k6 = "DisableCMD" ascii wide
+        $k7 = "DisableRegistryTools" ascii wide
+        $k8 = "DisablePerformanceMonitor" ascii wide
+        $k9 = "DisableTaskMgr" ascii wide
+        $k10 = "DisableMMC" ascii wide
+        $k11 = "DisableEventViewer" ascii wide
+        $k12 = "NoWinKeys" ascii wide
+        $k13 = "DisableSnippingTool" ascii wide
+        $k14 = "DisableMagnifier" ascii wide
+        $k15 = "DisableEaseOfAccess" ascii wide
+        $k16 = "DisableCAD" ascii wide
+        $r4 = "HKLM\\SYSTEM\\CurrentControlSet\\Control\\MiniNT" ascii wide nocase
+        $k17 = "DisallowWinPELicensing" ascii wide
+        $r5 = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k18 = "DisableChangeTime" ascii wide
+        $r6 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\McAfee" ascii wide nocase
+        $k19 = "bDisableSelfProtection" ascii wide
+        $r7 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\AVG" ascii wide nocase
+        $k20 = "DisableAv" ascii wide
+        $r8 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Bitdefender" ascii wide nocase
+        $k21 = "BlockUserModeAccess" ascii wide
+        $r9 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Security Center" ascii wide nocase
+        $k22 = "AntiVirusDisableNotify" ascii wide
+        $k23 = "AntiVirusOverride" ascii wide
+        $r10 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" ascii wide nocase
+        $k24 = "disablelogonbar" ascii wide
+        $r11 = "HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows Defender" ascii wide nocase
+        $k25 = "DisableScanOnRealTimeEnable" ascii wide
+        $k26 = "DisableAntiSpyware" ascii wide
+        $k27 = "DisableWinDefender" ascii wide
+        $r12 = "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows Defender" ascii wide nocase
+        $k28 = "DisableAntiSpyware" ascii wide
+        $k29 = "DisableAntivirus" ascii wide
+        $r13 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU" ascii wide nocase
+        $k30 = "NoAutoUpdate" ascii wide
+        // New registry key operations
+        $r14 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Security Center" ascii wide nocase
+        $k31 = "aswidsagenta" ascii wide
+        $k32 = "DisableAv" ascii wide
+        $k33 = "BlockUserModeAccess" ascii wide
+        $k34 = "bDisableSelfProtection" ascii wide
+        $k35 = "ProtectEnabled" ascii wide
+        $k36 = "Enable" ascii wide
+        $k37 = "MalwareProtectionEnabled" ascii wide
+        $k38 = "Enable" ascii wide
+        $k39 = "ProductEnabled" ascii wide
+        $r15 = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell" ascii wide nocase
+        $k40 = "DisablePowerShell" ascii wide
+        $r16 = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $k41 = "NoViewContextMenu" ascii wide
+        $r17 = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $k42 = "NoRunAs" ascii wide
+        $r18 = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" ascii wide nocase
+        $k43 = "NoFileOpen" ascii wide
+        // Additional registry key operation
+        $r19 = "HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Control\\Keyboard Layouts\\Scancode Map" ascii wide nocase
+    condition:
+        uint16(0) == 0x5a4d and (1 of ($r*) and 1 of ($k*))
+}
