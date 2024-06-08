@@ -986,6 +986,7 @@ rule INDICATOR_SUSPICIOUS_EXE_Embedded_Gzip_B64Encoded_File {
         uint16(0) == 0x5a4d and 1 of them
 }
 
+/*
 rule INDICATOR_SUSPICIOUS_EXE_RawGitHub_URL {
      meta:
         author = "ditekSHen"
@@ -997,6 +998,7 @@ rule INDICATOR_SUSPICIOUS_EXE_RawGitHub_URL {
     condition:
         uint16(0) == 0x5a4d and (($url1 and $raw) or ($url2))
 }
+*/
 
 rule INDICATOR_SUSPICIOUS_EXE_RawPaste_URL {
      meta:
