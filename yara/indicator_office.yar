@@ -68,6 +68,10 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_0199_1 {
         uint32(0) == 0x74725c7b and 1 of ($urlmoniker*) and 1 of ($ole*) and 1 of ($obj*)
 }
 
+/*
+Disabled due to performance.
+Enable if favoring detection over performance.
+
 rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_1 {
     meta:
         description = "Detects RTF documents potentially exploiting CVE-2017-11882"
@@ -96,6 +100,11 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_1 {
     condition:
       uint32(0) == 0x74725c7b and 2 of ($s*) and $ole and 2 of ($obj*)
 }
+*/
+
+/*
+Disabled due to performance.
+Enable if favoring detection over performance.
 
 rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_2 {
     meta:
@@ -125,6 +134,11 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_2 {
     condition:
         uint32(0) == 0x74725c7b and 1 of ($eq*) and 1 of ($obj*) and 2 of ($s*)
 }
+*/
+
+/*
+Disabled due to performance.
+Enable if favoring detection over performance.
 
 rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3 {
     meta:
@@ -153,6 +167,11 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_3 {
     condition:
         uint32(0) == 0x74725c7b and (1 of ($ole*) and 1 of ($clsid*) and $re and 1 of ($obj*))
 }
+*/
+
+/*
+Disabled due to performance.
+Enable if favoring detection over performance.
 
 rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
     meta:
@@ -178,6 +197,7 @@ rule INDICATOR_RTF_EXPLOIT_CVE_2017_11882_4 {
     condition:
         uint32(0) == 0x74725c7b and (1 of ($s*) and 1 of ($obj*))
 }    
+*/
 
 rule INDICATOR_OLE_EXPLOIT_CVE_2017_11882_1 {
     meta:
@@ -328,6 +348,10 @@ rule INDICATOR_OLE_MetadataCMD {
         uint16(0) == 0xcfd0 and any of them
 }
 
+/*
+Disabled due to performance.
+Enable if favoring detection over performance.
+
 rule INDICATOR_RTF_MultiExploit_Embedded_Files {
     meta:
         description = "Detects RTF documents potentially exploting multiple vulnerabilities and embeding next stage scripts and/or binaries"
@@ -363,6 +387,7 @@ rule INDICATOR_RTF_MultiExploit_Embedded_Files {
         // Strict: uint32(0) == 0x74725c7b and filesize > 400KB and (1 of ($eq*) or 1 of ($ole2link*)) and $pkg and 2 of ($obj*) and 1 of ($emb*)
         uint32(0) == 0x74725c7b and (1 of ($eq*) or 1 of ($ole2link*)) and $pkg and 2 of ($obj*) and 1 of ($emb*)
 }
+*/
 
 rule INDICATOR_OLE_ObjectPool_Embedded_Files {
     meta:
