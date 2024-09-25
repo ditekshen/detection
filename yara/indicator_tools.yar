@@ -1522,70 +1522,6 @@ rule INDICATOR_Tool_Forensia {
         uint16(0) == 0x5a4d and ((4 of ($c*) and 2 of ($r*)) or (4 of ($r*) and 2 of ($c*)) or 6 of ($s*) or (3 of ($s*) and 2 of ($r*) and 1 of ($c*)))
 }
 
-rule INDICATOR_TOOL_DWAgentLIB {
-    meta:
-        author = "ditekSHen"
-        description = "Detect DWAgent Remote Administration Tool library"
-    strings:
-        $s1 = "DWAgentLib" fullword wide
-        $s2 = "PYTHONHOME" fullword wide
-        $s3 = "isTaskRunning" fullword ascii
-        $s4 = "isUserInAdminGroup" fullword ascii
-        $s5 = "setFilePermissionEveryone" fullword ascii
-        $s6 = "startProcessInActiveConsole" fullword ascii
-        $s7 = "taskKill" fullword ascii
-    condition:
-        uint16(0) == 0x5a4d and all of them
-}
-
-rule INDICATOR_TOOL_DWAgentSVC {
-    meta:
-        author = "ditekSHen"
-        description = "Detect DWAgent Remote Administration Tool service"
-    strings:
-        $s1 = "\\native\\dwagupd.dll" wide
-        $s2 = "\\native\\dwagsvc.exe\" run" wide
-        $s3 = "CreateServiceW" fullword ascii
-        $s4 = /dwagent\.(pid|start|stop)/ wide
-        $s5 = "Check updating..." wide
-    condition:
-        uint16(0) == 0x5a4d and 4 of them
-}
-
-rule INDICATOR_TOOL_DWAgent_ScreenCapture {
-    meta:
-        author = "ditekSHen"
-        description = "Detect DWAgent Remote Administration Tool Screen Capture Module"
-    strings:
-        $s1 = "DWAgentLib" fullword wide
-        $s2 = "PYTHONHOME" wide
-        $s3 = "VirtualBox" wide
-        $s4 = "VMware" wide
-        $s5 = "ScreenCapture::prepareCursor#" ascii
-        $s6 = "ScreenCapture::getMonitorCount#" ascii
-        $s7 = "ScreenCapture::token" ascii
-        $s8 = "dwascreencapture" ascii
-        $s9 = "inputKeyboard CTRLALTCANC" ascii
-        $s10 = "_Z34ScreenCaptureNativeMonitorEnumProc" ascii
-        $s11 = "_Z41ScreenCaptureNativeCreateWindowThreadProc" ascii
-        $s12 = "_ZN13ScreenCapture" ascii
-        $s13 = "isUserInAdminGroup" ascii
-    condition:
-        uint16(0) == 0x5a4d and 7 of them
-}
-
-rule INDICATOR_TOOL_DWAgent_SoundCapture {
-    meta:
-        author = "ditekSHen"
-        description = "Detect DWAgent Remote Administration Tool Sound Capture Module"
-    strings:
-        $s1 = "DWASoundCapture" ascii
-        $s2 = /_Z\d{2}DWASoundCapture/ ascii
-        $s3 = "_Z6recordPvS_" ascii
-    condition:
-        uint16(0) == 0x5a4d and all of them
-}
-
 rule INDICATOR_TOOL_DogzProxy {
     meta:
         author = "ditekSHen"
@@ -1878,4 +1814,95 @@ rule INDICATOR_TOOL_SharpGhostTask {
         $s4 = "__GhostTask|" ascii
     condition:
         uint16(0) == 0x5a4d and 3 of them
+}
+
+rule INDICATOR_TOOL_KrbRelay {
+    meta:
+        author = "ditekshen"
+        description = "Detects KrbRelay"
+    strings:
+        $s1 = "System.Collections.Generic.IEnumerable<System.IntPtr>.GetEnumerator" fullword ascii
+        $s2 = "System.Collections.Generic.IEnumerator<System.IntPtr>.get_Current" fullword ascii
+        $s3 = "GetProcessIdFromIPid" fullword ascii
+        $g1 = "hello.stg" fullword wide
+        $g2 = "DSInternals.Common" fullword ascii
+        $g3 = "C:\\Windows\\System32\\DriverStore\\FileRepository\\ntprint.inf_amd64_7b3eed059f4c3e41\\Amd64\\UNIDRV.DLL" fullword wide
+        $g4 = "C:\\Windows\\System32\\kernelbase.dll" fullword wide
+        $g5 = "get_UnsupportedSecretEncryptionType" fullword ascii
+        $g6 = "CoInitializeSecurity Error: 0x{0:X8}. Exploit will fail." fullword wide
+        $g7 = "AuthnSvc: {0} - PrincName: {1}" fullword wide
+    condition: 
+        uint16(0) == 0x5a4d and ((all of ($s*) and 4 of ($g*)) or (7 of them))
+}
+
+rule INDICATOR_TOOL_EDRSilencer {
+    meta:
+        author = "ditekshen"
+        description = "Detects EDRSilencer"
+    strings:
+        $s1 = "block \"C:\\Windows\\System32\\curl.exe\"" ascii
+        $s2 = "blockedr" fullword ascii
+        $s3 = "edrProcess" fullword ascii
+        $s4 = "BlockEdrProcessTraffic" fullword ascii
+        $s5 = "isInEdrProcessList" fullword ascii
+        $s6 = "EDRSilencer.c" fullword ascii
+        $v1 = "elastic-agent.exe" fullword ascii nocase
+        $v2 = "CybereasonAV.exe" fullword ascii nocase
+        $v3 = "SentinelAgent.exe" fullword ascii nocase
+        $v4 = "fortiedr.exe" fullword ascii nocase
+        $v5 = "MsMpEng.exe" fullword ascii nocase
+        $v6 = "CylanceSvc.exe" fullword ascii nocase
+    condition: 
+        uint16(0) == 0x5a4d and (4 of ($s*) or (3 of ($s*) and 1 of ($v*)))
+}
+
+rule INDICATOR_TOOL_EDRPrison {
+    meta:
+        author = "ditekshen"
+        description = "Detects EDRPrison"
+    strings:
+        $s1 = "Block:" wide
+        $s2 = "PacketLen:" wide
+        $s3 = "DoWorkPacket_Step" ascii
+        $s4 = "DoWorkAsyncNETWORK" ascii
+        $s5 = "BlockMessage" ascii
+        $s6 = "GetRmAddrPortNetwork" ascii
+    condition: 
+        uint16(0) == 0x5a4d and 5 of them
+}
+
+rule INDICATOR_TOOL_SharpSQLPwn {
+    meta:
+        author = "ditekshen"
+        description = "Detects SharpSQLPwn"
+    strings:
+        $s1 = "smb_ip" fullword ascii
+        $s2 = "Recon" fullword ascii
+        $s3 = "UNCPathInjection" fullword ascii
+        $s4 = "from sys.server_principals" wide
+        $s5 = "EXEC sp_configure '" wide
+        $s6 = "EXEC ('sp_configure" wide
+        $s7 = "CREATE ASSEMBLY" wide
+        $s8 = "DROP ASSEMBLY" wide
+        $s9 = "FROM 0x" wide
+        $s10 = "EXEC master..xp_dirtree \"\\\\" wide
+    condition: 
+        uint16(0) == 0x5a4d and 7 of them
+}
+
+rule INDICATOR_TOOL_ChromeKatz {
+    meta:
+        author = "ditekshen"
+        description = "Detects ChromeKatz: CookieKatz and CredentialKatz"
+    strings:
+        $s1 = "\\include\\xmemory" ascii wide
+        $s2 = "targetBrowser" ascii
+        $s3 = "thirdPattern" ascii
+        $s4 = "isBrowserWow64" ascii
+        $s5 = "wcscpy_s(memory, size_in_elements, string)" fullword wide
+        $s6 = "hChrome" fullword ascii
+        $t1 = "szCookieMonster" fullword ascii
+        $t2 = "szPasswordReuseDetectorInstances" fullword ascii
+    condition: 
+        uint16(0) == 0x5a4d and 6 of them
 }
