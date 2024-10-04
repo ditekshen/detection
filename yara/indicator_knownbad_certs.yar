@@ -8937,3 +8937,68 @@ rule INDICATOR_KB_CERT_5ef27fc51ee80b30430947c9967db440 {
             pe.signatures[i].serial == "5e:f2:7f:c5:1e:e8:0b:30:43:09:47:c9:96:7d:b4:40"
         )
 }
+
+rule INDICATOR_KB_CERT_672237253a9b7ef9d02d7d1cb27a3ff4 {
+    meta:
+         author = "ditekSHen"
+         thumbprint = "36a0f423c1fa48f172e4fecd06b8099f0ebbaeb8"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Foshan Yongqiheng Trading Co., Ltd." and
+            pe.signatures[i].issuer contains "Certum Extended Validation Code Signing 2021 CA" and
+            pe.signatures[i].serial == "67:22:37:25:3a:9b:7e:f9:d0:2d:7d:1c:b2:7a:3f:f4"
+        )
+}
+
+rule INDICATOR_KB_CERT_708737c791c878d6dd7b7c43 {
+    meta:
+         author = "ditekSHen"
+         thumbprint = "7ed7081ee612fbf9fe0ade46f4a2749da20251e0"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Langfang Alkem Material Technology Co., Ltd." and
+            pe.signatures[i].issuer contains "GlobalSign GCC R45 EV CodeSigning CA 2020" and
+            pe.signatures[i].serial == "70:87:37:c7:91:c8:78:d6:dd:7b:7c:43"
+        )
+}
+
+rule INDICATOR_KB_CERT_0bc777f88ddf5f3ce479452f {
+    meta:
+         author = "ditekSHen"
+         thumbprint = "55aa40dea5621f0c0fbc8b9dd8066ff2290a7e82"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "ARION LLC" and
+            pe.signatures[i].issuer contains "GlobalSign GCC R45 EV CodeSigning CA 2020" and
+            pe.signatures[i].serial == "0b:c7:77:f8:8d:df:5f:3c:e4:79:45:2f"
+        )
+}
+
+rule INDICATOR_KB_CERT_691ed2236cca78d180f29dfd {
+    meta:
+         author = "ditekSHen"
+         thumbprint = "8c8a043f51bb8d59182fb268c0db2f1b9d876dbe"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "COSMART LLC" and
+            pe.signatures[i].issuer contains "GlobalSign GCC R45 EV CodeSigning CA 2020" and
+            pe.signatures[i].serial == "69:1e:d2:23:6c:ca:78:d1:80:f2:9d:fd"
+        )
+}
+
+rule INDICATOR_KB_CERT_3b0e3879266f3bc98225b390 {
+    meta:
+         author = "ditekSHen"
+         thumbprint = "2eab64a4eaf37060d27620a822df2e1f18ac28f6"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "Hangzhou Yueju Apparel Co., Ltd." and
+            pe.signatures[i].issuer contains "GlobalSign GCC R45 EV CodeSigning CA 2020" and
+            pe.signatures[i].serial == "3b:0e:38:79:26:6f:3b:c9:82:25:b3:90"
+        )
+}
