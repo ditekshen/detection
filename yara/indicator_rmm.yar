@@ -464,6 +464,11 @@ rule INDICATOR_RMM_DWAgentLIB {
     meta:
         author = "ditekSHen"
         description = "Detect DWAgent Remote Administration Tool library"
+        clamav1 = "INDICATOR.Win.RMM.DWAgent-LIB"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
     strings:
         $s1 = "DWAgentLib" fullword wide
         $s2 = "PYTHONHOME" fullword wide
@@ -480,6 +485,11 @@ rule INDICATOR_RMM_DWAgentSVC {
     meta:
         author = "ditekSHen"
         description = "Detect DWAgent Remote Administration Tool service"
+        clamav1 = "INDICATOR.Win.RMM.DWAgent-SVC"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
     strings:
         $s1 = "\\native\\dwagupd.dll" wide
         $s2 = "\\native\\dwagsvc.exe\" run" wide
@@ -494,6 +504,11 @@ rule INDICATOR_RMM_DWAgent_ScreenCapture {
     meta:
         author = "ditekSHen"
         description = "Detect DWAgent Remote Administration Tool Screen Capture Module"
+        clamav1 = "INDICATOR.Win.RMM.DWAgent-ScreenCapture"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
     strings:
         $s1 = "DWAgentLib" fullword wide
         $s2 = "PYTHONHOME" wide
@@ -516,10 +531,50 @@ rule INDICATOR_RMM_DWAgent_SoundCapture {
     meta:
         author = "ditekSHen"
         description = "Detect DWAgent Remote Administration Tool Sound Capture Module"
+        clamav1 = "INDICATOR.Win.RMM.DWAgent-SoundCapture"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
     strings:
         $s1 = "DWASoundCapture" ascii
         $s2 = /_Z\d{2}DWASoundCapture/ ascii
         $s3 = "_Z6recordPvS_" ascii
     condition:
         uint16(0) == 0x5a4d and all of them
+}
+
+rule INDICATOR_RMM_DWAgent_CERT {
+    meta:
+        author = "ditekSHen"
+        description = "Detects DWAgent by certificate. Review RMM Inventory"
+        thumbprint = "4a13f46def2c9427898a46a88a6a2122ed106b37"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
+    condition:
+        uint16(0) == 0x5a4d and
+        for any i in (0..pe.number_of_signatures): (
+            pe.signatures[i].subject contains "DWSNET srl" and
+            pe.signatures[i].issuer contains "Sectigo Public Code Signing CA R36" and
+            pe.signatures[i].serial == "00:af:bd:d3:be:b2:4e:1d:e7:37:82:e9:f8:34:7c:f1:53"
+        )
+}
+
+rule INDICATOR_OSX_RMM_DWAgent {
+    meta:
+        author = "ditekSHen"
+        description = "Detect DWAgent Remote Administration Tool macOS run"
+        clamav1 = "INDICATOR.Osx.RMM.DWAgent-RUN"
+        reference1 = "https://github.com/ditekshen/detection/blob/master/RMM_Inventory.csv"
+        reference2 = "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-025a"
+        reference3 = "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf"
+        reference4 = "https://www.cisa.gov/sites/default/files/2023-08/JCDC_RMM_Cyber_Defense_Plan_TLP_CLEAR_508c_1.pdf"
+    strings:
+        $s1 = "net.dwservice.DWAgent" ascii
+        $s2 = "-[DWADelegate" ascii
+        $s3 = "customWindowsToEnterFullScreenForWindow:onScreen:" ascii
+    condition:
+        uint16(0) == 0xfeca and all of them
 }
